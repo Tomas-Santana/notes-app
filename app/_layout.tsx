@@ -4,6 +4,8 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
+import '@/global.css'
+import { GluestackUIProvider } from '@/components/ui/gluestack-ui-provider';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 
@@ -27,11 +29,10 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-    </ThemeProvider>
+    <GluestackUIProvider>
+      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+        <Stack></Stack>
+      </ThemeProvider>
+    </GluestackUIProvider>
   );
 }
