@@ -18,29 +18,19 @@ import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
 
 const formSchema = z.object({
-  email: z
-    .string()
-    .min(1, "Se debe ingresar un email.")
-    .max(25, "El email es muy largo.")
-    .email("Email invalido."),
-
-  password: z
-    .string()
-    .min(1, "Se debe ingresar una contraseña.")
-    .max(50, "La contraseña es muy larga."),
+  email: z.string().min(1, "El email es requerido").max(35).email(),
 });
 
-export default function Screen() {
+const forgotPage = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
-      password: "",
     },
   });
 
   const fontLoaded = useFonts({
-    monospace: require("../assets/fonts/FiraMono-Medium.ttf"),
+    monospace: require("../../assets/fonts/FiraMono-Medium.ttf"),
   });
 
   if (!fontLoaded) {
@@ -55,18 +45,19 @@ export default function Screen() {
     alert(JSON.stringify(data));
     router.push("/start/notesPage");
   };
+
   return (
     <View className="flex-1 justify-center items-center gap-5 bg-eerie">
       <View>
         <Image
-          source={require("../assets/images/Logo V2.png")}
+          source={require("../../assets/images/Logo V2.png")}
           className="bottom-1/2
           "
         />
       </View>
       <View>
         <Heading size="lg" className="text-center text-slate-50 font-mono">
-          Inicia sesión en tu cuenta
+          Recuperacion de contraseña
         </Heading>
       </View>
       <FormControl className="top-10">
@@ -100,60 +91,21 @@ export default function Screen() {
             {form.formState.errors.email.message}
           </FormControlErrorText>
         )}
-        <FormControlLabel>
-          <FormControlLabelText className="font-mono text-gray-400">
-            Contraseña
-          </FormControlLabelText>
-        </FormControlLabel>
-        <Controller
-          control={form.control}
-          name="password"
-          render={({ field: { onChange, onBlur, value } }) => (
-            <Input
-              className="w-inp focus:border-purplee-60 mb-7"
-              size="md"
-              variant="rounded"
-            >
-              <InputField
-                className="text-slate-50"
-                placeholder="Contraseña"
-                onChangeText={onChange}
-                onBlur={onBlur}
-                value={value}
-                maxLength={50}
-              />
-            </Input>
-          )}
-        />
-        {form.formState.errors.password && (
-          <FormControlErrorText className="font-mono bottom-5">
-            {form.formState.errors.password.message}
-          </FormControlErrorText>
-        )}
       </FormControl>
-      <View>
-        <Text
-          size="sm"
-          className="text-purplee-50 top-5 left-20"
-          onPress={() => {
-            router.push("/auth/forgotPage");
-          }}
-        >
-          Olvidaste tu contraseña?
-        </Text>
-      </View>
       <Button
         className="bg-purplee-50 top-10 w-inp"
         onPress={form.handleSubmit(onSubmit)}
       >
-        <ButtonText className="font-mono">Iniciar Sesion</ButtonText>
+        <ButtonText className="font-mono">Enviar</ButtonText>
       </Button>
-      <View className="flex-row justify-between items-center gap-2 top-10">
+      {/* <View className="flex-row justify-between items-center gap-2 top-10">
         <Text className="text-gray-400">Tambien puedes</Text>
         <Link href={"/auth/registerPage"}>
           <Text className="font-mono text-purplee-50">Regístrarte</Text>
         </Link>
-      </View>
+      </View> */}
     </View>
   );
-}
+};
+
+export default forgotPage;

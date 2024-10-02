@@ -18,6 +18,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        eerie: "#191919",
+        purplee: {
+          50: "#8B35CC",
+          60: "#A15CD6",
+        },
         primary: {
           0: "rgb(var(--color-primary-0)/<alpha-value>)",
           50: "rgb(var(--color-primary-50)/<alpha-value>)",
@@ -176,8 +181,8 @@ module.exports = {
       fontFamily: {
         heading: undefined,
         body: undefined,
-        mono: undefined,
-        roboto: ["Roboto", "sans-serif"],
+        mono: ["monospace", "sans-serif"],
+        roboto: undefined,
       },
       fontWeight: {
         extrablack: "950",
@@ -195,6 +200,9 @@ module.exports = {
         "soft-2": "0px 0px 20px rgba(38, 38, 38, 0.2)",
         "soft-3": "0px 0px 30px rgba(38, 38, 38, 0.1)",
         "soft-4": "0px 0px 40px rgba(38, 38, 38, 0.1)",
+      },
+      width: {
+        inp: "19.25rem",
       },
     },
   },
