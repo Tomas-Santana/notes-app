@@ -16,6 +16,7 @@ import { useEffect } from "react";
 import { Link, router } from "expo-router";
 import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
+import { VStack } from "@/components/ui/vstack";
 
 const formSchema = z.object({
   email: z.string().min(1, "El email es requerido").max(35).email(),
@@ -43,7 +44,7 @@ const forgotPage = () => {
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {
     alert(JSON.stringify(data));
-    router.push("/start/notesPage");
+    router.push("/auth/changePage");
   };
 
   return (
@@ -59,6 +60,14 @@ const forgotPage = () => {
         <Heading size="lg" className="text-center text-slate-50 font-mono">
           Recuperacion de contraseña
         </Heading>
+      </View>
+      <View className="text-center top-7">
+        <VStack>
+          <Text className="text-slate-50">Ingresa tu correo electronico.</Text>
+          <Text className="text-slate-50">
+            Te enviaremos un correo con los pasos a seguir.
+          </Text>
+        </VStack>
       </View>
       <FormControl className="top-10">
         <FormControlLabel>
@@ -98,12 +107,12 @@ const forgotPage = () => {
       >
         <ButtonText className="font-mono">Enviar</ButtonText>
       </Button>
-      {/* <View className="flex-row justify-between items-center gap-2 top-10">
+      <View className="flex-row justify-between items-center gap-2 top-10">
         <Text className="text-gray-400">Tambien puedes</Text>
         <Link href={"/auth/registerPage"}>
           <Text className="font-mono text-purplee-50">Regístrarte</Text>
         </Link>
-      </View> */}
+      </View>
     </View>
   );
 };
