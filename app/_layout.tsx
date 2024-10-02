@@ -10,8 +10,10 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 import "@/global.css";
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
+import { Toaster } from "sonner-native";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -35,7 +37,22 @@ export default function RootLayout() {
   return (
     <GluestackUIProvider>
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <Stack screenOptions={{ headerShown: false }}></Stack>
+        <GestureHandlerRootView>
+          <Stack screenOptions={{ headerShown: false }}></Stack>
+          <Toaster
+            toastOptions={{
+              style: {
+                backgroundColor: "#191919",
+                borderStyle: "solid",
+                borderWidth: 1,
+                borderColor: "green",
+              },
+              titleStyle: {
+                color: "green",
+              },
+            }}
+          />
+        </GestureHandlerRootView>
       </ThemeProvider>
     </GluestackUIProvider>
   );

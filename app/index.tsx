@@ -16,6 +16,7 @@ import { useEffect } from "react";
 import { Link, router } from "expo-router";
 import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
+import { toast } from "sonner-native";
 
 const formSchema = z.object({
   email: z
@@ -52,7 +53,9 @@ export default function Screen() {
   }, [form.formState.errors]);
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {
-    alert(JSON.stringify(data));
+    toast.success("Has iniciado sesion!", {
+      duration: 3000,
+    });
     router.push("/start/notesPage");
   };
   return (
