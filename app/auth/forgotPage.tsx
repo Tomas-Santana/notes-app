@@ -17,6 +17,7 @@ import { Link, router } from "expo-router";
 import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
 import { VStack } from "@/components/ui/vstack";
+import myToast from "@/components/toast";
 
 const formSchema = z.object({
   email: z.string().min(1, "El email es requerido").max(35).email(),
@@ -44,6 +45,7 @@ const forgotPage = () => {
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {
     alert(JSON.stringify(data));
+    myToast(true, "El correo ha sido enviado");
     router.push("/auth/changePage");
   };
 

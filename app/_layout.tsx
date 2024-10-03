@@ -35,7 +35,7 @@ export default function RootLayout() {
   }
 
   return (
-    <GluestackUIProvider>
+    <GluestackUIProvider mode="system">
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
         <GestureHandlerRootView>
           <Stack screenOptions={{ headerShown: false }}></Stack>

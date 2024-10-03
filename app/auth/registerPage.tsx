@@ -17,6 +17,7 @@ import { Link, router } from "expo-router";
 import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
 import { toast } from "sonner-native";
+import myToast from "@/components/toast";
 
 const formSchema = z.object({
   email: z
@@ -65,8 +66,8 @@ const registerPage = () => {
   }, [form.formState.errors]);
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {
-    toast.success("Has creado una cuenta!");
     alert(JSON.stringify(data));
+    myToast(true, "Regristro exitoso!");
     router.push("/start/notesPage");
   };
   return (

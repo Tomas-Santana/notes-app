@@ -17,6 +17,7 @@ import { Link, router } from "expo-router";
 import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
 import { toast } from "sonner-native";
+import myToast from "@/components/toast";
 
 const formSchema = z.object({
   email: z
@@ -53,9 +54,7 @@ export default function Screen() {
   }, [form.formState.errors]);
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {
-    toast.success("Has iniciado sesion!", {
-      duration: 3000,
-    });
+    myToast(true, "Has iniciado sesion", 3000);
     router.push("/auth/changePage");
   };
   return (

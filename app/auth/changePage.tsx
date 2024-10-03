@@ -17,6 +17,7 @@ import { Link, router } from "expo-router";
 import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
 import { toast } from "sonner-native";
+import myToast from "@/components/toast";
 
 const formSchema = z.object({
   code: z.string().min(1, "Sin el codigo no puedes avanzar."),
@@ -48,6 +49,7 @@ const ResetPasswordPage = () => {
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {
     alert(JSON.stringify(data));
+    myToast(true, "Contraseña establecida con exito!");
     router.push("/start/notesPage");
   };
 
