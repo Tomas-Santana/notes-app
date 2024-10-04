@@ -14,6 +14,7 @@ import { Toaster } from "sonner-native";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { View } from "react-native";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -36,9 +37,10 @@ export default function RootLayout() {
 
   return (
     <GluestackUIProvider mode="system">
-      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+      <ThemeProvider value={DarkTheme}>
         <GestureHandlerRootView>
-          <Stack screenOptions={{ headerShown: false }}></Stack>
+      {/* <View style={{backgroundColor: "#191919"}}> */}
+          <Stack screenOptions={{ headerShown: false, animation: "slide_from_bottom" }}></Stack>
           <Toaster
             toastOptions={{
               style: {
@@ -52,6 +54,7 @@ export default function RootLayout() {
               },
             }}
           />
+    {/* </View> */}
         </GestureHandlerRootView>
       </ThemeProvider>
     </GluestackUIProvider>

@@ -54,7 +54,7 @@ export default function Screen() {
   }, [form.formState.errors]);
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {
-    myToast(true, "Has iniciado sesion", 3000);
+    myToast(true, "Has iniciado sesion");
     router.push("/auth/changePage");
   };
   return (

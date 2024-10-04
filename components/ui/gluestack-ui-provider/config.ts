@@ -16,7 +16,7 @@ export const config = {
     "--color-primary-900": "10 10 10",
     "--color-primary-950": "8 8 8",
 
-    /* Secondary  */
+    // OLD SECONDARY (por si acaso)
     "--color-secondary-0": "254 255 255",
     "--color-secondary-50": "241 242 242",
     "--color-secondary-100": "231 232 232",
@@ -29,6 +29,19 @@ export const config = {
     "--color-secondary-800": "39 38 38",
     "--color-secondary-900": "24 23 23",
     "--color-secondary-950": "11 12 12",
+
+    "--color-bitpurple-0": "255 255 255",
+    "--color-bitpurple-50": "246 239 251",
+    "--color-bitpurple-100": "236 222 247",
+    "--color-bitpurple-200": "217 190 239",
+    "--color-bitpurple-300": "199 157 230",
+    "--color-bitpurple-400": "180 125 222",
+    "--color-bitpurple-500": "161 92 214",
+    "--color-bitpurple-600": "135 50 200",
+    "--color-bitpurple-700": "104 39 155",
+    "--color-bitpurple-800": "74 28 110",
+    "--color-bitpurple-900": "44 16 65",
+    "--color-bitpurple-950": "29 11 43",
 
     /* Tertiary */
     "--color-tertiary-0": "255 250 245",
@@ -181,6 +194,20 @@ export const config = {
     "--color-secondary-800": "231 232 232",
     "--color-secondary-900": "241 242 242",
     "--color-secondary-950": "254 255 255",
+
+    /* Secondary (PURPLE)  */
+    "--color-bitpurple-0": "255 255 255",
+    "--color-bitpurple-50": "246 239 251",
+    "--color-bitpurple-100": "236 222 247",
+    "--color-bitpurple-200": "217 190 239",
+    "--color-bitpurple-300": "199 157 230",
+    "--color-bitpurple-400": "180 125 222",
+    "--color-bitpurple-500": "161 92 214",
+    "--color-bitpurple-600": "135 50 200",
+    "--color-bitpurple-700": "104 39 155",
+    "--color-bitpurple-800": "74 28 110",
+    "--color-bitpurple-900": "44 16 65",
+    "--color-bitpurple-950": "29 11 43",
 
     /* Tertiary */
     "--color-tertiary-0": "84 49 18",
