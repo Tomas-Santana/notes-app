@@ -55,6 +55,7 @@ export default function Screen() {
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {
     myToast(true, "Has iniciado sesion");
+    console.log(data);
     router.push("/auth/changePage");
   };
   return (
@@ -148,7 +149,9 @@ export default function Screen() {
         className="bg-purplee-50 top-10 w-inp"
         onPress={form.handleSubmit(onSubmit)}
       >
-        <ButtonText className="font-mono">Iniciar Sesion</ButtonText>
+        <ButtonText className="font-mono text-slate-50">
+          Iniciar Sesion
+        </ButtonText>
       </Button>
       <View className="flex-row justify-between items-center gap-2 top-10">
         <Text className="text-gray-400">Tambien puedes</Text>

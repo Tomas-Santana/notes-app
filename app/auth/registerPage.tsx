@@ -37,7 +37,7 @@ const formSchema = z.object({
 
   confirmPassword: z
     .string()
-    .min(1, "Se debe ingresar la contraseña nuevamente.")
+    .min(1, "Ingresa la contraseña de nuevo.")
     .max(50, "La contraseña es muy larga."),
 });
 
@@ -230,7 +230,7 @@ const registerPage = () => {
             )}
           />
           {form.formState.errors.confirmPassword && (
-            <FormControlErrorText className="font-mono max-w-full">
+            <FormControlErrorText className="font-mono max-w-inp">
               {form.formState.errors.confirmPassword.message}
             </FormControlErrorText>
           )}
