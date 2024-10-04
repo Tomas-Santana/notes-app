@@ -98,7 +98,7 @@ const forgotPage = () => {
           )}
         />
         {form.formState.errors.email && (
-          <FormControlErrorText className="font-mono bottom-4">
+          <FormControlErrorText className="font-mono bottom-4 max-w-full">
             {form.formState.errors.email.message}
           </FormControlErrorText>
         )}

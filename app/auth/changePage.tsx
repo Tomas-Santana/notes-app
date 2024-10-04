@@ -93,7 +93,7 @@ const ResetPasswordPage = () => {
           )}
         />
         {form.formState.errors.code && (
-          <FormControlErrorText className="font-mono bottom-4">
+          <FormControlErrorText className="font-mono bottom-4 max-w-full">
             {form.formState.errors.code.message}
           </FormControlErrorText>
         )}
@@ -122,7 +122,7 @@ const ResetPasswordPage = () => {
           )}
         />
         {form.formState.errors.newPassword && (
-          <FormControlErrorText className="font-mono bottom-4">
+          <FormControlErrorText className="font-mono bottom-4 max-w-full">
             {form.formState.errors.newPassword.message}
           </FormControlErrorText>
         )}
@@ -151,7 +151,7 @@ const ResetPasswordPage = () => {
           )}
         />
         {form.formState.errors.confirmPassword && (
-          <FormControlErrorText className="font-mono bottom-4">
+          <FormControlErrorText className="font-mono bottom-4 max-w-full">
             {form.formState.errors.confirmPassword.message}
           </FormControlErrorText>
         )}

@@ -71,7 +71,7 @@ const registerPage = () => {
     router.push("/start/notesPage");
   };
   return (
-    <View className="flex-1 flex-col gap-4 justify-center items-center gap-5 bg-eerie">
+    <View className="flex-1 flex-col justify-center items-center gap-5 bg-eerie">
       <Image source={require("../../assets/images/Logo V2.png")} className="" />
       <Heading size="lg" className="text-center text-slate-50 font-mono">
         Crea una cuenta
@@ -105,7 +105,7 @@ const registerPage = () => {
             )}
           />
           {form.formState.errors.email && (
-            <FormControlErrorText className="font-mono ">
+            <FormControlErrorText className="font-mono max-w-full">
               {form.formState.errors.email.message}
             </FormControlErrorText>
           )}
@@ -121,23 +121,23 @@ const registerPage = () => {
             name="name"
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
-          className="w-inp focus:border-bitpurple-600"
-          size="md"
-          variant="rounded"
+                className="w-inp focus:border-bitpurple-600"
+                size="md"
+                variant="rounded"
               >
-          <InputField
-            className="text-slate-50"
-            placeholder="Juan"
-            onChangeText={onChange}
-            onBlur={onBlur}
-            value={value}
-            maxLength={20}
-          />
+                <InputField
+                  className="text-slate-50"
+                  placeholder="Juan"
+                  onChangeText={onChange}
+                  onBlur={onBlur}
+                  value={value}
+                  maxLength={20}
+                />
               </Input>
             )}
           />
           {form.formState.errors.name && (
-            <FormControlErrorText className="font-mono ">
+            <FormControlErrorText className="font-mono max-w-full">
               {form.formState.errors.name.message}
             </FormControlErrorText>
           )}
@@ -153,23 +153,23 @@ const registerPage = () => {
             name="lastName"
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
-          className="w-inp focus:border-bitpurple-600"
-          size="md"
-          variant="rounded"
+                className="w-inp focus:border-bitpurple-600"
+                size="md"
+                variant="rounded"
               >
-          <InputField
-            className="text-slate-50"
-            placeholder="Perez"
-            onChangeText={onChange}
-            onBlur={onBlur}
-            value={value}
-            maxLength={20}
-          />
+                <InputField
+                  className="text-slate-50"
+                  placeholder="Perez"
+                  onChangeText={onChange}
+                  onBlur={onBlur}
+                  value={value}
+                  maxLength={20}
+                />
               </Input>
             )}
           />
           {form.formState.errors.lastName && (
-            <FormControlErrorText className="font-mono ">
+            <FormControlErrorText className="font-mono max-w-full">
               {form.formState.errors.lastName.message}
             </FormControlErrorText>
           )}
@@ -185,24 +185,24 @@ const registerPage = () => {
             name="password"
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
-          className="w-inp focus:border-bitpurple-600"
-          size="md"
-          variant="rounded"
+                className="w-inp focus:border-bitpurple-600"
+                size="md"
+                variant="rounded"
               >
-          <InputField
-            className="text-slate-50"
-            type="password"
-            placeholder="Contraseña"
-            onChangeText={onChange}
-            onBlur={onBlur}
-            value={value}
-            maxLength={50}
-          />
+                <InputField
+                  className="text-slate-50"
+                  type="password"
+                  placeholder="Contraseña"
+                  onChangeText={onChange}
+                  onBlur={onBlur}
+                  value={value}
+                  maxLength={50}
+                />
               </Input>
             )}
           />
           {form.formState.errors.password && (
-            <FormControlErrorText className="font-mono ">
+            <FormControlErrorText className="font-mono max-w-full">
               {form.formState.errors.password.message}
             </FormControlErrorText>
           )}
@@ -230,7 +230,7 @@ const registerPage = () => {
             )}
           />
           {form.formState.errors.confirmPassword && (
-            <FormControlErrorText className="font-mono ">
+            <FormControlErrorText className="font-mono max-w-full">
               {form.formState.errors.confirmPassword.message}
             </FormControlErrorText>
           )}
@@ -245,10 +245,7 @@ const registerPage = () => {
       </Button>
       <View className="flex-row justify-between items-center gap-2 ">
         <Text className="">Ya tienes una cuenta?</Text>
-        <Link
-          className="font-mono text-bitpurple-500"
-          href={"/"}
-        >
+        <Link className="font-mono text-bitpurple-500" href={"/"}>
           Inicia Sesion
         </Link>
       </View>

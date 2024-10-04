@@ -98,7 +98,7 @@ export default function Screen() {
           )}
         />
         {form.formState.errors.email && (
-          <FormControlErrorText className="font-mono bottom-4">
+          <FormControlErrorText className="font-mono bottom-4 max-w-full">
             {form.formState.errors.email.message}
           </FormControlErrorText>
         )}
@@ -128,7 +128,7 @@ export default function Screen() {
           )}
         />
         {form.formState.errors.password && (
-          <FormControlErrorText className="font-mono bottom-5">
+          <FormControlErrorText className="font-mono bottom-5 max-w-full">
             {form.formState.errors.password.message}
           </FormControlErrorText>
         )}
