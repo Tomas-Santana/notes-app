@@ -20,36 +20,18 @@ import { toast } from "sonner-native";
 import myToast from "@/components/toast";
 
 const formSchema = z.object({
-  email: z
-    .string()
-    .min(1, "Se debe ingresar un email.")
-    .max(25, "El email es muy largo.")
-    .email("Email invalido."),
 
   name: z.string().min(1, "Se debe ingresar un nombre."),
 
   lastName: z.string().min(1, "Se debe ingresar un apellido."),
-
-  password: z
-    .string()
-    .min(1, "Se debe ingresar una contraseña.")
-    .max(50, "La contraseña es muy larga."),
-
-  confirmPassword: z
-    .string()
-    .min(1, "Ingresa la contraseña de nuevo.")
-    .max(50, "La contraseña es muy larga."),
 });
 
 const registerPage = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: "",
       name: "",
       lastName: "",
-      password: "",
-      confirmPassword: "",
     },
   });
 
@@ -78,38 +60,7 @@ const registerPage = () => {
       </Heading>
       <View></View>
       <View className="flex flex-col gap-4">
-        <FormControl>
-          <FormControlLabel>
-            <FormControlLabelText className="font-mono text-gray-400">
-              Email
-            </FormControlLabelText>
-          </FormControlLabel>
-          <Controller
-            control={form.control}
-            name="email"
-            render={({ field: { onChange, onBlur, value } }) => (
-              <Input
-                className="w-inp focus:border-bitpurple-600 "
-                size="md"
-                variant="rounded"
-              >
-                <InputField
-                  className="text-slate-50"
-                  placeholder="Email"
-                  onChangeText={onChange}
-                  onBlur={onBlur}
-                  value={value}
-                  maxLength={20}
-                />
-              </Input>
-            )}
-          />
-          {form.formState.errors.email && (
-            <FormControlErrorText className="font-mono max-w-full">
-              {form.formState.errors.email.message}
-            </FormControlErrorText>
-          )}
-        </FormControl>
+        
         <FormControl>
           <FormControlLabel>
             <FormControlLabelText className="font-mono text-gray-400">
@@ -174,74 +125,13 @@ const registerPage = () => {
             </FormControlErrorText>
           )}
         </FormControl>
-        <FormControl>
-          <FormControlLabel>
-            <FormControlLabelText className="font-mono text-gray-400">
-              Contraseña
-            </FormControlLabelText>
-          </FormControlLabel>
-          <Controller
-            control={form.control}
-            name="password"
-            render={({ field: { onChange, onBlur, value } }) => (
-              <Input
-                className="w-inp focus:border-bitpurple-600"
-                size="md"
-                variant="rounded"
-              >
-                <InputField
-                  className="text-slate-50"
-                  type="password"
-                  placeholder="Contraseña"
-                  onChangeText={onChange}
-                  onBlur={onBlur}
-                  value={value}
-                  maxLength={50}
-                />
-              </Input>
-            )}
-          />
-          {form.formState.errors.password && (
-            <FormControlErrorText className="font-mono max-w-full">
-              {form.formState.errors.password.message}
-            </FormControlErrorText>
-          )}
-        </FormControl>
-        <FormControl>
-          <FormControlLabel>
-            <FormControlLabelText className="font-mono text-gray-400">
-              Confirmar contraseña
-            </FormControlLabelText>
-          </FormControlLabel>
-          <Controller
-            control={form.control}
-            name="confirmPassword"
-            render={({ field: { onChange, onBlur, value } }) => (
-              <Input className="w-inp focus:p-60" size="md" variant="rounded">
-                <InputField
-                  className="text-slate-50"
-                  placeholder="Contraseña"
-                  onChangeText={onChange}
-                  onBlur={onBlur}
-                  value={value}
-                  maxLength={50}
-                />
-              </Input>
-            )}
-          />
-          {form.formState.errors.confirmPassword && (
-            <FormControlErrorText className="font-mono max-w-inp">
-              {form.formState.errors.confirmPassword.message}
-            </FormControlErrorText>
-          )}
-        </FormControl>
       </View>
       <Button
         action="primary"
         className=""
         onPress={form.handleSubmit(onSubmit)}
       >
-        <ButtonText className="font-mono">Registrar</ButtonText>
+        <ButtonText className="font-mono">Siguiente</ButtonText>
       </Button>
       <View className="flex-row justify-between items-center gap-2 ">
         <Text className="">Ya tienes una cuenta?</Text>
