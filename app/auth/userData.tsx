@@ -13,11 +13,12 @@ import { useForm, Controller } from "react-hook-form";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
-import { Link, router } from "expo-router";
+import { Link, router, useRouter } from "expo-router";
 import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
 import { toast } from "sonner-native";
 import myToast from "@/components/toast";
+import { useRoute } from "@react-navigation/native";
 
 const formSchema = z.object({
 
@@ -28,6 +29,7 @@ const formSchema = z.object({
 });
 
 const userData = () => {
+  const r = useRoute()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -50,8 +52,9 @@ const userData = () => {
   }, [form.formState.errors]);
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {
-    myToast(true, "Has iniciado sesion");
-    console.log(data);
+    myToast(true, "Registro eitoso!");
+    const pData = r.params
+    console.log(data, pData);
     router.push("/");
   };
 
@@ -59,7 +62,7 @@ const userData = () => {
     <View className="flex-1 justify-center items-center gap-5 bg-eerie">
       <View>
         <Image
-          source={require("../assets/images/Logo V2.png")}
+          source={require("../../assets/images/Logo V2.png")}
           className="bottom-1/2
           "
         />
@@ -172,3 +175,5 @@ const userData = () => {
     </View>
   )
 }
+
+export default userData;

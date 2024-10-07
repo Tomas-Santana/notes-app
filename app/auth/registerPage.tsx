@@ -13,7 +13,7 @@ import { useForm, Controller } from "react-hook-form";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
-import { Link, router } from "expo-router";
+import { Link, router, useRouter } from "expo-router";
 import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
 import { toast } from "sonner-native";
@@ -27,6 +27,7 @@ const formSchema = z.object({
 });
 
 const registerPage = () => {
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -49,8 +50,13 @@ const registerPage = () => {
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {
     alert(JSON.stringify(data));
+    const { name, lastName } = data
+    console.log(name, lastName);
     myToast(true, "Regristro exitoso!");
-    router.push("/start/notesPage");
+    router.push({
+      pathname: "/auth/userData",
+      params: { name, lastName }
+    })
   };
   return (
     <View className="flex-1 flex-col justify-center items-center gap-5 bg-eerie">
