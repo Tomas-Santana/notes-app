@@ -16,8 +16,6 @@ import { useEffect } from "react";
 import { Link, router, useRouter } from "expo-router";
 import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
-import { toast } from "sonner-native";
-import myToast from "@/components/toast";
 
 const formSchema = z.object({
 
@@ -52,7 +50,6 @@ const registerPage = () => {
     alert(JSON.stringify(data));
     const { name, lastName } = data
     console.log(name, lastName);
-    myToast(true, "Regristro exitoso!");
     router.push({
       pathname: "/auth/userData",
       params: { name, lastName }

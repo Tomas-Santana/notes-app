@@ -52,7 +52,7 @@ const userData = () => {
   }, [form.formState.errors]);
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {
-    myToast(true, "Registro eitoso!");
+    myToast(true, "Registro exitoso!");
     const pData = r.params
     console.log(data, pData);
     router.push("/");
