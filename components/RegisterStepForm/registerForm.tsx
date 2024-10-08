@@ -1,44 +1,57 @@
 import { useState } from "react";
+import { View } from "react-native";
 import z from "zod";
+import { EmailForm } from "./emailForm";
+import { PersonalInfoForm } from "./personalInfoForm";
+import { PasswordForm } from "./passwordForm";
+import Animated from "react-native-reanimated";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { Text } from "../ui/text";  
+import { FullSchema, fullSchema } from "./schemas";
 
 
 
-const emailSchema = z.object({
-    email: z
-      .string()
-      .min(1, "Se debe ingresar un email.")
-      .max(25, "El email es muy largo.")
-      .email("Email invalido.")
-      .toLowerCase(),
-});
-
-type EmailSchema = z.infer<typeof emailSchema>;
-
-const personalInfoSchema = z.object({
-    firstName: z.string().min(1, "Se debe ingresar un nombre."),
-    lastName: z.string().min(1, "Se debe ingresar un apellido."),
-});
-
-type PersonalInfoSchema = z.infer<typeof personalInfoSchema>;
-
-const passwordSchema = z.object({
-    password: z
-      .string()
-      .min(8, "Se debe ingresar una contraseña.")
-      .max(50, "La contraseña es muy larga."),
-    // })
-    confirmPassword: z
-      .string()
-      .min(1, "Ingresa la contraseña de nuevo.")
-      .max(50, "La contraseña es muy larga."),
-    }).refine((data) => data.password === data.confirmPassword, {
-    message: "Las contraseñas no coinciden.",
-    path: ["confirmPassword"],
-});
-
-type PasswordSchema = z.infer<typeof passwordSchema>;
+type TabNumber = 0 | 1 | 2;
 
 export default function RegisterForm() {
+    const form = useForm<FullSchema>({
+        resolver: zodResolver(fullSchema),
+        defaultValues: {
+            email: {
+                email: ""
+            },
+            personalInfo: {
+                firstName: "",
+                lastName: ""
+            },
+            password: {
+                password: "",
+                confirmPassword: ""
+            }
+        }
+    });
 
+    const onSubmit = (data: FullSchema) => {
+        console.log(data);
+    }
 
+    const [tab, setTab] = useState<TabNumber>(0);
+    const tabs = [
+    <EmailForm setTab={setTab} fullForm={form} />, 
+    <PersonalInfoForm setTab={setTab} fullForm={form} />,
+    <PasswordForm setTab={setTab} fullForm={form}  />
+];
+
+    return (
+        <Animated.View className="w-full p-4">
+            {
+                tabs[tab]
+            }
+
+            <Text>
+
+            </Text>
+        </Animated.View>
+    );
 }

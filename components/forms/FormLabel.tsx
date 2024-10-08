@@ -10,7 +10,7 @@ export function FormLabel(
     }: FormLabelProps
 ) {
     return (
-        <Text className="block text-sm font-medium text-secondary">
+        <Text className="block text-xl font-medium text-white">
             {label}
         </Text>
     )

@@ -1,36 +1,40 @@
-import z from "zod";
+import z, { set } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, UseFormReturn } from "react-hook-form";
 import { FormTextInput } from "../forms/FormTextInput";
-import { Button } from "../ui/button";
-import Animated, { LinearTransition } from "react-native-reanimated";
+import { Button, ButtonText } from "../ui/button";
+import Animated, { LinearTransition, SlideInRight, SlideOutLeft } from "react-native-reanimated";
+import { EmailSchema, emailSchema, FullSchema } from "./schemas";
 
 
-const emailSchema = z.object({
-    email: z
-      .string()
-      .min(1, "Se debe ingresar un email.")
-      .max(25, "El email es muy largo.")
-      .email("Email invalido.")
-      .toLowerCase(),
-});
 
+interface EmailFormProps {
+    setTab: (tab: 0 | 1) => void;
+    fullForm: UseFormReturn<FullSchema>;
+}
 
-type EmailSchema = z.infer<typeof emailSchema>;
+export function EmailForm(
+    { setTab, fullForm }: EmailFormProps
 
-
-export function EmailForm() {
+) {
     const form = useForm<EmailSchema>({
-        resolver: zodResolver(emailSchema)
+        resolver: zodResolver(emailSchema),
+        defaultValues: {
+            email: fullForm.getValues("email").email
+        }
     });
 
     function onSubmit(data: EmailSchema) {
-        console.log(data);
+        fullForm.setValue("email", data);
+        setTab(1);
     }
 
     return (
         <Animated.View
+            entering={SlideInRight}
+            exiting={SlideOutLeft}
             layout={LinearTransition}
+            className={"w-full flex flex-col gap-4"}
         >
             <FormTextInput
                 name="email"
@@ -38,8 +42,17 @@ export function EmailForm() {
                 label="Email"
                 placeholder="email@notebit.com"
                 error={form.formState.errors.email}
+                className="focus:border-bitpurple-600"
+                size="xl"
             />
-            <Button onPress={form.handleSubmit(onSubmit)}>Next</Button>
+            <Animated.View
+                layout={LinearTransition}
+                
+            >
+                <Button onPress={form.handleSubmit(onSubmit)} action="primary" size="xl">
+                    <ButtonText>Siguiente</ButtonText>
+                </Button>
+            </Animated.View>
         </Animated.View>
     )
 }

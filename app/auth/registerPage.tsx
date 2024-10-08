@@ -8,6 +8,7 @@ import {
   FormControlLabelText,
   FormControlErrorText,
 } from "@/components/ui/form-control";
+import { SafeAreaView } from "@/components/utils/SafeAreaView";
 import { useForm, Controller } from "react-hook-form";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,6 +16,13 @@ import { useEffect } from "react";
 import { Link, router, useRouter } from "expo-router";
 import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
+import AuthController from "@/api/controllers/AuthController";
+import { useMutation } from "@tanstack/react-query";
+import myToast from "@/components/toast";
+import Logo from "../../assets/images/logo.svg";
+import RegisterForm from "@/components/RegisterStepForm/registerForm";
+
+
 
 const formSchema = z.object({
 
@@ -23,12 +31,12 @@ const formSchema = z.object({
   lastName: z.string().min(1, "Se debe ingresar un apellido."),
 });
 
-const registerPage = () => {
+const RegisterPage = () => {
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
+      firstName: "",
       lastName: "",
     },
   });
@@ -41,34 +49,34 @@ const registerPage = () => {
     console.log("Font loading failed");
   }
 
-  const registerMutation = useMutation({
-    mutationFn: AuthController.register,
-    onError: (error) => {
-      console.log(error);
-      myToast(false, "Error al registrarse.");
-    },
-    onSuccess: () => {
-      myToast(true, "Bienvenido a BitNotes.");
-      router.push("/notes");
-    },
-  });
+
   const onSubmit = (data: z.infer<typeof formSchema>) => {
-    alert(JSON.stringify(data));
-    const { name, lastName } = data
-    console.log(name, lastName);
+
+    const { firstName, lastName } = data
+    console.log(firstName, lastName);
     router.push({
       pathname: "/auth/userData",
-      params: { name, lastName }
+      params: { firstName, lastName }
     })
   };
   return (
-    <View className="flex-1 flex-col justify-center items-center gap-5 bg-eerie">
-      <Image source={require("../../assets/images/Logo V2.png")} className="" />
+    <SafeAreaView className="flex-1 flex-col justify-start items-center gap-4 bg-eerie">
+      <Logo className=" h-24"></Logo>
       <Heading size="lg" className="text-center text-slate-50 font-mono">
         Crea una cuenta
       </Heading>
-      <View></View>
-      <View className="flex flex-col gap-4">
+      <RegisterForm />
+
+    </SafeAreaView>
+  );
+};
+
+export default RegisterPage;
+
+
+// Old
+
+      {/* <View className="flex flex-col gap-4">
         
         <FormControl>
           <FormControlLabel>
@@ -78,7 +86,7 @@ const registerPage = () => {
           </FormControlLabel>
           <Controller
             control={form.control}
-            name="name"
+            name="firstName"
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
                 className="w-inp focus:border-bitpurple-600"
@@ -96,9 +104,9 @@ const registerPage = () => {
               </Input>
             )}
           />
-          {form.formState.errors.name && (
+          {form.formState.errors.firstName && (
             <FormControlErrorText className="font-mono max-w-full">
-              {form.formState.errors.name.message}
+              {form.formState.errors.firstName.message}
             </FormControlErrorText>
           )}
         </FormControl>
@@ -147,9 +155,4 @@ const registerPage = () => {
         <Link className="font-mono text-bitpurple-500" href={"/"}>
           Inicia Sesion
         </Link>
-      </View>
-    </View>
-  );
-};
-
-export default RegisterPage;
+      </View> */}
