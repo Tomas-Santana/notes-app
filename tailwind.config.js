@@ -12,7 +12,7 @@ module.exports = {
   safelist: [
     {
       pattern:
-        /(bg|border|text|stroke|fill)-(primary|secondary|tertiary|error|success|warning|info|typography|outline|background)-(0|50|100|200|300|400|500|600|700|800|900|950|white|gray|black|error|warning|muted|success|info|light|dark)/,
+        /(bg|border|text|stroke|fill)-(primary|secondary|bitpurple|tertiary|error|success|warning|info|typography|outline|background)-(0|50|100|200|300|400|500|600|700|800|900|950|white|gray|black|error|warning|muted|success|info|light|dark)/,
     },
   ],
   theme: {
@@ -37,20 +37,20 @@ module.exports = {
           900: "rgb(var(--color-primary-900)/<alpha-value>)",
           950: "rgb(var(--color-primary-950)/<alpha-value>)",
         },
-        bitpurple : {
-          0: "rgb(var(--color-bitpurple-0)/<alpha-value>)",
-          50: "rgb(var(--color-bitpurple-50)/<alpha-value>)",
-          100: "rgb(var(--color-bitpurple-100)/<alpha-value>)",
-          200: "rgb(var(--color-bitpurple-200)/<alpha-value>)",
-          300: "rgb(var(--color-bitpurple-300)/<alpha-value>)",
-          400: "rgb(var(--color-bitpurple-400)/<alpha-value>)",
-          500: "rgb(var(--color-bitpurple-500)/<alpha-value>)",
-          600: "rgb(var(--color-bitpurple-600)/<alpha-value>)",
-          700: "rgb(var(--color-bitpurple-700)/<alpha-value>)",
-          800: "rgb(var(--color-bitpurple-800)/<alpha-value>)",
-          900: "rgb(var(--color-bitpurple-900)/<alpha-value>)",
-          950: "rgb(var(--color-bitpurple-950)/<alpha-value>)",
-        }, 
+        bitpurple: {
+          DEFAULT: '#A15CD6',
+          50: '#F6EFFB',
+          100: '#ECDEF7',
+          200: '#D9BEEF',
+          300: '#C79DE6',
+          400: '#B47DDE',
+          500: '#A15CD6',
+          600: '#8732C8',
+          700: '#68279B',
+          800: '#4A1C6E',
+          900: '#2C1041',
+          950: '#1D0B2B'
+        },
         secondary: {
           0: "rgb(var(--color-secondary-0)/<alpha-value>)",
           50: "rgb(var(--color-secondary-50)/<alpha-value>)",

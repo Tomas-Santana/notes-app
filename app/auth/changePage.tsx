@@ -57,7 +57,7 @@ const ResetPasswordPage = () => {
     <View className="flex-1 justify-center items-center gap-5 bg-eerie">
       <View>
         <Image
-          source={require("../../assets/images/Logo V2.png")}
+          source={require("../../assets/images/logo.svg")}
           className="bottom-1/2
           "
         />

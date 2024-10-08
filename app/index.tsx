@@ -1,4 +1,4 @@
-import { Image, View } from "react-native";
+import { View } from "react-native";
 import { Button, ButtonText } from "@/components/ui/button";
 import { Input, InputField } from "@/components/ui/input";
 import { useFonts } from "expo-font";
@@ -6,7 +6,6 @@ import {
   FormControl,
   FormControlLabel,
   FormControlLabelText,
-  FormControlError,
   FormControlErrorText,
 } from "@/components/ui/form-control";
 import { useForm, Controller } from "react-hook-form";
@@ -16,15 +15,19 @@ import { useEffect } from "react";
 import { Link, router } from "expo-router";
 import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
-import { toast } from "sonner-native";
 import myToast from "@/components/toast";
+import { useMutation } from "@tanstack/react-query";
+import AuthController from "@/api/controllers/AuthController";
+import Logo from "@/assets/images/logo.svg";
+import { KeyboardAvoidingView } from "react-native";
+
 
 const formSchema = z.object({
   email: z
     .string()
     .min(1, "Se debe ingresar un email.")
     .max(25, "El email es muy largo.")
-    .email("Email invalido."),
+    .email("Email invalido.").toLowerCase(),
 
   password: z
     .string()
@@ -48,117 +51,116 @@ export default function Screen() {
   if (!fontLoaded) {
     console.log("Font loading failed");
   }
+  const loginMutation = useMutation({
+    mutationFn: AuthController.login,
+    onError: (error) => {
+      myToast(false, error.message);
+    },
+    onSuccess: (data) => {
+      router.push("/notes");
 
-  useEffect(() => {
-    console.log(form.formState.errors);
-  }, [form.formState.errors]);
-
+    },
+  })
   const onSubmit = (data: z.infer<typeof formSchema>) => {
-    myToast(true, "Has iniciado sesion");
-    console.log(data);
-    router.push("/auth/changePage");
+    loginMutation.mutate(data);
   };
   return (
-    <View className="flex-1 justify-center items-center gap-5 bg-eerie">
-      <View>
-        <Image
-          source={require("../assets/images/Logo V2.png")}
-          className="bottom-1/2
-          "
-        />
+    <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
+      <View className="flex-1 justify-center items-center gap-4 bg-eerie">
+      <View
+      >
+        <Logo className="w-40" />
       </View>
       <View>
         <Heading size="lg" className="text-center text-slate-50 font-mono">
-          Inicia sesión en tu cuenta
+        Inicia sesión en tu cuenta
         </Heading>
       </View>
-      <FormControl className="top-10">
+      <View className="flex flex-col gap-4">
+        <FormControl>
         <FormControlLabel>
           <FormControlLabelText className="font-mono text-gray-400">
-            Email
+          Email
           </FormControlLabelText>
         </FormControlLabel>
         <Controller
           control={form.control}
           name="email"
           render={({ field: { onChange, onBlur, value } }) => (
-            <Input
-              className="w-inp focus:border-purplee-60 mb-6"
-              size="md"
-              variant="rounded"
-            >
-              <InputField
-                className="text-slate-50"
-                placeholder="Email"
-                onChangeText={onChange}
-                onBlur={onBlur}
-                value={value}
-                maxLength={20}
-              />
-            </Input>
+          <Input className="w-inp focus:border-purplee-60" size="md">
+            <InputField
+            className="text-slate-50"
+            placeholder="Email"
+            onChangeText={onChange}
+            onBlur={onBlur}
+            value={value}
+            maxLength={20}
+            />
+          </Input>
           )}
         />
         {form.formState.errors.email && (
-          <FormControlErrorText className="font-mono bottom-4 max-w-full">
-            {form.formState.errors.email.message}
+          <FormControlErrorText className="font-mono max-w-full">
+          {form.formState.errors.email.message}
           </FormControlErrorText>
         )}
+        </FormControl>
+        <FormControl>
         <FormControlLabel>
           <FormControlLabelText className="font-mono text-gray-400">
-            Contraseña
+          Contraseña
           </FormControlLabelText>
         </FormControlLabel>
         <Controller
           control={form.control}
           name="password"
           render={({ field: { onChange, onBlur, value } }) => (
-            <Input
-              className="w-inp focus:border-purplee-60 mb-7"
-              size="md"
-              variant="rounded"
-            >
-              <InputField
-                className="text-slate-50"
-                placeholder="Contraseña"
-                onChangeText={onChange}
-                onBlur={onBlur}
-                value={value}
-                maxLength={50}
-              />
-            </Input>
+          <Input className="w-inp focus:border-purplee-60" size="md">
+            <InputField
+            className="text-slate-50"
+            placeholder="Contraseña"
+            onChangeText={onChange}
+            onBlur={onBlur}
+            type="password"
+            value={value}
+            maxLength={50}
+            />
+          </Input>
           )}
         />
         {form.formState.errors.password && (
-          <FormControlErrorText className="font-mono bottom-5 max-w-full">
-            {form.formState.errors.password.message}
+          <FormControlErrorText className="font-mono max-w-full">
+          {form.formState.errors.password.message}
           </FormControlErrorText>
         )}
-      </FormControl>
-      <View>
-        <Text
-          size="sm"
-          className="text-purplee-50 top-5 left-20"
-          onPress={() => {
-            router.push("/auth/forgotPage");
-          }}
-        >
-          Olvidaste tu contraseña?
-        </Text>
+        </FormControl>
       </View>
+      {/* <View>
+        <Text
+        size="sm"
+        className="text-purplee-50 left-20"
+        onPress={() => {
+          router.push("/auth/forgotPage");
+        }}
+        >
+        Olvidaste tu contraseña?
+        </Text>
+      </View> */}
       <Button
         className="bg-purplee-50 top-10 w-inp"
         onPress={form.handleSubmit(onSubmit)}
       >
         <ButtonText className="font-mono text-slate-50">
-          Iniciar Sesion
+        Iniciar Sesion
         </ButtonText>
       </Button>
       <View className="flex-row justify-between items-center gap-2 top-10">
         <Text className="text-gray-400">Tambien puedes</Text>
         <Link href={"/auth/registerPage"}>
-          <Text className="font-mono text-purplee-50">Regístrarte</Text>
+        <Text className="font-mono text-purplee-50">Registrarte</Text>
         </Link>
       </View>
-    </View>
+      </View>
+    </KeyboardAvoidingView>
   );
 }
