@@ -1,8 +1,8 @@
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, UseFormReturn } from "react-hook-form";
-import { FormTextInput } from "../forms/FormTextInput";
-import { Button, ButtonText } from "../ui/button";
+import { FormTextInput } from "../../forms/FormTextInput";
+import { Button, ButtonText } from "../../ui/button";
 import Animated, { LinearTransition, SlideInRight, SlideOutLeft } from "react-native-reanimated";
 import { PersonalInfoSchema, personalInfoSchema, FullSchema } from "./schemas";
 

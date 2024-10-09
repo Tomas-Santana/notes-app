@@ -1,15 +1,16 @@
 import z, { set } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, UseFormReturn } from "react-hook-form";
-import { FormTextInput } from "../forms/FormTextInput";
-import { Button, ButtonText } from "../ui/button";
+import { FormTextInput } from "../../forms/FormTextInput";
+import { Button, ButtonText } from "../../ui/button";
 import Animated, { LinearTransition, SlideInRight, SlideOutLeft } from "react-native-reanimated";
 import { PasswordSchema, passwordSchema, FullSchema } from "./schemas";
 import { useMutation } from "@tanstack/react-query";
 import AuthController from "@/api/controllers/AuthController";
-import myToast from "../toast";
-import { router } from "expo-router";
+import myToast from "../../toast";
+import { router, useRouter } from "expo-router";
 import { ActivityIndicator } from "react-native";
+import { RegisterRequest } from "@/types/api/Register";
 
 
 
@@ -22,6 +23,7 @@ export function PasswordForm(
     { setTab, fullForm }: EmailFormProps
 
 ) {
+    const router = useRouter();
     const form = useForm<PasswordSchema>({
         resolver: zodResolver(passwordSchema),
         defaultValues: {
@@ -31,22 +33,27 @@ export function PasswordForm(
     });
 
     const registerMutation = useMutation({
-        mutationFn: async () => {
-            await new Promise(resolve => setTimeout(resolve, 2000));
-        },
+        mutationFn: AuthController.register,
         onError: (error) => {
           console.log(error);
           myToast(false, "Error al registrarse.");
         },
         onSuccess: () => {
           myToast(true, "Bienvenido a BitNotes.");
+          router.push("/notes");
         },
       });
 
     function onSubmit(data: PasswordSchema) {
         fullForm.setValue("password", data);
-        console.log(fullForm.getValues());
-        registerMutation.mutate();
+        const formData = fullForm.getValues()
+        const registerPayload: RegisterRequest = {
+            email: formData.email.email,
+            password: formData.password.password,
+            firstName: formData.personalInfo.firstName,
+            lastName: formData.personalInfo.lastName,
+        }
+        registerMutation.mutate(registerPayload);
     }
 
     return (

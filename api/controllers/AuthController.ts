@@ -1,7 +1,7 @@
 import { LoginRequest, LoginResponse, LoginResponseSchema } from "../../types/api/Login"
 import { RegisterRequest, RegisterResponse, RegisterResponseSchema } from "@/types/api/Register";
 import { apiRoutes } from "../routes"
-import { superFetch } from "./superFetch";
+import { superFetch, SuperFetchError, superXMLHTTPRequest } from "./superFetch";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getDefaultStore } from "jotai";
 import { userAtom } from "@/utils/atoms/userAtom";
@@ -16,7 +16,7 @@ export default class AuthController {
         try {
             const result = await superFetch<LoginRequest, LoginResponse>({
                 method: 'POST',
-                includeCredentials: true,
+                includeCredentials: false,
             }, "login", LoginResponseSchema, payload);
 
             // save token to async storage
@@ -27,7 +27,12 @@ export default class AuthController {
             return result;
         }
         catch (error) {
-            throw new Error("Login failed");
+            const sfError = error as SuperFetchError;
+            console.log(sfError.code);
+            if (sfError.code === 401 || sfError.code === 400) {
+                throw new Error("Email o contraseña incorrectos");
+            }
+            throw new Error("Falló el inicio de sesión");
         }
     }
 

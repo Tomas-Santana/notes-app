@@ -52,7 +52,7 @@ export default function RootLayout() {
             ></Stack>
             <Toaster
               richColors
-              position="bottom-center"
+              position="top-center"
               // toastOptions={{
               //   style: {
               //     backgroundColor: "#191919",

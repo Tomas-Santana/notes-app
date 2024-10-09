@@ -5,7 +5,7 @@ const myToast = (succes: boolean, message: string) => {
     return toast.success(message, { duration: 3000 });
   }
 
-  return toast.warning(message, { duration: 3000 });
+  return toast.error(message, { duration: 3000 });
 };
 
 export default myToast;

@@ -20,7 +20,7 @@ import AuthController from "@/api/controllers/AuthController";
 import { useMutation } from "@tanstack/react-query";
 import myToast from "@/components/toast";
 import Logo from "../../assets/images/logo.svg";
-import RegisterForm from "@/components/RegisterStepForm/registerForm";
+import RegisterForm from "@/components/appForms/RegisterStepForm/registerForm";
 
 
 
@@ -32,15 +32,6 @@ const formSchema = z.object({
 });
 
 const RegisterPage = () => {
-  const router = useRouter();
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      firstName: "",
-      lastName: "",
-    },
-  });
-
   const fontLoaded = useFonts({
     monospace: require("../../assets/fonts/FiraMono-Medium.ttf"),
   });
@@ -48,20 +39,9 @@ const RegisterPage = () => {
   if (!fontLoaded) {
     console.log("Font loading failed");
   }
-
-
-  const onSubmit = (data: z.infer<typeof formSchema>) => {
-
-    const { firstName, lastName } = data
-    console.log(firstName, lastName);
-    router.push({
-      pathname: "/auth/userData",
-      params: { firstName, lastName }
-    })
-  };
   return (
     <SafeAreaView className="flex-1 flex-col justify-start items-center gap-4 bg-eerie">
-      <Logo className=" h-24"></Logo>
+      <Logo className="h-24"></Logo>
       <Heading size="lg" className="text-center text-slate-50 font-mono">
         Crea una cuenta
       </Heading>
