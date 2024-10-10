@@ -40,7 +40,7 @@ export function PasswordForm(
         },
         onSuccess: () => {
           myToast(true, "Bienvenido a BitNotes.");
-          router.push("/notes");
+          router.push("/note");
         },
       });
 

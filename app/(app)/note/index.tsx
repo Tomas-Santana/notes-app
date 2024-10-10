@@ -5,6 +5,9 @@ import { Navbar } from "@/components/app/navbar";
 import { Plus } from "lucide-react-native";
 import { Fab, FabIcon } from "@/components/ui/fab";
 import { useRouter } from "expo-router";
+import { SafeAreaView } from "@/components/utils/SafeAreaView";
+import { Icon } from "@/components/ui/icon";
+import { Link } from "expo-router";
 
 export default function Notes() {
   const user = useAtomValue(userAtom);
@@ -12,15 +15,13 @@ export default function Notes() {
   return (
     <View className="h-full">
       <Navbar />
-      {/* <Navbar />
-      <Text className="text-white">
-        {user ? `Welcome, ${user.firstName}` : "Notes Page"}
-      </Text>
-       */}
       <Fab size="lg"
-        
+      className="flex-1 items-center justify-center"
       >
-        <FabIcon as={Plus} className="text-white h-6 w-6" />
+        <Link href={{pathname: "/note/[id]", params: { id: "new" }}} className="h-full" >
+          <Icon as={Plus} className="text-white h-6 w-6" />
+        </Link>
+
       </Fab>
     </View>
   );

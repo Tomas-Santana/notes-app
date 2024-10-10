@@ -42,7 +42,7 @@ export default function LoginForm() {
       myToast(false, error.message);
     },
     onSuccess: () => {
-      router.push("/notes");
+      router.push("/note");
     },
   });
 
@@ -61,6 +61,8 @@ export default function LoginForm() {
         className="focus:border-bitpurple-600"
         size="xl"
       />
+
+
 
       <FormTextInput
         name="password"
