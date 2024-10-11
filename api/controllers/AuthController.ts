@@ -1,7 +1,6 @@
 import { LoginRequest, LoginResponse, LoginResponseSchema } from "../../types/api/Login"
 import { RegisterRequest, RegisterResponse, RegisterResponseSchema } from "@/types/api/Register";
-import { apiRoutes } from "../routes"
-import { superFetch, SuperFetchError, superXMLHTTPRequest } from "./superFetch";
+import { superFetch, SuperFetchError } from "./superFetch";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getDefaultStore } from "jotai";
 import { userAtom } from "@/utils/atoms/userAtom";
@@ -14,10 +13,17 @@ store.sub(userAtom, () => {
 export default class AuthController {
     static async login(payload: LoginRequest): Promise<LoginResponse> {
         try {
-            const result = await superFetch<LoginRequest, LoginResponse>({
-                method: 'POST',
-                includeCredentials: false,
-            }, "login", LoginResponseSchema, payload);
+            const result = await superFetch<LoginRequest, LoginResponse, "login">(
+                {
+                    options: {
+                        method: 'POST',
+                    },
+                    route: "login",
+                    params: [],
+                    responseSchema: LoginResponseSchema,
+                    payload: payload
+                }
+            );
 
             // save token to async storage
             await AsyncStorage.setItem('token', result.token);
@@ -38,9 +44,17 @@ export default class AuthController {
 
     static async register(payload: RegisterRequest): Promise<RegisterResponse> {
         try {
-            const res = await superFetch<RegisterRequest, RegisterResponse>({
-                method: 'POST',
-            }, "register", RegisterResponseSchema, payload);
+            const res = await superFetch<RegisterRequest, RegisterResponse, "register">(
+                {
+                    options: {
+                        method: 'POST',
+                    },
+                    route: "register",
+                    params: [],
+                    responseSchema: RegisterResponseSchema,
+                    payload: payload
+                }
+            );
 
             // save token to async storage
             await AsyncStorage.setItem('token', res.token);

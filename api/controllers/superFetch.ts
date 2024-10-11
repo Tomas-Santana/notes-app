@@ -1,5 +1,5 @@
 import z from 'zod';
-import { ApiRoute, apiRoutes } from '../routes';
+import { ApiRoute, apiRoutes, ApiRouteParams } from '../routes';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export class SuperFetchError extends Error {
@@ -17,11 +17,16 @@ interface SuperFetchOptions {
     includeCredentials?: boolean;
 }
 
-export async function superFetch<Request, Response>(
-    options: SuperFetchOptions, 
-    route: ApiRoute, 
-    responseSchema: z.ZodType<Response>,
-    payload?: Request
+interface SuperFetchParams<Request, Response, Route extends ApiRoute = ApiRoute> {
+    options: SuperFetchOptions;
+    route: Route;
+    params?: ApiRouteParams<Route>;
+    responseSchema: z.ZodType<Response>;
+    payload?: Request;
+}
+
+export async function superFetch<Request, Response, Route extends ApiRoute = ApiRoute>(
+    { options, route, params, responseSchema, payload }: SuperFetchParams<Request, Response, Route>
 ): Promise<Response> {
     const headers = new Headers();
     headers.set('Content-Type', 'application/json');
@@ -36,10 +41,13 @@ export async function superFetch<Request, Response>(
             throw new Error("No token found");
         }
     }
-    console.log("fetching2", apiRoutes[route]);
+
+    // @ts-ignore
+    const realRoute = apiRoutes[route](...params); 
+    console.log("fetching3", realRoute);
 
     
-    const response = await fetch(apiRoutes[route], {
+    const response = await fetch(realRoute, {
         method: options.method,
         headers: headers,
         body: payload ? JSON.stringify(payload) : undefined,
@@ -81,7 +89,9 @@ export async function superXMLHTTPRequest<Request, Response>(
 
     return new Promise<Response>((resolve, reject) => {
         const xhr = new XMLHttpRequest();
-        xhr.open(options.method, apiRoutes[route], true);
+        // @ts-ignore
+        const realRoute = apiRoutes[route](...params); 
+        xhr.open(options.method, realRoute, true);
 
         xhr.setRequestHeader('Content-Type', 'application/json');
         if (options.includeCredentials) {
