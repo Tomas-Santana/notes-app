@@ -1,4 +1,4 @@
-import { User, ArrowLeft, Save, Bookmark } from "lucide-react-native";
+import { User, ArrowLeft, Save, Bookmark, Undo, Redo } from "lucide-react-native";
 import { Icon } from "../ui/icon";
 import { View } from "react-native";
 import { useRouter } from "expo-router";
@@ -26,7 +26,9 @@ export function Navbar(
         </Button>
       </View>
 
-      <View>
+      <View className="flex flex-row gap-4">
+
+
         {props.canSave && (
         <Button
           variant="link"

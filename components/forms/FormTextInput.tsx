@@ -35,9 +35,9 @@ export function FormTextInput({
         name={name}
         control={control}
         render={({ field: { onChange, onBlur, value } }) => (
-          <Input className={className} size={size}>
+          <Input className={className + "text-white"} size={size}>
             <InputField
-              className={fieldClassName}
+              className={fieldClassName + "text-white"}
               placeholder={placeholder}
               value={value}
               onChangeText={onChange}
