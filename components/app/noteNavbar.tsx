@@ -1,12 +1,13 @@
-import { User, ArrowLeft, Save, Bookmark, Undo, Redo } from "lucide-react-native";
+import { ArrowLeft, Save } from "lucide-react-native";
 import { Icon } from "../ui/icon";
-import { View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 import { useRouter } from "expo-router";
 import { Button } from "../ui/button";
 
 interface NavbarProps {
   canSave?: boolean;
-  onSave?: () => void;
+  onSave?: () => Promise<void>;
+  pending?: boolean;
 }
 
 export function Navbar(
@@ -34,8 +35,11 @@ export function Navbar(
           variant="link"
           size="lg"
           className=""
+          onPress={async () => props.onSave && await props.onSave()}
         >
-          <Icon as={Save} className="text-white w-8 h-8" />
+          {props.pending ? 
+          <ActivityIndicator size="small" color="#fff" />
+          :<Icon as={Save} className="text-white w-8 h-8" />}
         </Button>
         )}
       </View>

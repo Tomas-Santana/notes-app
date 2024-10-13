@@ -28,6 +28,12 @@ interface SuperFetchParams<Request, Response, Route extends ApiRoute = ApiRoute>
 export async function superFetch<Request, Response, Route extends ApiRoute = ApiRoute>(
     { options, route, params, responseSchema, payload }: SuperFetchParams<Request, Response, Route>
 ): Promise<Response> {
+    console.log("executing superFetch");
+
+    if (params === undefined) {
+        params = [] as ApiRouteParams<Route>;
+    }
+
     const headers = new Headers();
     headers.set('Content-Type', 'application/json');
     
@@ -53,7 +59,7 @@ export async function superFetch<Request, Response, Route extends ApiRoute = Api
         body: payload ? JSON.stringify(payload) : undefined,
         credentials: options.includeCredentials ? 'include' : 'omit',
     });
-
+    
     if (response.ok) {
         const data = await response.json();
         try {

@@ -1,16 +1,14 @@
 import { View } from "react-native";
 import { useLocalSearchParams } from "expo-router";
-import { useQuery } from "@tanstack/react-query";
-import NoteController from "@/api/controllers/NoteController";
-import { GetNoteResponse } from "@/types/api/GetNote";
-import { useEffect, useState } from "react";
-import myToast from "@/components/toast";
+import { useEffect, useMemo, useState } from "react";
 import { TextInput } from "react-native";
 import { Navbar } from "@/components/app/noteNavbar";
+import { useNote } from "@/hooks/app/useNote";
 
 import React from "react";
-import { RichText, Toolbar, useEditorBridge, TenTapStartKit, CoreBridge, DEFAULT_TOOLBAR_ITEMS } from "@10play/tentap-editor";
+import { RichText, Toolbar, useEditorBridge, TenTapStartKit, CoreBridge, useEditorContent } from "@10play/tentap-editor";
 import { customCSS, customDarkTheme, TOOLBAR_ITEMS } from "@/components/utils/editorTheme";
+import { useSaveNote } from "@/hooks/app/useSaveNote";
 
 
 type NoteParams = {
@@ -20,41 +18,32 @@ type NoteParams = {
 export default function Editor() {
   const params = useLocalSearchParams<NoteParams>();
 
-  const noteQuery = useQuery<GetNoteResponse>({
-    queryKey: ["note", params.id],
-    queryFn: () =>
-      NoteController.getNote({
-        id: params.id,
-      }),
-  });
-
-  useEffect(() => {
-    if (noteQuery.isError) {
-      myToast(false, "Failed to get note");
-      console.log(noteQuery.error);
-    }
-  }, [noteQuery.isError]);
-
-  const [note, setNote] = useState(noteQuery.data?.note);
-
+  
+  const { note, setNote, noteQuery } = useNote(params.id);
+  
   const editor = useEditorBridge({
     avoidIosKeyboard: true,
-    initialContent: note?.content,
+    initialContent: note?.html,
     theme: customDarkTheme,
     bridgeExtensions: [
       ...TenTapStartKit,
       CoreBridge.configureCSS(customCSS),
     ]
-    
   });
-  const state = editor.getEditorState();
+
+  const { saveNote, saveNoteMutation } = useSaveNote(note, setNote, editor);
+
+  const content = useEditorContent(editor, { type: "text" });
+  
+  const canSave = useMemo(() => {
+    return !!(note && note.title && content && !saveNoteMutation.isPending);
+  }, [note, saveNoteMutation.isPending, content]);
 
   return (
     <View className="flex flex-col w-full flex-1">
-      <Navbar canSave={true} />
+      <Navbar canSave={canSave} onSave={saveNote} />
       <View className=" flex flex-col flex-1">
         <View className="p-4">
-
           <TextInput
             value={note?.title}
             className="text-4xl font-bold text-white max-w-full"

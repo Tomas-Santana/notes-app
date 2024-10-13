@@ -16,13 +16,6 @@ export default function Screen() {
   });
 
   const user = useAtomValue(userAtom);
-  const router = useRouter();
-  // useEffect(() => {
-  //   console.log("user", user);
-  //   if (user) {
-  //     router.push("/notes");
-  //   }
-  // }, [user]);
 
   if (!fontLoaded) {
     console.log("Font loading failed");
@@ -39,6 +32,7 @@ export default function Screen() {
           Inicia sesión
         </Heading>
         <LoginForm />
+        
       </View>
 
     </SafeAreaView>
