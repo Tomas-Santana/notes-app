@@ -43,7 +43,7 @@ export function PersonalInfoForm(
                 label="Nombre"
                 placeholder="Pepito"
                 error={form.formState.errors.firstName}
-                className="focus:border-bitpurple-600"
+                className="focus:border-bitpurple-600 !text-white"
                 size="xl"
             />
             <FormTextInput
@@ -52,7 +52,7 @@ export function PersonalInfoForm(
                 label="Apellido"
                 placeholder="Perez"
                 error={form.formState.errors.lastName}
-                className="focus:border-bitpurple-600"
+                className="focus:border-bitpurple-600 !text-white"
                 size="xl"
             />
 

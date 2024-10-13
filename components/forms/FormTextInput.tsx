@@ -4,6 +4,8 @@ import type { Control, FieldError } from "react-hook-form";
 import Animated, { LinearTransition } from "react-native-reanimated";
 import { FormLabel } from "./FormLabel";
 import { FormError } from "./FormError";
+import { StyleProp, StyleSheet } from "react-native";
+import { ViewStyle } from "@expo/html-elements/build/primitives/View";
 
 interface FormTextInputProps {
   className?: string;
@@ -15,6 +17,7 @@ interface FormTextInputProps {
   type?: "text" | "password";
   error?: FieldError;
   size?: "sm" | "md" | "lg" | "xl";
+  styles?: StyleProp<ViewStyle>;
 }
 
 export function FormTextInput({
@@ -27,6 +30,8 @@ export function FormTextInput({
   type = "text",
   error,
   size = "md",
+  styles
+  
 }: FormTextInputProps) {
   return (
     <Animated.View layout={LinearTransition} className={"flex flex-col gap-2"}>

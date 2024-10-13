@@ -9,7 +9,8 @@ import AuthController from "@/api/controllers/AuthController";
 import myToast from "../toast";
 import { useRouter } from "expo-router";
 import { Link } from "expo-router";
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator, StyleSheet } from "react-native";
+import { AppStyles } from "@/constants/AppStyles";
 
 const loginFormSchema = z.object({
   email: z
@@ -58,16 +59,18 @@ export default function LoginForm() {
         label="Email"
         placeholder="hola@notebit.com"
         error={form.formState.errors.email}
-        className="focus:border-bitpurple-600"
+        className="focus:border-bitpurple-600 !text-white !text-white"
         size="xl"
       />
+      
       <FormTextInput
         name="password"
         control={form.control}
         label="Contraseña"
         placeholder=""
+        styles={TextInputStyles.focusInput}
         error={form.formState.errors.password}
-        className="focus:border-bitpurple-600"
+        className="focus:border-bitpurple-600 !text-white !text-white"
         size="xl"
         type="password"
       />
@@ -83,7 +86,6 @@ export default function LoginForm() {
           ¿Olvidaste tu contraseña?
         </Link>
       </Animated.View>
-
       <Animated.View layout={LinearTransition}>
         <Button
           onPress={form.handleSubmit(onSubmit)}
@@ -113,3 +115,9 @@ export default function LoginForm() {
     </Animated.View>
   );
 }
+
+const TextInputStyles = StyleSheet.create({
+  focusInput: {
+    borderColor: AppStyles.colors.bitpurple[600]
+  }
+})

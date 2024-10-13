@@ -64,6 +64,7 @@ export default function Editor() {
             multiline
           />
         </View>
+        
         <View className="h-10">
             <Toolbar editor={editor} hidden={false} items={TOOLBAR_ITEMS}  />
         </View>

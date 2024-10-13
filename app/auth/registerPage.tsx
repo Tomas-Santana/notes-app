@@ -69,7 +69,7 @@ export default RegisterPage;
             name="firstName"
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
-                className="w-inp focus:border-bitpurple-600"
+                className="w-inp focus:border-bitpurple-600 !text-white"
                 size="md"
                 variant="rounded"
               >
@@ -101,7 +101,7 @@ export default RegisterPage;
             name="lastName"
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
-                className="w-inp focus:border-bitpurple-600"
+                className="w-inp focus:border-bitpurple-600 !text-white"
                 size="md"
                 variant="rounded"
               >

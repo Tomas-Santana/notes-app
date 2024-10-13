@@ -69,7 +69,7 @@ export function PasswordForm(
                 label="Contraseña"
                 placeholder=""
                 error={form.formState.errors.password}
-                className="focus:border-bitpurple-600"
+                className="focus:border-bitpurple-600 !text-white"
                 size="xl"
                 type="password"
             />
@@ -79,7 +79,7 @@ export function PasswordForm(
                 label="Confirmar Contraseña"
                 placeholder=""
                 error={form.formState.errors.confirmPassword}
-                className="focus:border-bitpurple-600"
+                className="focus:border-bitpurple-600 !text-white"
                 size="xl"
                 type="password"
             />

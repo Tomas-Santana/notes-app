@@ -41,7 +41,7 @@ export function EmailForm(
                 label="Email"
                 placeholder="email@notebit.com"
                 error={form.formState.errors.email}
-                className="focus:border-bitpurple-600"
+                className="focus:border-bitpurple-600 !text-white"
                 size="xl"
             />
             <Animated.View
