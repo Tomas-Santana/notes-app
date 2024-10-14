@@ -4,7 +4,7 @@ export const emailSchema = z.object({
     email: z
       .string()
       .min(1, "Se debe ingresar un email.")
-      .max(25, "El email es muy largo.")
+      .max(50, "El email es muy largo.")
       .email("Email invalido.")
       .toLowerCase(),
   });

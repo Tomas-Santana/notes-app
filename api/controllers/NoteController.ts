@@ -1,5 +1,5 @@
 import { GetNoteRequest, GetNoteResponse, GetNoteResponseSchema } from "@/types/api/GetNote";
-import { CreateOrUpdateNoteRequest, CreateOrUpdateNoteResponseSchema, CreateOrUpdateNoteResponse } from "@/types/api/CreateOrUpdateNote";
+import { CreateNoteRequest, CreateOrUpdateNoteResponseSchema, CreateOrUpdateNoteResponse, UpdateNoteRequest } from "@/types/api/CreateOrUpdateNote";
 import { superFetch, SuperFetchError } from "./superFetch";
 import { Note } from "@/types/Note";
 import { MyNotesResponse, MyNotesResponseSchema } from "@/types/api/MyNotes";
@@ -48,13 +48,15 @@ export default class NoteController {
         }
     }
 
-    static async createOrUpdateNote(payload: CreateOrUpdateNoteRequest) {
+    static async createOrUpdateNote(
+        {payload, method = "POST"} : {payload: CreateNoteRequest | UpdateNoteRequest, method?: "POST" | "PUT"}
+    ): Promise<CreateOrUpdateNoteResponse> {
             
         try {
-            const res = await superFetch<CreateOrUpdateNoteRequest, CreateOrUpdateNoteResponse, "note">(
+            const res = await superFetch<CreateNoteRequest | UpdateNoteRequest, CreateOrUpdateNoteResponse, "note">(
                 {
                     options: {
-                        method: !payload._id ? "POST" : "PUT",
+                        method: method,
                         includeCredentials: true,
                     },
                     route: "note",

@@ -59,7 +59,7 @@ export default function Editor() {
         <View className="p-4">
           <TextInput
             value={note?.title}
-            className="text-4xl font-bold text-white max-w-full"
+            className="text-4xl font-bold !text-white max-w-full"
             placeholder={noteQuery.isLoading ? "Cargando..." : "Título 2"}
             onChangeText={(text) => {
               setNote(

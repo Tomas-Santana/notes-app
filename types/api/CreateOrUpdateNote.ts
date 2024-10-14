@@ -1,10 +1,18 @@
 import z from 'zod'
 
-export type CreateOrUpdateNoteRequest = {
-    _id?: string;
+export type CreateNoteRequest = {
     title: string;
     content: string;
     html: string;
+    isFavorite: boolean;
+}
+
+export type UpdateNoteRequest = {
+    _id: string;
+    title?: string;
+    content?: string;
+    html?: string;
+    isFavorite?: boolean;
 }
 
 export const CreateOrUpdateNoteResponseSchema = z.object({
