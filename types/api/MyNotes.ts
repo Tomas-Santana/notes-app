@@ -2,7 +2,7 @@ import z from 'zod'
 import { NoteSchema, type Note } from "../Note";
 
 export const MyNotesResponseSchema = z.object({
-    notes: z.array(NoteSchema).optional(),
+    notes: z.array(NoteSchema).optional().nullable(),
     error: z.string().optional(),
 }).refine(data => {
     // If there are notes, there should be no error
