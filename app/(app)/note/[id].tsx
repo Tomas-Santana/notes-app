@@ -31,17 +31,30 @@ export default function Editor() {
     ]
   });
 
-  const { saveNote, saveNoteMutation } = useSaveNote(note, setNote, editor);
+  useEffect(() => {
+    console.log("note", note);
+    if (note) {
+      editor.setContent(note.html);
+    }
+  }, [note]);
 
+  const { saveNote, saveNoteMutation } = useSaveNote(note, setNote, editor);
+  
   const content = useEditorContent(editor, { type: "text" });
   
-  const canSave = useMemo(() => {
-    return !!(note && note.title && content && !saveNoteMutation.isPending);
-  }, [note, saveNoteMutation.isPending, content]);
+  const [canSave, setCanSave] = useState(false);
 
+  useEffect(() => {
+    if (saveNoteMutation.isPending) {
+      setCanSave(false);
+    } else {
+      setCanSave(!!(note && note.title && content));
+    }
+  }, [note, content, saveNoteMutation.isPending]);
+  
   return (
     <View className="flex flex-col w-full flex-1">
-      <Navbar canSave={canSave} onSave={saveNote} />
+      <Navbar canSave={canSave} onSave={saveNote} pending={saveNoteMutation.isPending} />
       <View className=" flex flex-col flex-1">
         <View className="p-4">
           <TextInput

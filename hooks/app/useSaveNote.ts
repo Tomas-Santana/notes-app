@@ -2,13 +2,15 @@ import NoteController from "@/api/controllers/NoteController";
 import myToast from "@/components/toast";
 import { Note } from "@/types/Note";
 import { EditorBridge } from "@10play/tentap-editor";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export function useSaveNote(
   note: Note | undefined,
   setNote: (note: Note) => void,
   editor: EditorBridge
 ) {
+  const queryClient = useQueryClient();
+
   const saveNoteMutation = useMutation({
     mutationFn: NoteController.createOrUpdateNote,
     onError: (error) => {
@@ -21,6 +23,9 @@ export function useSaveNote(
             _id: data.noteId,
             updatedAt: new Date()
         });
+
+      queryClient.invalidateQueries({ queryKey: ["myNotes"] });
+
     },
   });
 

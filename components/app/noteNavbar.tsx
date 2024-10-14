@@ -36,10 +36,9 @@ export function Navbar(
           size="lg"
           className=""
           onPress={async () => props.onSave && await props.onSave()}
+          disabled={props.pending}
         >
-          {props.pending ? 
-          <ActivityIndicator size="small" color="#fff" />
-          :<Icon as={Save} className="text-white w-8 h-8" />}
+          <Icon as={Save} className="text-white w-8 h-8" />
         </Button>
         )}
       </View>

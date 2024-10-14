@@ -5,6 +5,7 @@ export const apiRoutes = {
     "register": () => `${server}/auth/register`,
     "note/[id]": (id: string) => `${server}/resource/note/${id}`,
     "note": () => `${server}/resource/note`,
+    "notes": () => `${server}/resource/notes`,
 };
 
 

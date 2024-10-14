@@ -7,8 +7,8 @@ export const NoteSchema = z.object({
     content: z.string(),
     html: z.string(),
     isFavorite: z.boolean(),
-    createdAt: z.date(),
-    updatedAt: z.date(),
+    createdAt: z.date({coerce: true}),
+    updatedAt: z.date({coerce: true}),
     userId: z.any(),
 });
 

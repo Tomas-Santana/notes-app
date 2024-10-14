@@ -65,6 +65,11 @@ export async function superFetch<Request, Response, Route extends ApiRoute = Api
         try {
             return responseSchema.parse(data);
         } catch (error) {
+            // if is zod error print the error
+            if (error instanceof z.ZodError) {
+                console.log(error.errors);
+            }
+
             throw new SuperFetchError("El servidor envió una respuesta inesperada", response.status);
         }
     } else {
