@@ -59,7 +59,7 @@ export default function LoginForm() {
         label="Email"
         placeholder="hola@notebit.com"
         error={form.formState.errors.email}
-        className="focus:border-bitpurple-600 !text-white !text-white"
+        className="focus:border-bitpurple-600 !text-white"
         size="xl"
       />
       <FormTextInput
@@ -69,7 +69,7 @@ export default function LoginForm() {
         placeholder=""
         styles={TextInputStyles.focusInput}
         error={form.formState.errors.password}
-        className="focus:border-bitpurple-600 !text-white !text-white"
+        className="focus:border-bitpurple-600 !text-white"
         size="xl"
         type="password"
       />

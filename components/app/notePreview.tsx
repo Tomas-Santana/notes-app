@@ -53,8 +53,10 @@ export const NotePreview: React.FC<NotePreviewProps> = ({ note }) => {
     .onEnd(() => {
       if (translateX.value >= 80) {
         translateX.value = withTiming(0, { "duration": 500 });
+        console.log(`Nota agregada a favoritos: ${note.title}`) //setear note.isFavorite a true
       } else if (translateX.value <= -80) {
         translateX.value = withTiming(0, { "duration": 500 });
+        console.log("Eliminar nota con id", note._id) //Llamar funcion para eliminar la nota
       } else {
         translateX.value = withTiming(0, { "duration": 500 });
       }

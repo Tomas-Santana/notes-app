@@ -19,6 +19,7 @@ export default class NoteController {
             content: "",
             createdAt: new Date(),
             updatedAt: new Date(),
+            importance: 0
         }
 
         if (payload.id === "new") {
@@ -51,6 +52,7 @@ export default class NoteController {
     static async createOrUpdateNote(
         {payload, method = "POST"} : {payload: CreateNoteRequest | UpdateNoteRequest, method?: "POST" | "PUT"}
     ): Promise<CreateOrUpdateNoteResponse> {
+            console.log(payload);
             
         try {
             const res = await superFetch<CreateNoteRequest | UpdateNoteRequest, CreateOrUpdateNoteResponse, "note">(
