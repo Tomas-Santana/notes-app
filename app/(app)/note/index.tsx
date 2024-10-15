@@ -5,8 +5,6 @@ import { useQuery } from "@tanstack/react-query";
 import NoteController from "@/api/controllers/NoteController";
 import { useEffect } from "react";
 import { NotePreview } from "@/components/app/notePreview";
-import Scrollview
-
 import { FlatList, Text } from "react-native";
 
 export default function Notes() {

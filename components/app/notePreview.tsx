@@ -16,7 +16,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { Icon } from "../ui/icon";
-import { Trash } from "lucide-react-native";
+import { Trash, Star } from "lucide-react-native";
 import { useMemo } from "react";
 import React from "react";
 import * as Haptics from "expo-haptics";
@@ -39,17 +39,30 @@ export const NotePreview: React.FC<NotePreviewProps> = ({ note }) => {
                 
                 if (!hasReachedThreshold.value) runOnJS(Haptics.impactAsync)(Haptics.ImpactFeedbackStyle.Light);
                 hasReachedThreshold.value = true;
-
                 
-            }
+            } 
+        } else {
+          translateX.value = event.translationX > 80 ? 80 : event.translationX;
+
+                if (event.translationX >= 80) {
+                    if (!hasReachedThreshold.value) runOnJS(Haptics.impactAsync)(Haptics.ImpactFeedbackStyle.Light);
+                    hasReachedThreshold.value = true;
+                }
         }
     })
     .onEnd(() => {
-      translateX.value =
-        translateX.value > 50 ? withSpring(100, {stiffness: 200, "duration": 500}) : withTiming(0, {duration: 500});
+      // translateX.value =
+      //   translateX.value > 50 ? withSpring(100, {stiffness: 200, "duration": 500}) : withTiming(0, {duration: 500});
+      if (translateX.value >= 80) {
+        translateX.value = withSpring(0, { stiffness: 200, "duration": 500 });
+      } else if (translateX.value <= -80) {
+        translateX.value = withSpring(0, { stiffness: 200, "duration": 500 });
+      } else {
+        translateX.value = withTiming(0, { "duration": 500 });
+      }
       if (hasReachedThreshold.value) {
         hasReachedThreshold.value = false;
-      } 
+      }
     });
 
   const animatedStyle = useAnimatedStyle(() => {
@@ -58,7 +71,7 @@ export const NotePreview: React.FC<NotePreviewProps> = ({ note }) => {
     };
   });
   const title = useMemo(() => {
-    return note.title.length > 20 ? note.title.slice(0, 20) + "..." : note.title;
+    return note.title.length > 30 ? note.title.slice(0, 30) + "..." : note.title;
   }, [note.title]);
 
   return (
@@ -72,8 +85,11 @@ export const NotePreview: React.FC<NotePreviewProps> = ({ note }) => {
             </Pressable>
           </Link>
         </Animated.View>
-        <View className="w-24 h-24 absolute right-[5%] justify-center items-center bg-red-600">
-            <Icon as={Trash} size="xl" className="h-8 w-8 left-14"/>
+        <View className="w-24 h-24 absolute right-0 justify-center items-center bg-red-600">
+            <Icon as={Trash} size="xl" className="h-8 w-8 left-9 absolute"/>
+        </View>
+        <View className="w-24 h-24 absolute left-0 justify-center items-center bg-yellow-400">
+            <Icon as={Star} size="xl" className="h-8 w-8 right-9 absolute"/>
         </View>
       </View>
     </GestureDetector>
