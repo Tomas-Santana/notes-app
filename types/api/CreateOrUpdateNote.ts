@@ -5,6 +5,7 @@ export type CreateNoteRequest = {
     content: string;
     html: string;
     isFavorite: boolean;
+    importance: number;
 }
 
 export type UpdateNoteRequest = {
@@ -13,6 +14,7 @@ export type UpdateNoteRequest = {
     content?: string;
     html?: string;
     isFavorite?: boolean;
+    importance?: number;
 }
 
 export const CreateOrUpdateNoteResponseSchema = z.object({

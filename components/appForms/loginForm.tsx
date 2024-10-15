@@ -73,7 +73,6 @@ export default function LoginForm() {
         size="xl"
         type="password"
       />
-
       <Animated.View
         layout={LinearTransition}
         className="w-full flex items-end border-bitpurple text-bitpurple-600"

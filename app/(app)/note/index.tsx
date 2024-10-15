@@ -12,11 +12,6 @@ export default function Notes() {
     queryKey: ["myNotes"],
     queryFn: NoteController.myNotes,
   });
-
-  useEffect(() => {
-    console.log(myNotes.data);
-  }, [myNotes.data]);
-
   return (
     <View className="h-screen">
       <Navbar />

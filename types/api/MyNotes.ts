@@ -9,9 +9,6 @@ export const MyNotesResponseSchema = z.object({
     if (data.notes && data.error) {
         return false;
     }
-    if (!data.notes && !data.error) {
-        return false;
-    }
     return true;
 }, {"message": "Invalid response. Either notes or error must be present"});
 

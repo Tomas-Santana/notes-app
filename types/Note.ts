@@ -10,6 +10,7 @@ export const NoteSchema = z.object({
     createdAt: z.date({coerce: true}),
     updatedAt: z.date({coerce: true}),
     userId: z.any(),
+    importance: z.number().min(0).max(5),
 });
 
 export type Note = z.infer<typeof NoteSchema>;

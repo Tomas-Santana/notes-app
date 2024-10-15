@@ -17,18 +17,22 @@ export function useSaveNote(
     onError: (error) => {
       myToast(false, error.message);
     },
+    onMutate: async () => {
+      note && setNote({
+        ...note,
+        updatedAt: new Date(),
+      });
+    },
     onSuccess: async (data) => {
       myToast(true, "Nota guardada");
       note && setNote({
           ...note,
           _id: data.noteId,
-          content: await editor.getText(),
-          html: await editor.getHTML(),
           updatedAt: new Date(),
         });
 
       queryClient.invalidateQueries({ queryKey: ["myNotes"] });
-      queryClient.invalidateQueries({ queryKey: ["note", note?._id] });
+      // queryClient.invalidateQueries({ queryKey: ["note", note?._id] });
 
     },
   });
@@ -40,9 +44,11 @@ export function useSaveNote(
       ...note,
       content: await editor.getText(),
       html: await editor.getHTML(),
+      importance: note.importance || 5,
     };
 
     console.log("payload", payload);
+    console.log("importance", payload.importance);
 
     if (note._id !== "new" && note._id) {
       console.log("Update nore");

@@ -51,12 +51,10 @@ export const NotePreview: React.FC<NotePreviewProps> = ({ note }) => {
         }
     })
     .onEnd(() => {
-      // translateX.value =
-      //   translateX.value > 50 ? withSpring(100, {stiffness: 200, "duration": 500}) : withTiming(0, {duration: 500});
       if (translateX.value >= 80) {
-        translateX.value = withSpring(0, { stiffness: 200, "duration": 500 });
+        translateX.value = withTiming(0, { "duration": 500 });
       } else if (translateX.value <= -80) {
-        translateX.value = withSpring(0, { stiffness: 200, "duration": 500 });
+        translateX.value = withTiming(0, { "duration": 500 });
       } else {
         translateX.value = withTiming(0, { "duration": 500 });
       }
