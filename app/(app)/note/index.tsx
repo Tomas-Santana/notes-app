@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import NoteController from "@/api/controllers/NoteController";
 import { useEffect } from "react";
 import { NotePreview } from "@/components/app/notePreview";
+import Scrollview
 
 import { FlatList, Text } from "react-native";
 
@@ -21,14 +22,16 @@ export default function Notes() {
   return (
     <View className="h-screen">
       <Navbar />
-      <FlatList
-        data={myNotes.data?.notes}
-        keyExtractor={(item) => item._id.toString()}
-        className="p-4 flex-1"
-        renderItem={({ item }) => (
-          <NotePreview note={item} />
-        )}
-      />
+      <View className="flex-1 p-4">
+        <FlatList
+          data={myNotes.data?.notes}
+          keyExtractor={(item) => item._id.toString()}
+          className="flex-1 rounded-lg"
+          renderItem={({ item }) => (
+            <NotePreview note={item} />
+          )}
+        />
+      </View>
       <SimpleFab
         href={{ pathname: "/note/[id]", params: { id: "new" } }}
       />
