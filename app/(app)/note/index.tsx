@@ -7,6 +7,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useEffect } from "react";
 import { NotePreview } from "@/components/app/notePreview";
 import { FlatList, Text, ScrollView } from "react-native";
+import Animated, { FadeIn, FadeInLeft, FadeOut, Layout, LinearTransition } from "react-native-reanimated";
 
 export default function Notes() {
   const myNotes = useQuery({
@@ -24,7 +25,11 @@ export default function Notes() {
             keyExtractor={(item) => item._id.toString()}
             contentContainerStyle={{ paddingVertical: 20 }}
             className="flex-1 rounded-lg"
-            renderItem={({ item }) => <NotePreview note={item} />}
+            renderItem={({ item }) => (
+              <Animated.View layout={LinearTransition} entering={FadeIn} exiting={FadeOut}>
+                <NotePreview note={item} />
+              </Animated.View>
+            ) }
             ListEmptyComponent={
               <Text>
                 No hay notas disponibles, pulsa el boton para empezar a crear
