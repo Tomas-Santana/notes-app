@@ -6,13 +6,12 @@ import NoteController from "@/api/controllers/NoteController";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { ScrollView } from "react-native";
 import { NotePreview } from "@/components/app/notePreview";
-import { CategoryScroll } from "@/hooks/app/categoryScroll";
+import { CategoryScroll } from "@/components/app/categoryScroll";
 import Animated, {
   FadeIn,
   FadeOut,
   LinearTransition,
 } from "react-native-reanimated";
-import { useMemo, useState } from "react";
 import { Note } from "@/types/Note";
 import { useCategoryFilter } from "@/hooks/app/useCategoryFilter";
 
@@ -30,7 +29,7 @@ export default function Notes() {
       <View>
         <Navbar />
         <CategoryScroll
-          categories={categories}
+          categories={categories ?? []}
           selectedCategory={selectedCategory}
           onSelectCategory={setSelectedCategory}
         />

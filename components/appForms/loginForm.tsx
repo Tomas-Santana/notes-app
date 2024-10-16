@@ -62,6 +62,7 @@ export default function LoginForm() {
         className="focus:border-bitpurple-600 !text-white"
         size="xl"
       />
+      
       <FormTextInput
         name="password"
         control={form.control}
@@ -93,9 +94,7 @@ export default function LoginForm() {
           {loginMutation.isPending ? (
             <ActivityIndicator size="small" color="#fff" />
           ) : (
-            <ButtonText>Iniciar sesión
-
-            </ButtonText>
+            <ButtonText>Iniciar sesión</ButtonText>
           )}
         </Button>
       </Animated.View>

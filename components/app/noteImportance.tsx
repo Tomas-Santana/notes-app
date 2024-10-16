@@ -1,5 +1,6 @@
 import { AppStyles } from "@/constants/AppStyles";
 import { Rating } from "@kolking/react-native-rating";
+import { Image, View } from "react-native";
 
 
 const exclamationFilled = require("@/assets/images/exclamation.png");
@@ -28,5 +29,19 @@ export function NoteImportance(
         fillSymbol={exclamationFilled}
         onChange={onChange}
       />
+    )
+}
+
+export function NoteImportanceDisplay({ importance, size }: NoteImportanceProps) {
+    return (
+        <View className="flex flex-row gap-1">
+            {Array.from({ length: importance }, (_, index) => (
+                <Image
+                    key={index}
+                    source={exclamationFilled}
+                    style={{ tintColor: AppStyles.colors.bitpurple.DEFAULT, width: size, height: size }}
+                />
+            ))}
+        </View>
     )
 }

@@ -16,8 +16,9 @@ import { useColorScheme } from "@/hooks/useColorScheme";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Provider as JotaiProvider } from "jotai";
-import {store} from "@/utils/atoms/store";
+import { SheetProvider } from "react-native-actions-sheet";
+import '@/components/utils/sheet'
+
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
@@ -41,34 +42,21 @@ export default function RootLayout() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <GluestackUIProvider mode="system">
-        <ThemeProvider value={DarkTheme}>
-          <GestureHandlerRootView>
-            <Stack
-              screenOptions={{
-                headerShown: false,
-                animation: "slide_from_right",
-              }}
-            ></Stack>
-            <Toaster
-              richColors
-              position="top-center"
-              // toastOptions={{
-              //   style: {
-              //     backgroundColor: "#191919",
-              //     borderStyle: "solid",
-              //     borderWidth: 1,
-              //     borderColor: "green",
-              //   },
-                
-              //   titleStyle: {
-              //     color: "green",
-              //   },
-              // }}
-            />
-          </GestureHandlerRootView>
-        </ThemeProvider>
-      </GluestackUIProvider>
-    </QueryClientProvider>
+        <SheetProvider>
+        <GluestackUIProvider mode="system">
+          <ThemeProvider value={DarkTheme}>
+            <GestureHandlerRootView>
+              <Stack
+                screenOptions={{
+                  headerShown: false,
+                  animation: "slide_from_right",
+                }}
+              ></Stack>
+              <Toaster richColors position="top-center" />
+            </GestureHandlerRootView>
+          </ThemeProvider>
+        </GluestackUIProvider>
+    </SheetProvider>
+      </QueryClientProvider>
   );
 }

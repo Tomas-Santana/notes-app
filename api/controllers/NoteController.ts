@@ -26,6 +26,7 @@ export default class NoteController {
       preview: "",
       html: "",
       content: "",
+      categories: [],
       createdAt: new Date(),
       updatedAt: new Date(),
       importance: 0,

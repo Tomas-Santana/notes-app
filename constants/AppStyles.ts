@@ -14,5 +14,9 @@ export const AppStyles = {
             900: '#2C1041',
             950: '#1D0B2B'
         },
+        background: {
+            DEFAULT: '#191919',
+            lighter: '#303030'
+        }
     }
 }

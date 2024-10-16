@@ -7,7 +7,7 @@ import { useDeleteNote } from "@/hooks/app/deleteNote";
 import { Link } from "expo-router";
 import { Text } from "../ui/text";
 import { useMemo } from "react";
-import { NoteImportance } from "./noteImportance";
+import { NoteImportance, NoteImportanceDisplay } from "./noteImportance";
 
 const renderRightActions = () => {
   return (
@@ -47,7 +47,7 @@ export function NotePreview({ note }: { note: Note }) {
         <Pressable className="w-full h-20 px-8 flex flex-col justify-center text-white bg-[#303030] rounded-md">
             <View className="w-full flex flex-row justify-between">
                 <Text className="text-lg font-bold">{title}</Text>
-                <NoteImportance importance={note.importance} disabled size={15}  />
+                <NoteImportanceDisplay importance={note.importance} size={15}  />
             </View>
           <View className="flex gap-2 flex-row">
             <Text>{note.updatedAt.toLocaleDateString()}</Text>

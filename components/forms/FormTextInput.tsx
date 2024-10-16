@@ -6,6 +6,8 @@ import { FormLabel } from "./FormLabel";
 import { FormError } from "./FormError";
 import { StyleProp, StyleSheet } from "react-native";
 import { ViewStyle } from "@expo/html-elements/build/primitives/View";
+import { TextInput } from "react-native-gesture-handler";
+import { Ref } from "react";
 
 interface FormTextInputProps {
   className?: string;
@@ -18,6 +20,8 @@ interface FormTextInputProps {
   error?: FieldError;
   size?: "sm" | "md" | "lg" | "xl";
   styles?: StyleProp<ViewStyle>;
+  inputRef?: Ref<TextInput>;
+  autofocus?: boolean;
 }
 
 export function FormTextInput({
@@ -30,7 +34,6 @@ export function FormTextInput({
   type = "text",
   error,
   size = "md",
-  styles
   
 }: FormTextInputProps) {
   return (
@@ -50,6 +53,39 @@ export function FormTextInput({
               secureTextEntry={type === "password"}
             />
           </Input>
+        )}
+      />
+      <FormError error={error} />
+    </Animated.View>
+  );
+}
+
+export function UnstyledFormTextInput({
+  className,
+  placeholder,
+  label,
+  name,
+  control,
+  type = "text",
+  error,
+  autofocus,
+}: FormTextInputProps) {
+  return (
+    <Animated.View layout={LinearTransition} className={"flex flex-col gap-2"}>
+      {label && <FormLabel label={label} />}
+      <Controller
+        name={name}
+        control={control}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <TextInput
+            className={className}
+            placeholder={placeholder}
+            value={value}
+            onChangeText={onChange}
+            onBlur={onBlur}
+            secureTextEntry={type === "password"}
+            autoFocus={autofocus}
+          />
         )}
       />
       <FormError error={error} />

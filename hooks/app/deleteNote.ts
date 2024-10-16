@@ -21,7 +21,7 @@ export const useDeleteNote = () => {
 
       return { previousNotes}
     },
-    onError: (error, req, context) => {
+    onError: (error, _, context) => {
       myToast(false, error.message)
 
       queryClient.setQueryData(["myNotes"], context?.previousNotes)

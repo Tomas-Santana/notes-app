@@ -1,7 +1,9 @@
 import { useMemo, useState } from "react";
 import type { MyNotesResponse } from "@/types/api/MyNotes";
 import type { Note } from "@/types/Note";
-import { UseQueryResult } from "@tanstack/react-query";
+import { useQuery, UseQueryResult } from "@tanstack/react-query";
+import { Category } from "@/types/Category";
+import CategoryController from "@/api/controllers/CategoryController";
 
 export function useCategoryFilter(myNotes: UseQueryResult<MyNotesResponse>) {
     const [selectedCategory, setSelectedCategory] = useState<string>("all");
@@ -16,17 +18,21 @@ export function useCategoryFilter(myNotes: UseQueryResult<MyNotesResponse>) {
       if (selectedCategory === "favorites") {
         return myNotes.data?.notes.filter((note) => note.isFavorite);
       }
-      return myNotes.data?.notes.filter((note) => note.categories.some((category) => category._id === selectedCategory));
+      return myNotes.data?.notes.filter((note) => note.categories?.some((category) => category._id === selectedCategory));
   
     }, [myNotes.data, selectedCategory]);
+
+    const categoryQuery = useCategories();
   
-    const categories = useMemo(() => {
-      const defaultCategories = [{ _id: "all", name: "Todos" },{ _id: "favorites", name: "Favoritos" }];
+    const categories = useMemo<Category[]>(() => {
+      const defaultCategories = [{ _id: "all", name: "Todos", userId: "" },{ _id: "favorites", name: "Favoritos", userId: "" }];
   
-      const all = [...defaultCategories, ...(myNotes.data?.notes?.flatMap(note => note.categories) || [])]
-      // Remove duplicates
-      return all.filter((category, index, self) => self.findIndex((t) => t._id === category._id) === index);
-    }, [myNotes.data]);
+      if (!categoryQuery.data?.categories) {
+        return defaultCategories;
+      }
+
+      return [...defaultCategories, ...categoryQuery.data.categories];
+    }, [myNotes.data, categoryQuery.data]);
 
     return {
         selectedCategory,
@@ -34,4 +40,13 @@ export function useCategoryFilter(myNotes: UseQueryResult<MyNotesResponse>) {
         filteredNotes,
         categories
     }
+}
+
+export function useCategories() {
+  const useCategoryQuery = useQuery({
+    queryKey: ["categories"],
+    queryFn: CategoryController.getCategories,
+  })
+
+  return useCategoryQuery;
 }

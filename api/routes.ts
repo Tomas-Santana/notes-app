@@ -6,6 +6,9 @@ export const apiRoutes = {
     "note/[id]": (id: string) => `${server}/resource/note/${id}`,
     "note": () => `${server}/resource/note`,
     "notes": () => `${server}/resource/notes`,
+    "category": () => `${server}/resource/category`,
+    "categories": () => `${server}/resource/categories`,
+    "category/[id]": (id: string) => `${server}/resource/category/${id}`,
 };
 
 
