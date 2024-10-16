@@ -4,40 +4,50 @@ import { SimpleFab } from "@/components/app/simpleFab";
 import { useQuery } from "@tanstack/react-query";
 import NoteController from "@/api/controllers/NoteController";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { useEffect } from "react";
+import { ScrollView } from "react-native";
 import { NotePreview } from "@/components/app/notePreview";
-import { FlatList, Text, ScrollView } from "react-native";
-import Animated, { FadeIn, FadeInLeft, FadeOut, Layout, LinearTransition } from "react-native-reanimated";
+import { CategoryScroll } from "@/hooks/app/categoryScroll";
+import Animated, {
+  FadeIn,
+  FadeOut,
+  LinearTransition,
+} from "react-native-reanimated";
+import { useMemo, useState } from "react";
+import { Note } from "@/types/Note";
+import { useCategoryFilter } from "@/hooks/app/useCategoryFilter";
 
 export default function Notes() {
   const myNotes = useQuery({
     queryKey: ["myNotes"],
     queryFn: NoteController.myNotes,
   });
-  return (
-    <View className="flex-1">
-      <Navbar />
 
-      <View className="flex-1 p-4">
-        <GestureHandlerRootView className="flex-1">
-          <FlatList
-            data={myNotes.data?.notes}
-            keyExtractor={(item) => item._id.toString()}
-            contentContainerStyle={{ paddingVertical: 20 }}
-            className="flex-1 rounded-lg"
-            renderItem={({ item }) => (
-              <Animated.View layout={LinearTransition} entering={FadeIn} exiting={FadeOut}>
-                <NotePreview note={item} />
-              </Animated.View>
-            ) }
-            ListEmptyComponent={
-              <Text>
-                No hay notas disponibles, pulsa el boton para empezar a crear
-              </Text>
-            }
-          />
-        </GestureHandlerRootView>
+  const { selectedCategory, setSelectedCategory, filteredNotes, categories } = useCategoryFilter(myNotes);
+
+
+  return (
+    <View className="flex-1 relative">
+      <View>
+        <Navbar />
+        <CategoryScroll
+          categories={categories}
+          selectedCategory={selectedCategory}
+          onSelectCategory={setSelectedCategory}
+        />
       </View>
+      <GestureHandlerRootView className="flex-1">
+
+        <ScrollView className="flex-1 p-4">
+          <Animated.View
+            layout={LinearTransition}
+            entering={FadeIn}
+            exiting={FadeOut}
+            className="flex-1 flex-col gap-4 py-4"
+          >
+            {filteredNotes && filteredNotes.map((note) => <NotePreview note={note} key={note._id} />)}
+          </Animated.View>
+        </ScrollView>
+      </GestureHandlerRootView>
 
       <SimpleFab href={{ pathname: "/note/[id]", params: { id: "new" } }} />
     </View>

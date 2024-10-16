@@ -5,7 +5,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
 export function useNote(id: string) {
-  console.log("useNote", id);
   const noteQuery = useQuery<GetNoteResponse>({
     queryKey: ["note", id],
     queryFn: () =>

@@ -1,129 +1,60 @@
-import type { Note } from "@/types/Note";
+import { Note } from "@/types/Note";
+import { AnimatedSwipable } from "./animatedSwipable";
+import { Trash, Star } from "lucide-react-native";
+import { Pressable, View } from "react-native";
+import { Icon } from "../ui/icon";
+import { useDeleteNote } from "@/hooks/app/deleteNote";
 import { Link } from "expo-router";
 import { Text } from "../ui/text";
-import { Pressable, View } from "react-native";
-import {
-  GestureHandlerRootView,
-  Swipeable,
-} from "react-native-gesture-handler";
-import Animated, {
-  runOnJS,
-  useAnimatedStyle,
-  useSharedValue,
-  withSpring,
-  withTiming,
-} from "react-native-reanimated";
-import { Icon } from "../ui/icon";
-import { Trash, Star } from "lucide-react-native";
 import { useMemo } from "react";
-import React from "react";
-import * as Haptics from "expo-haptics";
-import { deleteNote } from "@/hooks/app/deleteNote";
+import { NoteImportance } from "./noteImportance";
 
-interface NotePreviewProps {
-  note: Note;
-}
+const renderRightActions = () => {
+  return (
+    <View className="w-full h-20 justify-center items-end bg-red-600 rounded-md">
+      <Pressable className="">
+        <Icon as={Trash} size="xl" className="mr-8" />
+      </Pressable>
+    </View>
+  );
+};
 
-export const NotePreview: React.FC<NotePreviewProps> = ({ note }) => {
-  const translateX = useSharedValue(0);
-  const hasReachedThreshold = useSharedValue(false);
-
-  // const panGesture = Gesture.Pan()
-  //   .onStart(() => {})
-  //   .onUpdate((event: GestureUpdateEvent<PanGestureHandlerEventPayload>) => {
-  //       if (event.translationX < 0) {
-  //           translateX.value = event.translationX < -80 ? -80 : event.translationX;
-
-  //           if (event.translationX <= -80) {
-
-  //               if (!hasReachedThreshold.value) runOnJS(Haptics.impactAsync)(Haptics.ImpactFeedbackStyle.Light);
-  //               hasReachedThreshold.value = true;
-
-  //           }
-  //       } else {
-  //         translateX.value = event.translationX > 80 ? 80 : event.translationX;
-
-  //               if (event.translationX >= 80) {
-  //                   if (!hasReachedThreshold.value) runOnJS(Haptics.impactAsync)(Haptics.ImpactFeedbackStyle.Light);
-  //                   hasReachedThreshold.value = true;
-  //               }
-  //       }
-  //   })
-  //   .onEnd(() => {
-  //     if (translateX.value >= 80) {
-  //       translateX.value = withTiming(0, { "duration": 500 });
-  //       console.log(`Nota agregada a favoritos: ${note.title}`) //setear note.isFavorite a true
-  //     } else if (translateX.value <= -80) {
-  //       translateX.value = withTiming(0, { "duration": 500 });
-  //       console.log("Eliminar nota con id", note._id) //Llamar funcion para eliminar la nota
-  //     } else {
-  //       translateX.value = withTiming(0, { "duration": 500 });
-  //     }
-  //     if (hasReachedThreshold.value) {
-  //       hasReachedThreshold.value = false;
-  //     }
-  //   });
-
-  const renderRightActions = () => {
-    return (
-      <View className="w-24 h-24 justify-center items-center bg-red-600">
-        <Icon as={Trash} size="xl" className="h-8 w-8 left-9 absolute"/>
-      </View>
-    );
-  };
-
-  const { mutate: jk } = deleteNote()
-  const renderLeftActions = () => {
-    return (
-      <View className="w-24 h-24 justify-center items-center bg-yellow-400">
-        <Icon as={Star} size="xl" className="h-8 w-8 right-9 absolute"/>
-      </View>
-    );
-  }
-
-  const setFavorite = () => {
-    console.log(`La nota: ${note.title} se ha agregado a favoritos`);
-  }
+export function NotePreview({ note }: { note: Note }) {
+  const deleteMutation = useDeleteNote();
 
   const onOpen = (direction: "left" | "right") => {
     if (direction === "left") {
-      setFavorite();
+      console.log("left");
     } else if (direction === "right") {
-      jk({ _id: note._id })
+      deleteMutation.mutate({ _id: note._id });
     }
-  }
+  };
 
-  const animatedStyle = useAnimatedStyle(() => {
-    return {
-      transform: [{ translateX: translateX.value }],
-    };
-  });
   const title = useMemo(() => {
     return note.title.length > 30
       ? note.title.slice(0, 30) + "..."
       : note.title;
   }, [note.title]);
 
+  const preview = useMemo(() => {
+    const firstLine = note.preview.split("\n")[0];
+    return firstLine.length > 30 ? firstLine.slice(0, 30) + "..." : firstLine;
+  }, [note.preview]);
+
   return (
-    <GestureHandlerRootView>
-      <Swipeable renderRightActions={renderRightActions} onSwipeableOpen={(direction) => onOpen(direction)} leftThreshold={20} renderLeftActions={renderLeftActions} rightThreshold={20}>
-        <View className="w-full relative">
-          <Animated.View className="w-full z-20" style={animatedStyle}>
-            <Link href={`/note/${note._id}`} asChild>
-              <Pressable className="w-full h-24 p-4 flex flex-col text-white bg-[#303030] border-white border-b">
+    <AnimatedSwipable onOpen={onOpen} renderRightActions={renderRightActions}>
+      <Link href={`/note/${note._id}`} asChild>
+        <Pressable className="w-full h-20 px-8 flex flex-col justify-center text-white bg-[#303030] rounded-md">
+            <View className="w-full flex flex-row justify-between">
                 <Text className="text-lg font-bold">{title}</Text>
-                <Text>{note.preview.split("\n")[0]}</Text>
-              </Pressable>
-            </Link>
-          </Animated.View>
-          {/* <View className="w-24 h-24 absolute right-0 justify-center items-center bg-red-600">
-            <Icon as={Trash} size="xl" className="h-8 w-8 left-9 absolute"/>
+                <NoteImportance importance={note.importance} disabled size={15}  />
             </View>
-            <View className="w-24 h-24 absolute left-0 justify-center items-center bg-yellow-400">
-            <Icon as={Star} size="xl" className="h-8 w-8 right-9 absolute"/>
-            </View> */}
-        </View>
-      </Swipeable>
-    </GestureHandlerRootView>
+          <View className="flex gap-2 flex-row">
+            <Text>{note.updatedAt.toLocaleDateString()}</Text>
+            <Text>{preview}</Text>
+          </View>
+        </Pressable>
+      </Link>
+    </AnimatedSwipable>
   );
-};
+}

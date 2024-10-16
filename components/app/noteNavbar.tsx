@@ -1,14 +1,20 @@
-import { ArrowLeft, Save } from "lucide-react-native";
+import { ArrowLeft, Save, Heart } from "lucide-react-native";
 import { Icon } from "../ui/icon";
 import { ActivityIndicator, View } from "react-native";
 import { useRouter } from "expo-router";
 import { Button } from "../ui/button";
 import myToast from "../toast";
+import { UpdateNoteRequest } from "@/types/api/CreateOrUpdateNote";
+import { Note } from "@/types/Note";
+import { AppStyles } from "@/constants/AppStyles";
+
 
 interface NavbarProps {
   canSave?: boolean;
-  onSave: () => Promise<void>;
+  onSave: (update?: UpdateNoteRequest) => Promise<void>;
   pending?: boolean;
+  setNote: (note: Note) => void;
+  note?: Note;
 }
 
 export function Navbar(props: NavbarProps) {
@@ -40,15 +46,44 @@ export function Navbar(props: NavbarProps) {
       </View>
 
       <View className="flex flex-row gap-4">
+      <Button
+          variant="link"
+          size="lg"
+          className="w-10"
+          onPress={() => {
+            props.note && props.setNote({
+              ...props.note,
+              isFavorite: !props.note.isFavorite,
+            });
+          }}
+          disabled={props.pending}
+        >
+          {/* <Icon
+            as={Heart}
+            className={`w-8 h-8`}
+            stroke={props.note?.isFavorite ? AppStyles.colors.bitpurple.DEFAULT : "#fff"}
+            fill={"#fff"}
+          /> */}
+          <Heart
+            className="w-8 h-8"
+            stroke={props.note?.isFavorite ? AppStyles.colors.bitpurple.DEFAULT : "#fff"}
+            fill={props.note?.isFavorite ? AppStyles.colors.bitpurple.DEFAULT : undefined}
+          ></Heart>
+        </Button>
+
+
         <Button
           variant="link"
           size="lg"
-          className=""
+          className=" w-10"
           onPress={async () => await save()}
           disabled={props.pending || !props.canSave}
         >
           {props.pending ? (
-            <ActivityIndicator size={"small"} color={"#fff"} />
+            <View className="w-8 h-8 grid place-content-center">
+
+              <ActivityIndicator size={"small"} color={"#fff"} />
+            </View>
           ) : (
             <Icon
               as={Save}

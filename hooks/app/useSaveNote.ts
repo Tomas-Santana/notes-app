@@ -32,8 +32,6 @@ export function useSaveNote(
         });
 
       queryClient.invalidateQueries({ queryKey: ["myNotes"] });
-      // queryClient.invalidateQueries({ queryKey: ["note", note?._id] });
-
     },
   });
 
@@ -44,7 +42,7 @@ export function useSaveNote(
       ...note,
       content: await editor.getText(),
       html: await editor.getHTML(),
-      importance: note.importance || 5,
+      importance: note.importance,
     };
 
     console.log("payload", payload);

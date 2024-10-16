@@ -4,10 +4,6 @@ import { Heading } from "@/components/ui/heading";
 import Logo from "@/assets/images/logo.svg";
 import { SafeAreaView } from "@/components/utils/SafeAreaView";
 import LoginForm from "@/components/appForms/loginForm";
-import { useAtomValue } from "jotai";
-import { userAtom } from "@/utils/atoms/userAtom";
-import { useEffect } from "react";
-import { useRouter } from "expo-router";
 
 
 export default function Screen() {
@@ -15,11 +11,12 @@ export default function Screen() {
     monospace: require("../assets/fonts/FiraMono-Medium.ttf"),
   });
 
-  const user = useAtomValue(userAtom);
 
   if (!fontLoaded) {
     console.log("Font loading failed");
   }
+
+
   return (
     <SafeAreaView className="flex-1 justify-start bg-eerie"
     >

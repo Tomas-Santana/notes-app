@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import { useLocalSearchParams } from "expo-router";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { TextInput } from "react-native";
 import { Navbar } from "@/components/app/noteNavbar";
 import { useNote } from "@/hooks/app/useNote";
@@ -22,14 +22,12 @@ import {
   TOOLBAR_ITEMS,
 } from "@/components/utils/editorTheme";
 import { useSaveNote } from "@/hooks/app/useSaveNote";
-import { Rating } from '@kolking/react-native-rating';
-import { AppStyles } from "@/constants/AppStyles";
+import { NoteImportance } from "@/components/app/noteImportance";
 
 type NoteParams = {
   id: string;
 };
 
-const exclamationFilled = require("@/assets/images/exclamation.png");
 
 export default function Editor() {
   const params = useLocalSearchParams<NoteParams>();
@@ -43,16 +41,15 @@ export default function Editor() {
     bridgeExtensions: [...TenTapStartKit, CoreBridge.configureCSS(customCSS), PlaceholderBridge.configureExtension({ placeholder: "Escribe algo..." })],
   });
 
-  useEffect(() => {
-    console.log("note", note);
-    if (note?.html) {
-      editor.setContent(note.html);
-    }
-  }, [note]);
-
+  
   const { saveNote, saveNoteMutation } = useSaveNote(note, setNote, editor);
-
+  
   const textContent = useEditorContent(editor, { type: "text" });
+  useEffect(() => {
+    if (noteQuery.isSuccess && note) {
+      editor.setContent(note?.html);
+    }
+  }, [noteQuery.isSuccess]);
 
   const canSave = useMemo(() => {
     return !!(note && textContent && note.title)
@@ -64,6 +61,8 @@ export default function Editor() {
         canSave={canSave}
         onSave={saveNote}
         pending={saveNoteMutation.isPending}
+        setNote={setNote}
+        note={note}
       />
       <View className=" flex flex-col flex-1">
         <View className="p-4">
@@ -86,27 +85,27 @@ export default function Editor() {
             blurOnSubmit
             multiline
           />
+
+          {/* text fo updatedAt and createdAt */}
+
+            <View className="flex flex-col gap-2  w-full items-start justify-start">
+            <Text className="!text-white">
+               {note?.updatedAt.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}, hora {note?.updatedAt.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}
+            </Text>
+            </View>
         </View>
 
         <View className="flex flex-row gap-4 items-end justify-start p-2">
-          <Rating
-            fillColor={AppStyles.colors.bitpurple.DEFAULT}
-            spacing={0}
-            touchColor={AppStyles.colors.bitpurple[100]}
-            rating={note?.importance ?? 0}
-            baseSymbol={exclamationFilled}
-            fillSymbol={exclamationFilled}
-            onChange={(rating) => {
-              setNote(
-                note
-                  ? {
-                      ...note,
-                      importance: Math.round(rating)
-                    }
-                  : undefined
-              );
-            }}
-          />
+          <NoteImportance importance={note?.importance ?? 0} onChange={(rating) => {
+            setNote(
+              note
+                ? {
+                    ...note,
+                    importance: Math.round(rating)
+                  }
+                : undefined
+            );
+          }} />
         </View>
 
         <View className="h-10">
