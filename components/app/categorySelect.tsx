@@ -1,4 +1,4 @@
-import { Pressable, View } from "react-native";
+import { Pressable, TouchableOpacity, View } from "react-native";
 import { Text } from "../ui/text";
 import type { Category } from "@/types/Category";
 import { useState } from "react";
@@ -22,7 +22,7 @@ export function CategorySelect({
   };
 
   return (
-    <Pressable
+    <TouchableOpacity
       className="w-full h-16 px-8 flex flex-col justify-center text-white bg-[#303030] rounded-md"
       onPress={onSelected}
     >
@@ -30,10 +30,10 @@ export function CategorySelect({
         <Text className="text-lg font-bold">{category.name}</Text>
         {selected && (
           <Animated.View entering={FadeIn} exiting={FadeOut}>
-            <CircleCheck size={20} color={"green"} />
+            <CircleCheck size={20} color={"#8732C8"} />
           </Animated.View>
         )}
       </View>
-    </Pressable>
+    </TouchableOpacity>
   );
 }

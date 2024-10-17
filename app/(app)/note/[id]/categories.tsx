@@ -33,8 +33,6 @@ export default function Categories() {
       ...prevNote,
       categories: updatedCategories,
     }));
-
-    console.log(updatedCategories);
     
   }
 

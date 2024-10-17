@@ -23,6 +23,8 @@ import {
 } from "@/components/utils/editorTheme";
 import { useSaveNote } from "@/hooks/app/useSaveNote";
 import { NoteImportance } from "@/components/app/noteImportance";
+import { useAtom } from "jotai";
+import { currentNoteAtom } from "@/utils/atoms/currentNoteAtom";
 
 type NoteParams = {
   id: string;
@@ -33,6 +35,8 @@ export default function Editor() {
   const params = useLocalSearchParams<NoteParams>();
 
   const { note, setNote, noteQuery } = useNote(params.id);
+
+  const [currentNote] = useAtom(currentNoteAtom)
 
   const editor = useEditorBridge({
     avoidIosKeyboard: true,
@@ -49,6 +53,10 @@ export default function Editor() {
       editor.setContent(note?.html);
     }
   }, [noteQuery.isSuccess]);
+
+  useEffect(() => {
+    console.log(currentNote.categories);
+  }, [currentNote.categories])
 
   const canSave = useMemo(() => {
     return !!(note && textContent && note.title)
