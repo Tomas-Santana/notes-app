@@ -70,14 +70,12 @@ export default function Editor() {
             className="text-4xl font-bold !text-white max-w-full"
             placeholder={noteQuery.isLoading ? "Cargando..." : "Título 2"}
             onChangeText={(text) => {
-              setNote(
-                note
-                  ? {
-                      ...note,
-                      title: text,
-                    }
-                  : undefined
-              );
+              if (note) {
+                setNote({
+                 ...note,
+                  title: text,
+                });
+              }
             }}
             aria-disabled={noteQuery.isLoading}
             maxLength={50}
@@ -96,14 +94,12 @@ export default function Editor() {
 
         <View className="flex flex-row gap-4 items-end justify-start p-2">
           <NoteImportance importance={note?.importance ?? 0} onChange={(rating) => {
-            setNote(
-              note
-                ? {
-                    ...note,
-                    importance: Math.round(rating)
-                  }
-                : undefined
-            );
+            if (note) {
+              setNote({
+                ...note,
+                importance: Math.round(rating),
+              })
+            }
           }} />
         </View>
 
