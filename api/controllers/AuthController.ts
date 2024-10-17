@@ -1,5 +1,6 @@
 import { LoginRequest, LoginResponse, LoginResponseSchema } from "../../types/api/Login"
 import { RegisterRequest, RegisterResponse, RegisterResponseSchema } from "@/types/api/Register";
+import { SendEmailResetRequest, SendEmailResetResponseSchema, SendEmailResetRequestSchema, SendEmailResetResponse } from "@/types/api/PasswordReset";
 import { superFetch, SuperFetchError } from "./superFetch";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getDefaultStore } from "jotai";
@@ -67,6 +68,28 @@ export default class AuthController {
         catch (error) {
             console.log(error);
             throw new Error("Register failed");
+        }
+    }
+
+    static async sendResetEmail(payload: SendEmailResetRequest) {
+        try {
+            const res = await superFetch<SendEmailResetRequest, SendEmailResetResponse, "sendReset">(
+                {
+                    options: {
+                        method: 'POST',
+                    },
+                    route: "sendReset",
+                    params: [],
+                    responseSchema: SendEmailResetResponseSchema,
+                    payload: payload
+                }
+            );
+
+            return res;
+        }
+        catch (error) {
+            console.log(error);
+            throw new Error("Send reset email failed");
         }
     }
 }
