@@ -18,7 +18,6 @@ export function CategorySelect({
   onCategoryChange,
 }: CategorySelectProps) {
   const onSelected = () => {
-    console.log(selected);
     onCategoryChange(category, !selected);
   };
 

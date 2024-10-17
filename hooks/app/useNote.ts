@@ -26,7 +26,9 @@ export function useNote(id: string) {
   const [ note, setNote ] = useAtom(currentNoteAtom)
 
   useEffect(() => {
-    setNote(noteQuery.data?.note);
+    if (noteQuery.data?.note){
+      setNote(noteQuery.data?.note);
+    }
   }, [noteQuery.data]);
 
   return {

@@ -21,19 +21,20 @@ import { Category } from "@/types/Category";
 export default function Categories() {
   const categories = useCategories();
   const [note, setNote] = useAtom(currentNoteAtom)
+  const [localCategories, setLocalCategories] = useState(note.categories);
 
   const handleCategoryChange = (categoryAdded: Category, selected: boolean) => {
     const updatedCategories = selected
-    ? [...(note?.categories || []), categoryAdded] : (note?.categories || []).filter((category) => category._id !== categoryAdded._id)
+      ? [...(localCategories || []), categoryAdded]
+      : (localCategories || []).filter((category) => category._id !== categoryAdded._id);
 
-    if (note) {
-      setNote({
-        ...note,
-        categories: updatedCategories,
-      });
-    }
+    setLocalCategories(updatedCategories);
+    setNote((prevNote) => ({
+      ...prevNote,
+      categories: updatedCategories,
+    }));
 
-    console.log(note?.categories);
+    console.log(updatedCategories);
     
   }
 
@@ -54,7 +55,7 @@ export default function Categories() {
         >
           {categories.data?.categories &&
             categories.data?.categories.map((category) => (
-              <CategorySelect category={category} key={category._id} selected={note?.categories?.includes(category) || false} onCategoryChange={handleCategoryChange}/>
+              <CategorySelect category={category} key={category._id} selected={(localCategories || []).some((cat) => cat._id === category._id) || false} onCategoryChange={handleCategoryChange}/>
             ))
           }
           <Animated.View
