@@ -78,7 +78,7 @@ export default function LoginForm() {
         className="w-full flex items-end border-bitpurple text-bitpurple-600"
       >
         <Link
-          href={"/auth/changePage"}
+          href={"/auth/sendResetPage"}
           className="text-center text-bitpurple-600"
         >
           ¿Olvidaste tu contraseña?

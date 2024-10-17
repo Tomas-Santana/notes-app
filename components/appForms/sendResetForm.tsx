@@ -13,7 +13,7 @@ import { Link } from "expo-router";
 import { ActivityIndicator, StyleSheet } from "react-native";
 import { AppStyles } from "@/constants/AppStyles";
 
-const loginFormSchema = z.object({
+const sendResetFormSchema = z.object({
   email: z
     .string()
     .min(1, "Se debe ingresar un email.")
@@ -24,8 +24,8 @@ const loginFormSchema = z.object({
 });
 
 export default function SendResetForm() {
-  const form = useForm<z.infer<typeof loginFormSchema>>({
-    resolver: zodResolver(loginFormSchema),
+  const form = useForm<z.infer<typeof sendResetFormSchema>>({
+    resolver: zodResolver(sendResetFormSchema),
     defaultValues: {
       email: "",
     },
@@ -39,11 +39,11 @@ export default function SendResetForm() {
     },
     onSuccess: () => {
       myToast(true, "Email enviado");
-      router.push("/auth/forgotPage");
+      router.push("/auth/changePasswordPage");
     },
   })
 
-  const onSubmit = (data: z.infer<typeof loginFormSchema>) => {
+  const onSubmit = (data: z.infer<typeof sendResetFormSchema>) => {
     sendResetMutation.mutate(data);
   };
 
@@ -69,7 +69,7 @@ export default function SendResetForm() {
           action="primary"
           size="xl"
         >
-          {false ? (
+          {sendResetMutation.isPending ? (
             <ActivityIndicator size="small" color="#fff" />
           ) : (
             <ButtonText>
@@ -80,12 +80,18 @@ export default function SendResetForm() {
       </Animated.View>
       <Animated.View
         layout={LinearTransition}
-        className="w-full flex items-end border-bitpurple text-bitpurple-600"
+        className="w-full flex flex-col items-end border-bitpurple text-bitpurple-600"
       >
         <Text>
           Si recuerdas tu contraseña,{" "}
           <Link href={"/"} className="text-center text-bitpurple-600">
             inicia sesión.
+          </Link>
+        </Text>
+        <Text>
+          Si ya tienes un código,{" "}
+          <Link href={"/auth/changePasswordPage"} className="text-center text-bitpurple-600">
+            cambia tu clave.
           </Link>
         </Text>
       </Animated.View>

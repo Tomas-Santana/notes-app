@@ -3,7 +3,6 @@ import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
 import Logo from "@/assets/images/logo.svg";
 import { SafeAreaView } from "@/components/utils/SafeAreaView";
-import LoginForm from "@/components/appForms/loginForm";
 import SendResetForm from "@/components/appForms/sendResetForm";
 
 
@@ -31,3 +30,4 @@ export default function Screen() {
     </SafeAreaView>
   );
 }
+   

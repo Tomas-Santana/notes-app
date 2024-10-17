@@ -18,3 +18,31 @@ export const SendEmailResetResponseSchema = z.object({
 })
 
 export type SendEmailResetResponse = z.infer<typeof SendEmailResetResponseSchema>;
+
+export const VerifyCodeRequestSchema = z.object({
+  code: z.string().min(36, "El código de verificación debe tener 36 caracteres").max(36, "El código de verificación debe tener 36 caracteres"),
+});
+
+export type VerifyCodeRequest = z.infer<typeof VerifyCodeRequestSchema>;
+
+export const VerifyCodeResponseSchema = z.object({
+    message: z.string().optional(),
+    error: z.string().optional(),
+})
+
+export type VerifyCodeResponse = z.infer<typeof VerifyCodeResponseSchema>;
+
+export const PasswordResetRequestSchema = z.object({
+  code: z.string().min(1, "Se debe ingresar un código.").max(50, "El código es muy largo.").trim(),
+  password: z.string().min(8, "Se debe ingresar una contraseña.").max(50, "La contraseña es muy larga.").trim(),
+  confirmPassword: z.string().min(8, "Se debe ingresar una contraseña.").max(50, "La contraseña es muy larga.").trim(),
+});
+
+export type PasswordResetRequest = Omit<z.infer<typeof PasswordResetRequestSchema>, 'confirmPassword'>;
+
+export const PasswordResetResponseSchema = z.object({
+    message: z.string().optional(),
+    error: z.string().optional(),
+})
+
+export type PasswordResetResponse = z.infer<typeof PasswordResetResponseSchema>;
