@@ -1,7 +1,9 @@
 import NoteController from "@/api/controllers/NoteController";
 import myToast from "@/components/toast";
 import { GetNoteResponse } from "@/types/api/GetNote";
+import { currentNoteAtom } from "@/utils/atoms/currentNoteAtom";
 import { useQuery } from "@tanstack/react-query";
+import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 
 export function useNote(id: string) {
@@ -20,7 +22,8 @@ export function useNote(id: string) {
     }
   }, [noteQuery.isError]);
 
-  const [note, setNote] = useState(noteQuery.data?.note);
+  // const [note, setNote] = useState(noteQuery.data?.note);
+  const [ note, setNote ] = useAtom(currentNoteAtom)
 
   useEffect(() => {
     setNote(noteQuery.data?.note);

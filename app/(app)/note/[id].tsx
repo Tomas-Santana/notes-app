@@ -40,7 +40,6 @@ export default function Editor() {
     theme: customDarkTheme,
     bridgeExtensions: [...TenTapStartKit, CoreBridge.configureCSS(customCSS), PlaceholderBridge.configureExtension({ placeholder: "Escribe algo..." })],
   });
-
   
   const { saveNote, saveNoteMutation } = useSaveNote(note, setNote, editor);
   

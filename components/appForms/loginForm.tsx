@@ -46,11 +46,10 @@ export default function LoginForm() {
       router.push("/note");
     },
   });
-
   const onSubmit = (data: z.infer<typeof loginFormSchema>) => {
     loginMutation.mutate(data);
   };
-
+  
   return (
     <Animated.View className="w-full p-4 flex flex-col gap-4">
       <FormTextInput

@@ -1,4 +1,4 @@
-import { ArrowLeft, Save, Heart } from "lucide-react-native";
+import { ArrowLeft, Save, Heart, Shapes } from "lucide-react-native";
 import { Icon } from "../ui/icon";
 import { ActivityIndicator, View } from "react-native";
 import { useRouter } from "expo-router";
@@ -71,6 +71,14 @@ export function Navbar(props: NavbarProps) {
           ></Heart>
         </Button>
 
+        <Button
+          variant="link"
+          size="lg"
+          className="w-10"
+          onPress={() => router.push(`/note/${props.note?._id}/categories`)}
+        >
+          <Icon as={Shapes} className="w-8 h-8"/>
+        </Button>
 
         <Button
           variant="link"
