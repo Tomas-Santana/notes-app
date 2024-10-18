@@ -41,6 +41,20 @@ export function NotePreview({ note }: { note: Note }) {
     return firstLine.length > 30 ? firstLine.slice(0, 30) + "..." : firstLine;
   }, [note.preview]);
 
+  // if date is today, show time
+
+  const date = useMemo(() => {
+    const today = new Date();
+    if (
+      today.getDate() === note.updatedAt.getDate() &&
+      today.getMonth() === note.updatedAt.getMonth() &&
+      today.getFullYear() === note.updatedAt.getFullYear()
+    ) {
+      return note.updatedAt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+    return note.updatedAt.toLocaleDateString();
+  }, [note.updatedAt]);
+
   return (
     <AnimatedSwipable onOpen={onOpen} renderRightActions={renderRightActions}>
       <Link href={`/note/${note._id}`} asChild>
@@ -50,7 +64,7 @@ export function NotePreview({ note }: { note: Note }) {
                 <NoteImportanceDisplay importance={note.importance} size={15}  />
             </View>
           <View className="flex gap-2 flex-row">
-            <Text>{note.updatedAt.toLocaleDateString()}</Text>
+            <Text>{date}</Text>
             <Text>{preview}</Text>
           </View>
         </Pressable>

@@ -7,6 +7,7 @@ import myToast from "../toast";
 import { UpdateNoteRequest } from "@/types/api/CreateOrUpdateNote";
 import { Note } from "@/types/Note";
 import { AppStyles } from "@/constants/AppStyles";
+import { Text } from "../ui/text";
 
 
 interface NavbarProps {
@@ -46,6 +47,7 @@ export function Navbar(props: NavbarProps) {
       </View>
 
       <View className="flex flex-row gap-4">
+
       <Button
           variant="link"
           size="lg"
@@ -58,12 +60,7 @@ export function Navbar(props: NavbarProps) {
           }}
           disabled={props.pending}
         >
-          {/* <Icon
-            as={Heart}
-            className={`w-8 h-8`}
-            stroke={props.note?.isFavorite ? AppStyles.colors.bitpurple.DEFAULT : "#fff"}
-            fill={"#fff"}
-          /> */}
+          
           <Heart
             className="w-8 h-8"
             stroke={props.note?.isFavorite ? AppStyles.colors.bitpurple.DEFAULT : "#fff"}
