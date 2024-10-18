@@ -12,7 +12,7 @@ export const NoteSchema = z.object({
     updatedAt: z.date({ coerce: true }),
     userId: z.any(),
     importance: z.number().min(0).max(5),
-    categories: z.array(CategorySchema).nullable().default([]),
+    categories: z.array(CategorySchema).nullable().default([]).optional(),
 });
 
 export type Note = z.infer<typeof NoteSchema>;

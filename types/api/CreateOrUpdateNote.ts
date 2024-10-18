@@ -6,6 +6,7 @@ export type CreateNoteRequest = {
     html: string;
     isFavorite: boolean;
     importance: number;
+    categories?: object[];
 }
 
 export type UpdateNoteRequest = {
@@ -15,6 +16,7 @@ export type UpdateNoteRequest = {
     html?: string;
     isFavorite?: boolean;
     importance?: number;
+    categories?: object[];
 }
 
 export type DeleteNoteRequest = {
