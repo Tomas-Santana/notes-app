@@ -90,6 +90,7 @@ export default function LoginForm() {
           onPress={form.handleSubmit(onSubmit)}
           action="primary"
           size="xl"
+          disabled={loginMutation.isPending}
         >
           {loginMutation.isPending ? (
             <ActivityIndicator size="small" color="#fff" />
