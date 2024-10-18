@@ -53,14 +53,14 @@ export default function Notes() {
             exiting={FadeOut}
             className="flex-1 flex-col gap-4 py-4"
           >
-            {sortedNotes && sortedNotes.length > 0 && !myNotes.isLoading ? (
-              sortedNotes.map((note) => (
-                <NotePreview note={note} key={note._id} />
-              ))
-            ) : (
+            {sortedNotes && sortedNotes.length === 0 && !myNotes.isLoading ? (
               <View className="mt-40">
                 <EmptyNotesSplash />
               </View>
+            ) : (
+              sortedNotes.map((note) => (
+                <NotePreview note={note} key={note._id} />
+              ))
             )}
 
             {myNotes.isLoading && (
