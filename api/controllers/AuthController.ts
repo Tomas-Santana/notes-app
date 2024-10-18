@@ -7,6 +7,9 @@ import {
   RegisterRequest,
   RegisterResponse,
   RegisterResponseSchema,
+  VerifyEmailAvailability,
+  VerifyEmailAvailabilityResponse,
+  VerifyEmailAvailabilityResponseSchema,
 } from "@/types/api/Register";
 import {
   SendEmailResetRequest,
@@ -55,6 +58,31 @@ export default class AuthController {
         throw new Error("Email o contraseña incorrectos");
       }
       throw new Error("Falló el inicio de sesión");
+    }
+  }
+
+  static async verifyEmailAvailability(
+    payload: VerifyEmailAvailability
+  ): Promise<VerifyEmailAvailabilityResponse> {
+    try {
+      const res = await superFetch<
+        VerifyEmailAvailability,
+        VerifyEmailAvailabilityResponse,
+        "emailAvilable"
+      >({
+        options: {
+          method: "POST",
+        },
+        route: "emailAvilable",
+        params: [],
+        responseSchema: VerifyEmailAvailabilityResponseSchema,
+        payload: payload,
+      });
+
+      return res;
+    } catch (error) {
+      console.log(error);
+      throw new Error("Falló la verificación de email");
     }
   }
 
