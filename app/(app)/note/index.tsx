@@ -48,10 +48,9 @@ export default function Notes() {
             refreshing={refreshing}
             onRefresh={() => {
               setRefreshing(true);
-              console.log("refreshing");
-              setTimeout(() => {
+              myNotes.refetch().then(() => {
                 setRefreshing(false);
-              }, 1000);
+              });
             }}
           />
           <Animated.View
@@ -61,7 +60,7 @@ export default function Notes() {
             className="flex-1 flex-col gap-4 py-4"
           >
             {sortedNotes && sortedNotes.map((note) => <NotePreview note={note} key={note._id} />)}
-            {/* loading */}
+            
             {myNotes.isLoading && (
               <View className="flex-1 flex-col items-center justify-center">
                 <ActivityIndicator size="large" color="#fff" />
