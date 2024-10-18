@@ -19,7 +19,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.marlonu.notesglue"
     },
     "web": {
       "bundler": "metro",
@@ -28,15 +29,22 @@
     },
     "plugins": [
       "expo-router",
-      ["expo-build-properties", {
-        "android": {
-          "usesCleartextTraffic": true
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true
+          }
         }
-      }]
-      
+      ]
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "d84e8737-bbd0-4623-949a-fc6ada3e0607"
+      }
     }
   }
 }
