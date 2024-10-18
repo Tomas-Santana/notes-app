@@ -62,7 +62,6 @@ export default function LoginForm() {
         className="focus:border-bitpurple-600 !text-white"
         size="xl"
       />
-
       <FormTextInput
         name="password"
         control={form.control}
