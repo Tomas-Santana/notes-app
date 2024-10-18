@@ -33,6 +33,8 @@ type NoteParams = {
   id: string;
 };
 
+const MAX_LENGTH = 500;
+
 export default function Editor() {
   const params = useLocalSearchParams<NoteParams>();
 
@@ -57,14 +59,24 @@ export default function Editor() {
   const textContent = useEditorContent(editor, { type: "text" });
 
   useEffect(() => {
-    if (!noteQuery.isSuccess || !note || !bridgeState.isReady || editor.getEditorState().isReady) {
+    if (
+      !noteQuery.isSuccess ||
+      !note ||
+      !bridgeState.isReady ||
+      editor.getEditorState().isReady
+    ) {
       return;
     }
     editor.setContent(note?.html);
   }, [noteQuery.isSuccess, note, bridgeState.isReady]);
 
   const canSave = useMemo(() => {
-    return !!(note && textContent && note.title);
+    return !!(
+      note &&
+      textContent &&
+      note.title &&
+      textContent.length <= MAX_LENGTH
+    );
   }, [textContent, note]);
 
   const noteChanging = useMemo(() => {
@@ -74,10 +86,7 @@ export default function Editor() {
   if (noteQuery.isFetching || noteQuery.isLoading) {
     return (
       <View className="flex flex-col w-full flex-1 relative justify-center items-center">
-        <View
-          className="w-0 h-0 overflow-hidden"
-        >
-
+        <View className="w-0 h-0 overflow-hidden">
           <RichText
             editor={editor}
             style={{ display: "none", width: 0, height: 0, flex: 0 }}
@@ -140,7 +149,7 @@ export default function Editor() {
           </View>
         </View>
 
-        <View className="flex flex-row gap-4 items-end justify-start p-2">
+        <View className="flex flex-row gap-4 items-end justify-between p-2 pr-4">
           <NoteImportance
             importance={note?.importance ?? 0}
             onChange={(rating) => {
@@ -152,6 +161,14 @@ export default function Editor() {
               }
             }}
           />
+
+          <Text
+            className={`text-white mr-2 ${
+              (textContent?.length ?? 0) > MAX_LENGTH ? "text-error-500" : ""
+            }`}
+          >
+            {textContent?.length ?? 0}/{MAX_LENGTH} caracteres
+          </Text>
         </View>
 
         <View className="h-10">
