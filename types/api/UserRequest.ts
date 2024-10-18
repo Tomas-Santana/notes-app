@@ -15,7 +15,6 @@ export const UserDeleteSchema = z.object({
 })
 
 export const UserUpdateSchema = z.object({
-  _id: z.string(),
   firstName: z.string().optional(),
   lastName: z.string().optional(),
 })

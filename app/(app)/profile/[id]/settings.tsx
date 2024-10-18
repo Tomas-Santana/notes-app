@@ -62,6 +62,7 @@ export default function Settings() {
           <Icon as={User} className="text-bitpurple-600 w-16 h-16" />
         </Avatar>
         <Text className="text-2xl text-white font-bold">{`${currentUser?.firstName} ${currentUser?.lastName}`}</Text>
+        <Text className="text-sm text-white">{currentUser?.email}</Text>
       </View>
       <Animated.View entering={FadeIn} layout={LinearTransition} className="flex flex-col w-full px-4 mt-6 ">
         <SettingsAction onLogOut={onLogout} onEditProfile={onEditProfile} onDelete={deleteUser}/>
