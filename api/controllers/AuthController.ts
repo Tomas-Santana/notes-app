@@ -154,4 +154,9 @@ export default class AuthController {
       throw new Error("No se pudo verificar el código");
     }
   }
+
+  static async logout() {
+    await AsyncStorage.removeItem("token");
+    store.set(userAtom, null);
+  }
 }

@@ -27,6 +27,7 @@ import { NoteImportance } from "@/components/app/noteImportance";
 import { useAtom } from "jotai";
 import { currentNoteAtom } from "@/utils/atoms/currentNoteAtom";
 import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
+import { AppStyles } from "@/constants/AppStyles";
 
 type NoteParams = {
   id: string;

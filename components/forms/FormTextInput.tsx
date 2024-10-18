@@ -8,6 +8,7 @@ import { StyleProp, StyleSheet } from "react-native";
 import { ViewStyle } from "@expo/html-elements/build/primitives/View";
 import { TextInput } from "react-native-gesture-handler";
 import { Ref } from "react";
+import { AppStyles } from "@/constants/AppStyles";
 
 interface FormTextInputProps {
   className?: string;
@@ -47,6 +48,7 @@ export function FormTextInput({
             <InputField
               className={fieldClassName + "text-white"}
               placeholder={placeholder}
+              placeholderTextColor={AppStyles.colors.placeholder.DEFAULT}
               value={value}
               onChangeText={onChange}
               onBlur={onBlur}
@@ -80,6 +82,7 @@ export function UnstyledFormTextInput({
           <TextInput
             className={className}
             placeholder={placeholder}
+            placeholderTextColor={AppStyles.colors.placeholder.DEFAULT}
             value={value}
             onChangeText={onChange}
             onBlur={onBlur}
