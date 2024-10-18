@@ -62,7 +62,6 @@ export default function LoginForm() {
         className="focus:border-bitpurple-600 !text-white"
         size="xl"
       />
-
       <FormTextInput
         name="password"
         control={form.control}
@@ -91,6 +90,7 @@ export default function LoginForm() {
           onPress={form.handleSubmit(onSubmit)}
           action="primary"
           size="xl"
+          disabled={loginMutation.isPending}
         >
           {loginMutation.isPending ? (
             <ActivityIndicator size="small" color="#fff" />

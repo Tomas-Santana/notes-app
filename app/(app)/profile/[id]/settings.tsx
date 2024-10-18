@@ -1,42 +1,22 @@
 import AuthController from "@/api/controllers/AuthController";
-import UserController from "@/api/controllers/UserController";
 import { SettingsAction } from "@/components/app/settingsActions";
-import myToast from "@/components/toast";
 import { Avatar } from "@/components/ui/avatar";
 import { Heading } from "@/components/ui/heading";
 import { Icon } from "@/components/ui/icon";
 import { userAtom } from "@/utils/atoms/userAtom";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { router } from "expo-router";
 import { useAtom } from "jotai";
-import { LogOut, SquarePen, User, UserRoundX } from "lucide-react-native";
+import { User } from "lucide-react-native";
 import { Text, View } from "react-native";
 import { SheetManager } from "react-native-actions-sheet";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import Animated, { FadeIn, LinearTransition } from "react-native-reanimated";
 
 export default function Settings() {
 
   const [currentUser] = useAtom(userAtom)
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
 
-  const deleteUserMutation = useMutation({
-    mutationFn: UserController.DeleteUser,
-    onSuccess: () => {
-      myToast(true, "Usuario eliminado con exito!")
-      queryClient.invalidateQueries({ queryKey: ["user", currentUser?._id] })
-      router.push("/")
-    },
-    onError: (error) => {
-      console.error("Error al eliminar el usuario: ", error.message);
-    }
-  })
-
-  const deleteUser = () => {
-    if(currentUser?._id) {
-      deleteUserMutation.mutate({ _id: currentUser._id })
-    }
-  }
 
   const onEditProfile = () => {
     console.log(`El usuario: ${currentUser?.firstName} ${currentUser?.lastName} se ha editado`);
@@ -44,6 +24,7 @@ export default function Settings() {
   }
 
   const onLogout = () => {
+    queryClient.clear()
     AuthController.logout()
     router.push("/")
   }
@@ -66,7 +47,7 @@ export default function Settings() {
         <Text className="text-sm text-white">{currentUser?.email}</Text>
       </View>
       <Animated.View entering={FadeIn} layout={LinearTransition} className="flex flex-col w-full px-4 mt-6 ">
-        <SettingsAction onLogOut={onLogout} onEditProfile={onEditProfile} onDelete={deleteUser}/>
+        <SettingsAction onLogOut={onLogout} onEditProfile={onEditProfile} />
       </Animated.View>
     </View>
   )

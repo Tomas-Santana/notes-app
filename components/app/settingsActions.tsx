@@ -1,17 +1,16 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import { Icon } from "../ui/icon";
 import { LogOut, SquarePen, UserRoundX } from "lucide-react-native";
+import { SheetManager } from "react-native-actions-sheet";
 
 interface settingsActionsProps {
   onLogOut: () => void;
   onEditProfile: () => void;
-  onDelete: () => void;
 }
 
 export function SettingsAction({
   onLogOut,
   onEditProfile,
-  onDelete,
 }: settingsActionsProps) {
   return (
     <View className="w-full px-8 mt-6">
@@ -20,7 +19,11 @@ export function SettingsAction({
         onPress={onEditProfile}
       >
         <View className="w-full flex flex-row justify-center items-center">
-          <Icon as={SquarePen} size="md" className="w-8 h-8 text-bitpurple-500" />
+          <Icon
+            as={SquarePen}
+            size="md"
+            className="w-8 h-8 text-bitpurple-500"
+          />
           <Text className="text-bitpurple-500 text-lg font-bold ml-4">
             Editar Perfil
           </Text>
@@ -38,7 +41,9 @@ export function SettingsAction({
         </View>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={onDelete}
+        onPress={() => {
+          SheetManager.show("deleteUser");
+        }}
         className="w-full h-16 px-8 flex flex-col justify-center bg-interactive-1 rounded-b-md"
       >
         <View className="w-full flex flex-row justify-center items-center">
