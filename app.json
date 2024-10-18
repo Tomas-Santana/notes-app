@@ -18,9 +18,8 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "package": "com.marlonu.notesglue"
+        "backgroundColor": "#191919"
+      }
     },
     "web": {
       "bundler": "metro",

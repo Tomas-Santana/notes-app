@@ -43,7 +43,7 @@ export default function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
         <SheetProvider>
-        <GluestackUIProvider mode="system">
+        <GluestackUIProvider mode="dark">
           <ThemeProvider value={DarkTheme}>
             <GestureHandlerRootView>
               <Stack
