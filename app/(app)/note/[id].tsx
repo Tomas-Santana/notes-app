@@ -117,6 +117,7 @@ export default function Editor() {
             value={noteChanging ? undefined : note?.title ?? "Título"}
             className="text-4xl font-bold !text-white max-w-full"
             placeholder={noteChanging ? "Cargando..." : "Título"}
+            placeholderTextColor={AppStyles.colors.placeholder.DEFAULT}
             onChangeText={(text) => {
               if (note) {
                 setNote({
