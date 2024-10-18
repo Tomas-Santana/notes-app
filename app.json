@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "notes-glue",
-    "slug": "notes-glue",
-    "version": "1.0.0",
+    "name": "noteBit",
+    "slug": "noteBit",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
