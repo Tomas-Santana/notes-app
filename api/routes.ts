@@ -12,6 +12,9 @@ export const apiRoutes = {
     "category": () => `${server}/resource/category`,
     "categories": () => `${server}/resource/categories`,
     "category/[id]": (id: string) => `${server}/resource/category/${id}`,
+    "user": () => `${server}/resource/user`,
+    "user/[id]": (id: string) => `${server}/resource/user/${id}`,
+    
 };
 
 

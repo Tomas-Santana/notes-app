@@ -1,9 +1,11 @@
 import AuthController from "@/api/controllers/AuthController";
+import UserController from "@/api/controllers/UserController";
 import { SettingsAction } from "@/components/app/settingsActions";
 import { Avatar } from "@/components/ui/avatar";
 import { Heading } from "@/components/ui/heading";
 import { Icon } from "@/components/ui/icon";
 import { userAtom } from "@/utils/atoms/userAtom";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { router } from "expo-router";
 import { useAtom } from "jotai";
 import { LogOut, SquarePen, User, UserRoundX } from "lucide-react-native";
@@ -15,9 +17,24 @@ import Animated, { FadeIn, LinearTransition } from "react-native-reanimated";
 export default function Settings() {
 
   const [currentUser] = useAtom(userAtom)
+  const queryClient = useQueryClient()
+
+  const deleteUserMutation = useMutation({
+    mutationFn: UserController.DeleteUser,
+    onSuccess: () => {
+      console.log("El usuario ha sido eliminado correctamente");
+      queryClient.invalidateQueries({ queryKey: ["user", currentUser?._id] })
+      router.push("/")
+    },
+    onError: (error) => {
+      console.error("Error al eliminar el usuario: ", error.message);
+    }
+  })
 
   const deleteUser = () => {
-    console.log(`El usuario: ${currentUser?.firstName} ${currentUser?.lastName} fue eliminado`);
+    if(currentUser?._id) {
+      deleteUserMutation.mutate({ _id: currentUser._id })
+    }
   }
 
   const onEditProfile = () => {
