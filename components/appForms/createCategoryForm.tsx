@@ -35,12 +35,14 @@ export default function CreateCategoryForm() {
     },
     onMutate: () => {
       queryClient.cancelQueries({ queryKey: ["categories"] });
-      const previousCategories = queryClient.getQueryData<{
+      const previousCategories = queryClient.getQueryData<
+      {
         categories: { _id: string; name: string }[];
-      }>(["categories"]) || { categories: [] };
+      } | null
+      >(["categories"]);
       queryClient.setQueryData(["categories"], {
         categories: [
-          ...previousCategories.categories,
+          ...(previousCategories?.categories ?? []),
           { _id: "temp", name: form.getValues().name },
         ],
       });

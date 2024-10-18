@@ -39,6 +39,7 @@ export function PasswordForm({ setTab, fullForm }: EmailFormProps) {
     },
     onSuccess: () => {
       myToast(true, "Bienvenido a BitNotes.");
+      fullForm.reset();
       router.push("/note");
     },
   });
