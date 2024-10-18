@@ -8,10 +8,9 @@ export const useDeleteCategory = () => {
     const deleteCategoryMutation = useMutation({
         mutationFn: CategoryController.deleteCategory,
         onMutate: async (id) => {
-            // Optimistic update
             queryClient.cancelQueries({ queryKey: ["categories"] });
 
-            const previousCategories = queryClient.getQueryData<MyCategoriesResponse>(["categoriess"]);
+            const previousCategories = queryClient.getQueryData<MyCategoriesResponse>(["categories"]);
 
             if (previousCategories && previousCategories.categories) {
                 queryClient.setQueryData<MyCategoriesResponse>(["categories"], {
