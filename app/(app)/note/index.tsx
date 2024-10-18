@@ -16,6 +16,7 @@ import { useCategoryFilter } from "@/hooks/app/useCategoryFilter";
 import { useSortNotes } from "@/hooks/app/useSortNotes";
 import { ActivityIndicator } from "react-native";
 import { useState } from "react";
+import { EmptyNotesSplash } from "@/components/app/emptyNotesSplash";
 
 export default function Notes() {
   const myNotes = useQuery({
@@ -23,16 +24,14 @@ export default function Notes() {
     queryFn: NoteController.myNotes,
   });
 
-  const { selectedCategory, setSelectedCategory, filteredNotes, categories } = useCategoryFilter(myNotes);
-  const { sortFunctions, sortedNotes} = useSortNotes(filteredNotes ?? []);  
-
+  const { selectedCategory, setSelectedCategory, filteredNotes, categories } =
+    useCategoryFilter(myNotes);
+  const { sortFunctions, sortedNotes } = useSortNotes(filteredNotes ?? []);
 
   return (
     <View className="flex-1 relative">
       <View>
-        <Navbar
-          sortFunctions={sortFunctions}
-        />
+        <Navbar sortFunctions={sortFunctions} />
         <CategoryScroll
           categories={categories ?? []}
           selectedCategory={selectedCategory}
@@ -40,7 +39,6 @@ export default function Notes() {
         />
       </View>
       <GestureHandlerRootView className="flex-1">
-
         <ScrollView className="flex-1 p-4">
           {/* refreshcontrol */}
           <RefreshControl
@@ -55,8 +53,16 @@ export default function Notes() {
             exiting={FadeOut}
             className="flex-1 flex-col gap-4 py-4"
           >
-            {sortedNotes && sortedNotes.map((note) => <NotePreview note={note} key={note._id} />)}
-            
+            {sortedNotes && sortedNotes.length > 0 && !myNotes.isLoading ? (
+              sortedNotes.map((note) => (
+                <NotePreview note={note} key={note._id} />
+              ))
+            ) : (
+              <View className="mt-40">
+                <EmptyNotesSplash />
+              </View>
+            )}
+
             {myNotes.isLoading && (
               <View className="flex-1 flex-col items-center justify-center">
                 <ActivityIndicator size="large" color="#fff" />
