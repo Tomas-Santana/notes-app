@@ -17,6 +17,9 @@ export const AppStyles = {
         background: {
             DEFAULT: '#191919',
             lighter: '#303030'
+        },
+        placeholder: {
+            DEFAULT: "#827d85"
         }
     }
 }

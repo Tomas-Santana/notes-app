@@ -25,6 +25,7 @@ import { useSaveNote } from "@/hooks/app/useSaveNote";
 import { NoteImportance } from "@/components/app/noteImportance";
 import { useAtom } from "jotai";
 import { currentNoteAtom } from "@/utils/atoms/currentNoteAtom";
+import { AppStyles } from "@/constants/AppStyles";
 
 type NoteParams = {
   id: string;
@@ -77,6 +78,7 @@ export default function Editor() {
             value={note?.title}
             className="text-4xl font-bold !text-white max-w-full"
             placeholder={noteQuery.isLoading ? "Cargando..." : "Título 2"}
+            placeholderTextColor={AppStyles.colors.placeholder.DEFAULT}
             onChangeText={(text) => {
               if (note) {
                 setNote({

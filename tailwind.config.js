@@ -51,6 +51,9 @@ module.exports = {
           900: '#2C1041',
           950: '#1D0B2B'
         },
+        interactive:{
+          1: "#303030"
+        },
         secondary: {
           0: "rgb(var(--color-secondary-0)/<alpha-value>)",
           50: "rgb(var(--color-secondary-50)/<alpha-value>)",
