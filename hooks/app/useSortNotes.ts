@@ -36,9 +36,9 @@ export function useSortNotes(notes: Note[]): UseSortNotesReturn {
     const sortedNotes = useMemo(() => {
         return [...notes].sort((a, b) => {
             if (sortType === "created") {
-                return sortOrder === "asc" ? a.createdAt.getMilliseconds() - b.createdAt.getMilliseconds() : b.createdAt.getMilliseconds() - a.createdAt.getMilliseconds();
+                return sortOrder === "asc" ? a.createdAt.getTime() - b.createdAt.getTime() : b.createdAt.getTime() - a.createdAt.getTime();
             } else if (sortType === "updated") {
-                return sortOrder === "asc" ? a.updatedAt.getMilliseconds() - b.updatedAt.getMilliseconds() : b.updatedAt.getMilliseconds() - a.updatedAt.getMilliseconds();
+                return sortOrder === "asc" ? a.updatedAt.getTime() - b.updatedAt.getTime() : b.updatedAt.getTime() - a.updatedAt.getTime();
             } else if (sortType === "importance") {
                 return sortOrder === "asc" ? a.importance - b.importance : b.importance - a.importance;
             } else if (sortType === "title") {

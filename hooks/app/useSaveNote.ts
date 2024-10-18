@@ -21,6 +21,8 @@ export function useSaveNote(
       note && setNote({
         ...note,
         updatedAt: new Date(),
+        content: await editor.getText(),
+        html: await editor.getHTML(),
       });
     },
     onSuccess: async (data) => {
@@ -43,6 +45,7 @@ export function useSaveNote(
       content: await editor.getText(),
       html: await editor.getHTML(),
       importance: note.importance,
+      updatedAt: new Date(),
     };
 
     console.log("payload", payload);
