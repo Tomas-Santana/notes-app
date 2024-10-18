@@ -27,6 +27,7 @@ export default function UpdateUserForm() {
   
 
   const onSubmit = (data: z.infer<typeof UserFormSchema>) => {
+    SheetManager.hide("updateUser")
     if (currentUser?._id)
       updateUser({...currentUser, ...data})
   };
