@@ -6,17 +6,23 @@ export type UserDeleteRequest = {
 
 export type UserUpdateRequest = {
   _id: string;
-  firstName?: string;
-  lastName?: string;
+  firstName: string;
+  lastName: string;
 }
 
 export const UserDeleteSchema = z.object({
   _id: z.string(),
 })
 
+export const UserFormSchema = z.object({
+  firstName: z.string(),
+  lastName: z.string(),
+})
+
 export const UserUpdateSchema = z.object({
-  firstName: z.string().optional(),
-  lastName: z.string().optional(),
+  _id: z.string(),
+  firstName: z.string(),
+  lastName: z.string(),
 })
 
 export type UserDeleteResponse = z.infer<typeof UserDeleteSchema>;

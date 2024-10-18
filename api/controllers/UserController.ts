@@ -4,6 +4,7 @@ import { UserDeleteRequest, UserDeleteResponse, UserDeleteSchema, UserUpdateRequ
 
 export default class UserController {
   static async UpdateUser(payload: UserUpdateRequest): Promise<UserUpdateResponse> {
+    console.log("myPayload", payload);
     try {
       const res = await superFetch<UserUpdateRequest, UserUpdateResponse, "user">({
         options: {

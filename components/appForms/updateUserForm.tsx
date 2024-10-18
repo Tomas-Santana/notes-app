@@ -1,6 +1,6 @@
 import Animated, { LinearTransition } from "react-native-reanimated";
 import z from "zod";
-import { UserUpdateSchema } from "@/types/api/UserRequest";
+import { UserFormSchema, UserUpdateSchema } from "@/types/api/UserRequest";
 import { FormTextInput, UnstyledFormTextInput } from "../forms/FormTextInput";
 import { Button, ButtonText } from "../ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,49 +12,24 @@ import UserController from "@/api/controllers/UserController";
 import { useAtom } from "jotai";
 import { userAtom } from "@/utils/atoms/userAtom";
 import myToast from "../toast";
+import { useUser } from "@/hooks/app/useUser";
 
 export default function UpdateUserForm() {
   const [currentUser, setCurrentUser] = useAtom(userAtom);
-  const queryClient = useQueryClient()
-
-  const form = useForm<z.infer<typeof UserUpdateSchema>>({
-    resolver: zodResolver(UserUpdateSchema),
+  const { updateUser } = useUser(currentUser || undefined, setCurrentUser);
+  const form = useForm<z.infer<typeof UserFormSchema>>({
+    resolver: zodResolver(UserFormSchema),
     defaultValues: {
       firstName: currentUser?.firstName || "",
       lastName: currentUser?.lastName || "", 
     },
   });
+  
 
-  const updateUserMutation = useMutation({
-    mutationFn: UserController.UpdateUser,
-    onSuccess: (data) => {
-      setCurrentUser((prevUser) => {
-        if (!prevUser) {
-          console.log("increible");
-          return null;
-        }
-        return {
-          ...prevUser,
-          //@ts-ignore
-          firstName: data.firstName ?? prevUser?.firstName ,
-          //@ts-ignore
-          lastName: data.lastName ?? prevUser?.lastName
-        };
-      });
-      queryClient.invalidateQueries({ queryKey: ['user', currentUser?._id]});
-      SheetManager.hide("updateUser");
-      console.log("User updated successfully");
-    },
-    onError: (error) => {
-      console.log(error.message);
-    },
-  });
-
-  const onSubmit = (data: z.infer<typeof UserUpdateSchema>) => {
+  const onSubmit = (data: z.infer<typeof UserFormSchema>) => {
     if (currentUser?._id)
-      updateUserMutation.mutate({ _id: currentUser._id, ...data });
+      updateUser({...currentUser, ...data})
   };
-
   return (
     <Animated.View
       className="w-full p-4 flex flex-col gap-4"
