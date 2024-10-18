@@ -1,6 +1,7 @@
 import AuthController from "@/api/controllers/AuthController";
 import UserController from "@/api/controllers/UserController";
 import { SettingsAction } from "@/components/app/settingsActions";
+import myToast from "@/components/toast";
 import { Avatar } from "@/components/ui/avatar";
 import { Heading } from "@/components/ui/heading";
 import { Icon } from "@/components/ui/icon";
@@ -22,7 +23,7 @@ export default function Settings() {
   const deleteUserMutation = useMutation({
     mutationFn: UserController.DeleteUser,
     onSuccess: () => {
-      console.log("El usuario ha sido eliminado correctamente");
+      myToast(true, "Usuario eliminado con exito!")
       queryClient.invalidateQueries({ queryKey: ["user", currentUser?._id] })
       router.push("/")
     },
