@@ -14,6 +14,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { Note } from "@/types/Note";
 import { useCategoryFilter } from "@/hooks/app/useCategoryFilter";
+import { useSortNotes } from "@/hooks/app/useSortNotes";
 
 export default function Notes() {
   const myNotes = useQuery({
@@ -22,12 +23,15 @@ export default function Notes() {
   });
 
   const { selectedCategory, setSelectedCategory, filteredNotes, categories } = useCategoryFilter(myNotes);
+  const { sortFunctions, sortedNotes} = useSortNotes(filteredNotes ?? []);  
 
 
   return (
     <View className="flex-1 relative">
       <View>
-        <Navbar />
+        <Navbar
+          sortFunctions={sortFunctions}
+        />
         <CategoryScroll
           categories={categories ?? []}
           selectedCategory={selectedCategory}
@@ -43,7 +47,7 @@ export default function Notes() {
             exiting={FadeOut}
             className="flex-1 flex-col gap-4 py-4"
           >
-            {filteredNotes && filteredNotes.map((note) => <NotePreview note={note} key={note._id} />)}
+            {sortedNotes && sortedNotes.map((note) => <NotePreview note={note} key={note._id} />)}
           </Animated.View>
         </ScrollView>
       </GestureHandlerRootView>

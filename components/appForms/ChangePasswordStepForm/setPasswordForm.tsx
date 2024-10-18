@@ -1,6 +1,5 @@
 import {
   PasswordResetRequest,
-  VerifyCodeRequestSchema,
 } from "@/types/api/PasswordReset";
 import Animated, { LinearTransition, SlideInRight, SlideOutLeft } from "react-native-reanimated";
 import z, { set } from "zod";
@@ -12,7 +11,6 @@ import { useMutation } from "@tanstack/react-query";
 import AuthController from "@/api/controllers/AuthController";
 import myToast from "../../toast";
 import { ActivityIndicator } from "react-native";
-import { PasswordResetRequestSchema } from "@/types/api/PasswordReset";
 import { useRouter } from "expo-router";
 
 interface SetPasswordProps {
