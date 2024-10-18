@@ -25,7 +25,6 @@ export default function Notes() {
 
   const { selectedCategory, setSelectedCategory, filteredNotes, categories } = useCategoryFilter(myNotes);
   const { sortFunctions, sortedNotes} = useSortNotes(filteredNotes ?? []);  
-  const [refreshing, setRefreshing] = useState(false);
 
 
   return (
@@ -45,13 +44,9 @@ export default function Notes() {
         <ScrollView className="flex-1 p-4">
           {/* refreshcontrol */}
           <RefreshControl
-            refreshing={refreshing}
+            refreshing={myNotes.isFetching || myNotes.isPending}
             onRefresh={() => {
-              setRefreshing(true);
-              console.log("refreshing");
-              setTimeout(() => {
-                setRefreshing(false);
-              }, 1000);
+              myNotes.refetch();
             }}
           />
           <Animated.View
@@ -61,7 +56,7 @@ export default function Notes() {
             className="flex-1 flex-col gap-4 py-4"
           >
             {sortedNotes && sortedNotes.map((note) => <NotePreview note={note} key={note._id} />)}
-            {/* loading */}
+            
             {myNotes.isLoading && (
               <View className="flex-1 flex-col items-center justify-center">
                 <ActivityIndicator size="large" color="#fff" />
