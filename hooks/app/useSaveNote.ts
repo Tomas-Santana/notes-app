@@ -46,6 +46,7 @@ export function useSaveNote(
       html: await editor.getHTML(),
       importance: note.importance,
       updatedAt: new Date(),
+      categories: note.categories ?? undefined,
     };
 
     console.log("payload", payload);
