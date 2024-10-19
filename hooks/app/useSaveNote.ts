@@ -34,6 +34,7 @@ export function useSaveNote(
         });
 
       queryClient.invalidateQueries({ queryKey: ["myNotes"] });
+      queryClient.invalidateQueries({ queryKey: ["searchNotes"] });
     },
   });
 

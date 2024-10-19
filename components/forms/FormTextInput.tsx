@@ -53,6 +53,7 @@ export function FormTextInput({
               onChangeText={onChange}
               onBlur={onBlur}
               secureTextEntry={type === "password"}
+              maxLength={100}
             />
           </Input>
         )}
@@ -88,6 +89,7 @@ export function UnstyledFormTextInput({
             onBlur={onBlur}
             secureTextEntry={type === "password"}
             autoFocus={autofocus}
+            maxLength={100}
           />
         )}
       />
