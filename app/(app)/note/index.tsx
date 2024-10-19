@@ -35,6 +35,7 @@ export default function Notes() {
   const [searchOpen, setSearchOpen] = useState(false);
   const searchInputRef = useRef(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [refreshing, setRefreshing] = useState(false);
 
   return (
     <View className="flex-1 relative">
@@ -105,11 +106,12 @@ export default function Notes() {
           exiting={FadeOut}
           className={"flex-1"}
         >
-          <ScrollView className="flex-1 p-4">
+          <ScrollView className="flex-1 p-4 ">
             <RefreshControl
-              refreshing={myNotes.isFetching || myNotes.isPending}
+              refreshing={refreshing}
               onRefresh={() => {
-                myNotes.refetch();
+                setRefreshing(true);
+                myNotes.refetch().then(() => setRefreshing(false));
               }}
             />
             <Animated.View

@@ -53,7 +53,7 @@ export function SearchNotes({ searchQuery }: NoteSearchProps) {
             >
                 {searchNotesQuery.isFetching && <ActivityIndicator />}
                 {searchNotesQuery.isError && <Text>Error</Text>}
-                {searchNotesQuery.isSuccess && searchNotesQuery.data?.notes?.map((note) => (
+                {searchNotesQuery.data?.notes?.map((note) => (
                     <Animated.View
                         key={note._id}
                         className={"w-full"}
