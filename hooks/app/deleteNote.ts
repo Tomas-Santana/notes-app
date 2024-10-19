@@ -8,7 +8,6 @@ export const useDeleteNote = () => {
   const deleteNoteMutation = useMutation({
     mutationFn: NoteController.deleteNote,
     onMutate: async ({_id}) => {
-      // Optimistic update
       queryClient.cancelQueries({queryKey: ["myNotes"]})
 
       const previousNotes = queryClient.getQueryData<MyNotesResponse>(["myNotes"])
@@ -29,6 +28,7 @@ export const useDeleteNote = () => {
 
     onSettled: () => {
       queryClient.invalidateQueries({queryKey: ["myNotes"]})
+      queryClient.invalidateQueries({ queryKey: ["searchNotes"] });
     }
   })
 

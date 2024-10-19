@@ -15,6 +15,7 @@ import {
 import { superFetch, SuperFetchError } from "./superFetch";
 import { Note } from "@/types/Note";
 import { MyNotesResponse, MyNotesResponseSchema } from "@/types/api/MyNotes";
+import { SearchNotesRequest, SearchNotesResponse, SearchNotesResponseSchema } from "@/types/api/SearchNote";
 
 export default class NoteController {
   static async getNote(payload: GetNoteRequest): Promise<GetNoteResponse> {
@@ -132,6 +133,31 @@ export default class NoteController {
     } catch (error) {
       console.log(error);
       throw new Error("Get notes failed");
+    }
+  }
+
+  static async searchNotes(query: SearchNotesRequest): Promise<SearchNotesResponse> {
+    try {
+      const res = await superFetch<SearchNotesRequest, SearchNotesResponse>({
+        options: {
+          method: "POST",
+          includeCredentials: true,
+        },
+        route: "search",
+        params: [],
+        payload: query,
+        responseSchema: SearchNotesResponseSchema,
+      });
+      if (res.error) {
+        throw new Error(res.error);
+      }
+
+   
+      return res;
+
+    } catch (error) {
+      console.log(error);
+      throw new Error("Search notes failed");
     }
   }
 }
