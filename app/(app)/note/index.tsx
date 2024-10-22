@@ -23,6 +23,7 @@ import { TouchableOpacity } from "react-native";
 import { Text } from "@/components/ui/text";
 import { TextInputProps } from "react-native";
 
+
 export default function Notes() {
   const myNotes = useQuery({
     queryKey: ["myNotes"],
@@ -36,7 +37,7 @@ export default function Notes() {
   const searchInputRef = useRef(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [refreshing, setRefreshing] = useState(false);
-
+  
   return (
     <View className="flex-1 relative">
       {!searchOpen && (
