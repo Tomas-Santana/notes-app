@@ -61,6 +61,7 @@ export default function LoginForm() {
         error={form.formState.errors.email}
         className="focus:border-bitpurple-600 !text-white"
         size="xl"
+        glow
       />
       <FormTextInput
         name="password"
@@ -72,6 +73,7 @@ export default function LoginForm() {
         className="focus:border-bitpurple-600 !text-white"
         size="xl"
         type="password"
+        glow
       />
       <Animated.View
         layout={LinearTransition}

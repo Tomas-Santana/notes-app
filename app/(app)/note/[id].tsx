@@ -3,7 +3,7 @@ import { useLocalSearchParams } from "expo-router";
 import { useEffect, useMemo } from "react";
 import { TextInput } from "react-native";
 import { Navbar } from "@/components/app/noteNavbar";
-import { useNote } from "@/hooks/app/useNote";
+import { useLocalNote } from "@/hooks/app/useNote";
 import { Text } from "@/components/ui/text";
 
 import React from "react";
@@ -24,8 +24,6 @@ import {
 } from "@/components/utils/editorTheme";
 import { useSaveNote } from "@/hooks/app/useSaveNote";
 import { NoteImportance } from "@/components/app/noteImportance";
-import { useAtom } from "jotai";
-import { currentNoteAtom } from "@/utils/atoms/currentNoteAtom";
 import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 import { AppStyles } from "@/constants/AppStyles";
 
@@ -33,14 +31,16 @@ type NoteParams = {
   id: string;
 };
 
-const MAX_LENGTH = 500;
+const MAX_LENGTH = 250;
 
 export default function Editor() {
   const params = useLocalSearchParams<NoteParams>();
 
-  const { note, setNote, noteQuery } = useNote(params.id);
+  const [note, setNote] = useLocalNote(params.id);
 
-  const [currentNote] = useAtom(currentNoteAtom);
+  useEffect(() => {
+    console.log(note, "note");
+  }, [note]);
 
   const editor = useEditorBridge({
     avoidIosKeyboard: true,
@@ -52,23 +52,16 @@ export default function Editor() {
       PlaceholderBridge.configureExtension({ placeholder: "Escribe algo..." }),
     ],
   });
-  const bridgeState = useBridgeState(editor);
+  
+  useEffect(() => {
+    if (note) {
+      editor.setContent(note.html);
+    }
+  }, [note.html]);
 
   const { saveNote, saveNoteMutation } = useSaveNote(note, setNote, editor);
 
   const textContent = useEditorContent(editor, { type: "text" });
-
-  useEffect(() => {
-    if (
-      !noteQuery.isSuccess ||
-      !note ||
-      !bridgeState.isReady ||
-      editor.getEditorState().isReady
-    ) {
-      return;
-    }
-    editor.setContent(note?.html);
-  }, [noteQuery.isSuccess, note, bridgeState.isReady]);
 
   const canSave = useMemo(() => {
     return !!(
@@ -79,24 +72,6 @@ export default function Editor() {
     );
   }, [textContent, note]);
 
-  const noteChanging = useMemo(() => {
-    return noteQuery.isFetching || noteQuery.isPending;
-  }, [noteQuery.isFetching, noteQuery.isPending]);
-
-  if (noteQuery.isFetching || noteQuery.isLoading) {
-    return (
-      <View className="flex flex-col w-full flex-1 relative justify-center items-center">
-        <View className="w-0 h-0 overflow-hidden">
-          <RichText
-            editor={editor}
-            style={{ display: "none", width: 0, height: 0, flex: 0 }}
-          ></RichText>
-        </View>
-        <ActivityIndicator size="large" color="#fff" />
-        <Text className="text-white">Cargando...</Text>
-      </View>
-    );
-  }
 
   return (
     <Animated.View
@@ -114,9 +89,9 @@ export default function Editor() {
       <View className=" flex flex-col flex-1">
         <View className="p-4">
           <TextInput
-            value={noteChanging ? undefined : note?.title ?? "Título"}
+            value={note?.title}
             className="text-4xl font-bold !text-white max-w-full"
-            placeholder={noteChanging ? "Cargando..." : "Título"}
+            placeholder={"Título"}
             placeholderTextColor={AppStyles.colors.placeholder.DEFAULT}
             onChangeText={(text) => {
               if (note) {
@@ -126,8 +101,7 @@ export default function Editor() {
                 });
               }
             }}
-            aria-disabled={noteQuery.isLoading}
-            editable={!noteQuery.isLoading}
+            editable={!saveNoteMutation.isPending}
             maxLength={50}
             blurOnSubmit
             multiline
@@ -179,7 +153,7 @@ export default function Editor() {
         <View className="px-4 flex-1 relative w-full">
           <RichText
             editor={editor}
-            className={`flex-1 ${noteChanging ? "hidden" : ""}`}
+            className={`flex-1`}
           />
         </View>
       </View>

@@ -54,11 +54,9 @@ export function useSaveNote(
     console.log("importance", payload.importance);
 
     if (note._id !== "new" && note._id) {
-      console.log("Update nore");
       
       saveNoteMutation.mutate({payload, method: "PUT"});
     } else {
-      console.log("Create note");
       saveNoteMutation.mutate({payload});
     }
   };

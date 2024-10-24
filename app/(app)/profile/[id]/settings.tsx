@@ -23,9 +23,9 @@ export default function Settings() {
     SheetManager.show("updateUser")
   }
 
-  const onLogout = () => {
+  const onLogout = async () => {
     queryClient.clear()
-    AuthController.logout()
+    await AuthController.logout()
     router.push("/")
   }
 

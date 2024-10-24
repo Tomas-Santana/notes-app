@@ -1,16 +1,16 @@
 import { Slot, useRouter } from "expo-router";
 import { SafeAreaView } from "@/components/utils/SafeAreaView";
-import { Stack } from "expo-router";
+import { Stack, Redirect } from "expo-router";
 import { View } from "react-native";
-export default function Notes() {
-  // const user = useAtomValue(userAtom);
-  // const router = useRouter();
+import { userAtom } from "@/utils/atoms/userAtom";
+import { useAtomValue } from "jotai";
 
-  // useEffect(() => {
-  //   if (!user) {
-  //     router.push("/");
-  //   }
-  // }, [user]);
+export default function Notes() {
+  const user = useAtomValue(userAtom);
+
+  if (!user) {
+    return <Redirect href="/" />;
+  }
 
   return (
     <SafeAreaView className="flex-1 items-center-justify-center bg-eerie">

@@ -1,4 +1,4 @@
-import { TextInput, View } from "react-native";
+import { TextInput, TouchableOpacity, View, Text } from "react-native";
 import { Navbar } from "@/components/app/navbar";
 import { SimpleFab } from "@/components/app/simpleFab";
 import { useQuery } from "@tanstack/react-query";
@@ -13,15 +13,13 @@ import Animated, {
 } from "react-native-reanimated";
 import { useCategoryFilter } from "@/hooks/app/useCategoryFilter";
 import { useSortNotes } from "@/hooks/app/useSortNotes";
+import { useSearchNotes } from "@/hooks/app/useSearchNote";
 import { ActivityIndicator } from "react-native";
 import { useRef, useState } from "react";
 import { EmptyNotesSplash } from "@/components/app/emptyNotesSplash";
 import { Input, InputIcon, InputSlot, InputField } from "@/components/ui/input";
 import { SearchIcon } from "lucide-react-native";
 import { SearchNotes } from "@/components/app/noteSearch";
-import { TouchableOpacity } from "react-native";
-import { Text } from "@/components/ui/text";
-import { TextInputProps } from "react-native";
 
 export default function Notes() {
   const myNotes = useQuery({
@@ -32,9 +30,10 @@ export default function Notes() {
   const { selectedCategory, setSelectedCategory, filteredNotes, categories } =
     useCategoryFilter(myNotes);
   const { sortFunctions, sortedNotes } = useSortNotes(filteredNotes ?? []);
+  const { search, setSearch, searchResults } = useSearchNotes(sortedNotes ?? []);
+
   const [searchOpen, setSearchOpen] = useState(false);
   const searchInputRef = useRef(null);
-  const [searchQuery, setSearchQuery] = useState("");
   const [refreshing, setRefreshing] = useState(false);
 
   return (
@@ -70,10 +69,10 @@ export default function Notes() {
               <InputIcon as={SearchIcon} />
             </InputSlot>
             <InputField
-              value={searchQuery}
+              value={search}
               placeholder="Busca en tus notas..."
               onFocus={() => setSearchOpen(true)}
-              onChangeText={(text) => setSearchQuery(text)}
+              onChangeText={(text) => setSearch(text)}
               ref={searchInputRef}
             />
           </Input>
@@ -88,7 +87,7 @@ export default function Notes() {
             <TouchableOpacity
               onPress={() => {
                 setSearchOpen(false);
-                setSearchQuery("");
+                setSearch("");
                 // @ts-ignore
                 searchInputRef.current?.blur();
               }}
@@ -99,14 +98,15 @@ export default function Notes() {
         )}
       </Animated.View>
 
-      {!searchOpen && (
         <Animated.View
           layout={LinearTransition}
           entering={FadeIn}
           exiting={FadeOut}
           className={"flex-1"}
         >
-          <ScrollView className="flex-1 p-4 ">
+          <ScrollView className="flex-1 p-4"
+            keyboardShouldPersistTaps="handled"
+          >
             <RefreshControl
               refreshing={refreshing}
               onRefresh={() => {
@@ -120,13 +120,13 @@ export default function Notes() {
               exiting={FadeOut}
               className="flex-1 flex-col gap-4"
             >
-              {sortedNotes && sortedNotes.length === 0 && !myNotes.isLoading ? (
+              {searchResults && searchResults.length === 0 && !myNotes.isLoading ? (
                 <View className="mt-40">
                   <EmptyNotesSplash />
                 </View>
               ) : (
-                sortedNotes.map((note) => (
-                  <NotePreview note={note} key={note._id} />
+                searchResults.map((note) => (
+                  <NotePreview note={note} key={note._id} query={search} />
                 ))
               )}
 
@@ -138,9 +138,6 @@ export default function Notes() {
             </Animated.View>
           </ScrollView>
         </Animated.View>
-      )}
-
-      {searchOpen && <SearchNotes searchQuery={searchQuery} />}
 
       <SimpleFab href={{ pathname: "/note/[id]", params: { id: "new" } }} />
     </View>

@@ -37,3 +37,26 @@ export function useNote(id: string) {
     noteQuery,
   }
 }
+
+export function useLocalNote(id: string) {
+  const [note, setNote] = useAtom(currentNoteAtom);
+
+  useEffect(() => {
+    if (note._id !== id) {
+      setNote({
+        _id: id,
+        title: "",
+        content: "",
+        html: "",
+        isFavorite: false,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        userId: "",
+        importance: 0,
+        categories: [],
+      });
+    }
+  }, [id]);
+
+  return [note, setNote] as const;
+}

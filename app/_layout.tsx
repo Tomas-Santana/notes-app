@@ -1,8 +1,4 @@
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from "@react-navigation/native";
+import { DarkTheme, ThemeProvider } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
@@ -14,10 +10,12 @@ import { Toaster } from "sonner-native";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { Image, View } from "react-native";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SheetProvider } from "react-native-actions-sheet";
-import '@/components/utils/sheet'
+import "@/components/utils/sheet";
+
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -42,7 +40,7 @@ export default function RootLayout() {
 
   return (
     <QueryClientProvider client={queryClient}>
-        <SheetProvider>
+      <SheetProvider>
         <GluestackUIProvider mode="dark">
           <ThemeProvider value={DarkTheme}>
             <GestureHandlerRootView>
@@ -53,10 +51,12 @@ export default function RootLayout() {
                 }}
               ></Stack>
               <Toaster richColors position="top-center" />
+
+
             </GestureHandlerRootView>
           </ThemeProvider>
         </GluestackUIProvider>
-    </SheetProvider>
-      </QueryClientProvider>
+      </SheetProvider>
+    </QueryClientProvider>
   );
 }

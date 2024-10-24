@@ -199,6 +199,7 @@ module.exports = {
         heading: undefined,
         body: undefined,
         mono: ["monospace", "sans-serif"],
+        pixel: ["pixel", "sans-serif"],
         roboto: undefined,
       },
       fontWeight: {

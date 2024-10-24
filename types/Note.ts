@@ -4,7 +4,6 @@ import { CategorySchema } from './Category';
 export const NoteSchema = z.object({
     _id: z.string(),
     title: z.string(),
-    preview: z.string(),
     content: z.string(),
     html: z.string(),
     isFavorite: z.boolean(),

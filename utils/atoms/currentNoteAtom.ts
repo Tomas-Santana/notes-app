@@ -6,7 +6,6 @@ export const currentNoteAtom = atom<Note>({
   title: "",
   isFavorite: false,
   userId: "",
-  preview: "",
   html: "",
   content: "",
   categories: [],
