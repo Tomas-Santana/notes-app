@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "noteBit",
-    "slug": "noteBit",
+    "slug": "notes-glue",
     "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -19,7 +19,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#191919"
-      }
+      },
+      "package": "com.marlonu.notesBit"
     },
     "web": {
       "bundler": "metro",

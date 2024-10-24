@@ -21,6 +21,7 @@ import { Input, InputIcon, InputSlot, InputField } from "@/components/ui/input";
 import { SearchIcon } from "lucide-react-native";
 import { SearchNotes } from "@/components/app/noteSearch";
 
+
 export default function Notes() {
   const myNotes = useQuery({
     queryKey: ["myNotes"],
@@ -35,7 +36,7 @@ export default function Notes() {
   const [searchOpen, setSearchOpen] = useState(false);
   const searchInputRef = useRef(null);
   const [refreshing, setRefreshing] = useState(false);
-
+  
   return (
     <View className="flex-1 relative">
       {!searchOpen && (
