@@ -4,12 +4,15 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 interface AnimatedBGProps {
   children?: ReactNode
+  viewStyles?: any
 }
 
 const loc = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1];
 let timeout: NodeJS.Timeout | undefined = undefined;
+export const colors = ['#ff65b3', '#ff59c0', '#ff4ecd', '#ff45d9', '#ff3fe6', '#f23cf2', '#d33ffe', '#ad46ff', '#7b4fff', '#0058ff', '#0060ff'];
 
-export default function AnimatedBG({ children }: AnimatedBGProps) {
+
+export default function AnimatedBG({ children, viewStyles }: AnimatedBGProps) {
   let [gradientOptions, setGradientOptions] = useState({
     colors: ['#ff65b3', '#ff59c0', '#ff4ecd', '#ff45d9', '#ff3fe6', '#f23cf2', '#d33ffe', '#ad46ff', '#7b4fff', '#0058ff', '#0060ff'],
     start: { x: 0.5, y: -0.2071 },
@@ -47,7 +50,7 @@ export default function AnimatedBG({ children }: AnimatedBGProps) {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, viewStyles]}>
       <LinearGradient
         colors={gradientOptions.colors}
         start={gradientOptions.start}
