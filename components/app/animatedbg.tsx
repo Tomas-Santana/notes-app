@@ -88,7 +88,7 @@ export function StaticBG({ children, viewStyles }
       />
       {children}
     </Animated.View>
-  );
+);
 }
 
 const styles = StyleSheet.create({

@@ -19,6 +19,7 @@ module.exports = {
     extend: {
       colors: {
         eerie: "#191919",
+        "eerie-semi-transparent": "rgb(25 25 25/<alpha-value>)",
         eerie2: "#242424",
         purplee: {
           50: "#8B35CC",

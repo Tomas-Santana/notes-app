@@ -21,9 +21,9 @@ export function NoteImportance(
         disabled={disabled}
         size={size}
         baseColor="#303030"
-        fillColor={AppStyles.colors.bitpurple.DEFAULT}
+        fillColor={AppStyles.colors["hot-pink"].DEFAULT}
         spacing={0}
-        touchColor={AppStyles.colors.bitpurple[100]}
+        touchColor={AppStyles.colors["hot-pink"][300]}
         rating={importance}
         baseSymbol={exclamationFilled}
         fillSymbol={exclamationFilled}

@@ -1,6 +1,6 @@
 import { Category } from "@/types/Category";
 import { View } from "react-native";
-import AnimatedBG from "./animatedbg";
+import AnimatedBG, {StaticBG} from "./animatedbg";
 import { TouchableHighlight, TouchableOpacity } from "react-native-gesture-handler";
 import { Button, ButtonText } from "@/components/ui/button";
 import { Text } from "../ui/text";
@@ -32,7 +32,7 @@ export function CategoryChip({
       style={[touchableStyle.touchable]}
     >
 
-      { selected && <AnimatedBG
+      { selected && <StaticBG
         viewStyles={{
           position: "absolute",
           top: 0,
@@ -41,7 +41,7 @@ export function CategoryChip({
           bottom: 0,
           borderRadius: 5,
         }}
-      ></AnimatedBG>}
+      ></StaticBG>}
       <Animated.Text className="text-white"
         style={[animatedStyle]}
       >{category.name}</Animated.Text>

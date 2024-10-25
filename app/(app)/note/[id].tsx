@@ -77,7 +77,7 @@ export default function Editor() {
     <Animated.View
       entering={FadeIn}
       exiting={FadeOut}
-      className="flex flex-col w-full flex-1 relative"
+      className="flex flex-col w-full flex-1 relative px-4"
     >
       <Navbar
         canSave={canSave}
@@ -86,7 +86,7 @@ export default function Editor() {
         setNote={setNote}
         note={note}
       />
-      <View className=" flex flex-col flex-1">
+      <View className=" flex flex-col flex-1 p-4 bg-eerie rounded-lg">
         <View className="p-4">
           <TextInput
             value={note?.title}
