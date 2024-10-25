@@ -1,4 +1,5 @@
 import CircleBgSvg from "@/assets/images/circle_bg.svg";
+import LinesBgSvg from "@/assets/images/lines_bg.svg";
 import AnimatedBG from "@/components/app/animatedbg";
 import { View } from "react-native";
 
@@ -24,7 +25,7 @@ export function Bg() {
           zIndex: 1,
         }}
       ></AnimatedBG>
-      <CircleBgSvg
+      <LinesBgSvg
         style={{
           position: "absolute",
           top: 0,
@@ -33,7 +34,7 @@ export function Bg() {
           bottom: 0,
           zIndex: 2,
         }}
-      ></CircleBgSvg>
+      ></LinesBgSvg>
     </View>
   );
 }
