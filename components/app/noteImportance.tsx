@@ -1,6 +1,7 @@
 import { AppStyles } from "@/constants/AppStyles";
 import { Rating } from "@kolking/react-native-rating";
 import { Image, View } from "react-native";
+import Animated, {useAnimatedStyle, withTiming} from "react-native-reanimated";
 
 
 const exclamationFilled = require("@/assets/images/exclamation.png");
@@ -10,6 +11,7 @@ interface NoteImportanceProps {
     onChange?: (rating: number) => void;
     disabled?: boolean;
     size?: number;
+    color?: string;
 }
 
 export function NoteImportance(
@@ -32,14 +34,22 @@ export function NoteImportance(
     )
 }
 
-export function NoteImportanceDisplay({ importance, size }: NoteImportanceProps) {
+export function NoteImportanceDisplay({ importance, size, color }: NoteImportanceProps) {
+    const imageStyle = useAnimatedStyle(() => {
+        return {
+            tintColor: withTiming(color ?? AppStyles.colors["hot-pink"].DEFAULT),
+            width: size,
+            height: size
+        }
+    }, [color, size]);
+
     return (
         <View className="flex flex-row gap-1">
             {Array.from({ length: importance }, (_, index) => (
-                <Image
+                <Animated.Image
                     key={index}
                     source={exclamationFilled}
-                    style={{ tintColor: AppStyles.colors["hot-pink"].DEFAULT, width: size, height: size }}
+                    style={[imageStyle]}
                 />
             ))}
         </View>

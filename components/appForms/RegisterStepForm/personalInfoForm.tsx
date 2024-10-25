@@ -5,6 +5,7 @@ import { FormTextInput } from "../../forms/FormTextInput";
 import { Button, ButtonText } from "../../ui/button";
 import Animated, { LinearTransition, SlideInRight, SlideOutLeft } from "react-native-reanimated";
 import { PersonalInfoSchema, personalInfoSchema, FullSchema } from "./schemas";
+import { AppStyles } from "@/constants/AppStyles";
 
 
 
@@ -35,7 +36,8 @@ export function PersonalInfoForm(
             entering={SlideInRight}
             exiting={SlideOutLeft}
             layout={LinearTransition}
-            className={"w-full flex flex-col gap-4 p-8 bg-eerie2 shadow-md rounded-lg"}
+            className={"w-full flex flex-col gap-4 p-8 shadow-md rounded-lg"}
+            style={{ backgroundColor: AppStyles.colors.background.lighterTransparent }}
         >
             <FormTextInput
                 name="firstName"

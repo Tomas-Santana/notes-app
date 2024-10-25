@@ -5,12 +5,12 @@ import Logo from "@/assets/images/logo.svg";
 import { SafeAreaView } from "@/components/utils/SafeAreaView";
 import LoginForm from "@/components/appForms/loginForm";
 import { Bg } from "@/components/new/Bg";
+import { AppStyles } from "@/constants/AppStyles";
 
-const Gradient = require("../assets/images/gradient_bg.png");
 export default function Screen() {
   const fontLoaded = useFonts({
     monospace: require("../assets/fonts/FiraMono-Medium.ttf"),
-    pixelated: require("../assets/fonts/PixelifySans-VariableFont_wght.ttf"),
+
   });
 
   if (!fontLoaded) {
@@ -19,19 +19,22 @@ export default function Screen() {
 
   return (
     <SafeAreaView className="flex-1 justify-start">
-      <View className="flex flex-col gap-4 w-full items-center  p-4 pt-20">
+      <View className="flex flex-col gap-4 w-full items-center p-4 pt-20">
         <Logo className=" h-24"></Logo>
         <Heading
           size="lg"
-          className="text-center text-slate-50 font-pixel italic text-lg"
+          className="text-center text-slate-50 font-mono text-lg"
         >
           Inicia sesión
         </Heading>
         
-        <View className="p-4 rounded-lg bg-eerie2 shadow-md w-full">
+        
+        <View className="p-4 rounded-lg shadow-md w-full"
+          style={{ backgroundColor: AppStyles.colors.background.lighterTransparent }}
+        >
           <LoginForm />
         </View>
-      </View>
+    </View>
       <Bg />
     </SafeAreaView>
   );

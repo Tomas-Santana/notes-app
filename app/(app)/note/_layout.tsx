@@ -20,12 +20,9 @@ export default function Notes() {
           headerShown: false,
           contentStyle: { backgroundColor: "transparent" },
           
-          animation: "flip",
+          animation: "fade",
         }}
       >
-
-        
-
       </Stack>
       <Bg />
     </SafeAreaView>

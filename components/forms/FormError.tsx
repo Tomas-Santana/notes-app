@@ -19,7 +19,7 @@ export function FormError({ error }: FormErrorProps) {
           exiting={FadeOut}
           layout={LinearTransition}
         >
-          <Text className="text-error-500 text-xl">{error.message}</Text>
+          <Text className="text-error-500 text-red-500 text-xl">{error.message}</Text>
         </Animated.View>
       )}
     </>

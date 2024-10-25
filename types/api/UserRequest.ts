@@ -15,8 +15,8 @@ export const UserDeleteSchema = z.object({
 })
 
 export const UserFormSchema = z.object({
-  firstName: z.string(),
-  lastName: z.string(),
+  firstName: z.string().min(1, "Se debe ingresar un nombre.").max(50, "El nombre es muy largo."),
+  lastName: z.string().min(1, "Se debe ingresar un apellido.").max(50, "El apellido es muy largo."),
 })
 
 export const UserUpdateSchema = z.object({

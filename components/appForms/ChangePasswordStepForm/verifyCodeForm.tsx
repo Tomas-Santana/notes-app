@@ -13,6 +13,7 @@ import AuthController from "@/api/controllers/AuthController";
 import myToast from "../../toast";
 import { ActivityIndicator } from "react-native";
 import { useEffect } from "react";
+import { AppStyles } from "@/constants/AppStyles";
 
 interface VerifyCodeFormProps {
   setTab: (tab: 0 | 1) => void;
@@ -44,10 +45,11 @@ export function VerifyCodeForm({ setTab, fullForm }: VerifyCodeFormProps) {
 
 
   return (
-    <Animated.View className="w-full p-4 flex flex-col gap-4"
+    <Animated.View className="w-full flex flex-col gap-4 p-8 shadow-md rounded-lg"
     entering={SlideInRight}
     exiting={SlideOutLeft}
     layout={LinearTransition}
+    style={{ backgroundColor: AppStyles.colors.background.lighterTransparent }}
     >
       <FormTextInput
         name="code"

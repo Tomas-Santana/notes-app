@@ -4,6 +4,8 @@ import { Text } from "@/components/ui/text";
 import Logo from "@/assets/images/logo.svg";
 import { SafeAreaView } from "@/components/utils/SafeAreaView";
 import SendResetForm from "@/components/appForms/sendResetForm";
+import { Bg } from "@/components/new/Bg";
+import { AppStyles } from "@/constants/AppStyles";
 
 
 export default function Screen() {
@@ -12,7 +14,7 @@ export default function Screen() {
     <SafeAreaView className="flex-1 justify-start bg-eerie"
     >
       <View
-        className="flex flex-col gap-4 w-full items-center pt-20"
+        className="flex flex-col gap-4 w-full items-center  p-4 pt-20"
       >
 
         <Logo className=" h-24"></Logo>
@@ -22,11 +24,16 @@ export default function Screen() {
         <Text className="text-left text-slate-50">
           Ingresa tu email y te enviaremos un link para cambiar tu contraseña.
         </Text>
-
+        <View className="p-4 rounded-lg shadow-md w-full shadow-md"
+          style={{ backgroundColor: AppStyles.colors.background.lighterTransparent }}
+        >
         <SendResetForm />
+        </View>
+
         
       </View>
 
+      <Bg />
     </SafeAreaView>
   );
 }

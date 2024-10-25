@@ -28,6 +28,8 @@ export function Bg() {
       <LinesBgSvg
         style={{
           position: "absolute",
+          // center
+          
           top: 0,
           left: 0,
           right: 0,

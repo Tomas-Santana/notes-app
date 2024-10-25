@@ -55,13 +55,14 @@ export default function SendResetForm() {
         label="Email"
         placeholder="hola@notebit.com"
         error={form.formState.errors.email}
-        className="focus:border-bitpurple-600 !text-white"
+        className="focus:border-hot-pink-500 !text-white"
         size="xl"
+        glow
       />
 
       <Animated.View
         layout={LinearTransition}
-        className="w-full flex items-end border-bitpurple text-bitpurple-600"
+        className="w-full flex items-end border-bitpurple text-hot-pink-500"
       ></Animated.View>
       <Animated.View layout={LinearTransition}>
         <Button
@@ -80,17 +81,17 @@ export default function SendResetForm() {
       </Animated.View>
       <Animated.View
         layout={LinearTransition}
-        className="w-full flex flex-col items-end border-bitpurple text-bitpurple-600"
+        className="w-full flex flex-col items-end border-bitpurple"
       >
         <Text>
           Si recuerdas tu contraseña,{" "}
-          <Link href={"/"} className="text-center text-bitpurple-600">
+          <Link href={"/"} className="text-center text-synth-yellow-700">
             inicia sesión.
           </Link>
         </Text>
         <Text>
           Si ya tienes un código,{" "}
-          <Link href={"/auth/changePasswordPage"} className="text-center text-bitpurple-600">
+          <Link href={"/auth/changePasswordPage"} className="text-center text-synth-yellow-700">
             cambia tu clave.
           </Link>
         </Text>

@@ -17,11 +17,15 @@ import { useState } from "react";
 import { useAtom } from "jotai";
 import { currentNoteAtom } from "@/utils/atoms/currentNoteAtom";
 import { Category } from "@/types/Category";
+import { useSaveNote } from "@/hooks/app/useSaveNote";
+import { SimpleNavbar } from "@/components/app/noteNavbar";
+import { AppStyles } from "@/constants/AppStyles";
 
 export default function Categories() {
   const categories = useCategories();
   const [note, setNote] = useAtom(currentNoteAtom)
   const [localCategories, setLocalCategories] = useState(note.categories);
+  const { saveNote } = useSaveNote(note, setNote);
 
   const handleCategoryChange = (categoryAdded: Category, selected: boolean) => {
     const updatedCategories = selected
@@ -33,15 +37,21 @@ export default function Categories() {
       ...prevNote,
       categories: updatedCategories,
     }));
+
+    saveNote({
+      _id: note._id,
+      categories: updatedCategories,
+    });
     
   }
 
   return (
-    <View className="flex-1 flex items-center flex-col gap-4 mt-10 p-4">
+    <View className="flex-1 flex items-center flex-col gap-4 p-4 pt-0">
+      <SimpleNavbar />
       <View className="w-full">
-        <Heading size="3xl" className="text-white font-mono">
-          Categorias
-        </Heading>
+        <Text size="xl" className="text-white">
+          Administrar categorias:{"\n"}<Heading size="3xl" className="font-black font-mono italics text-hot-pink-300">{note.title}</Heading>
+        </Text>
       </View>
 
       <ScrollView className="w-full">
@@ -59,11 +69,12 @@ export default function Categories() {
           <Animated.View
             layout={LinearTransition}
           >
-            <TouchableOpacity className="w-full h-20 px-8 flex flex-col justify-center text-white bg-[#303030] rounded-md"
+            <TouchableOpacity className="w-full h-20 px-8 flex flex-col justify-center text-white rounded-md"
               onPress={() => SheetManager.show("createCategory")}
+              style={{ backgroundColor: AppStyles.colors.background.lighterTransparent }}
             >
               <View className="w-full flex flex-col items-center justify-center">
-                <Icon as={Plus} className="mt-2 text-bitpurple-600 w-8 h-8" />
+                <Icon as={Plus} className="text-hot-pink-600 w-8 h-8" />
                 <Text className="text-lg ">Nueva categoría</Text>
               </View>
             </TouchableOpacity>

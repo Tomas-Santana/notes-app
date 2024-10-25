@@ -15,6 +15,7 @@ import myToast from "../../toast";
 import { router, useRouter } from "expo-router";
 import { ActivityIndicator } from "react-native";
 import { RegisterRequest } from "@/types/api/Register";
+import { AppStyles } from "@/constants/AppStyles";
 
 interface EmailFormProps {
   setTab: (tab: 0 | 1 | 2) => void;
@@ -53,7 +54,9 @@ export function PasswordForm({ setTab, fullForm }: EmailFormProps) {
       firstName: formData.personalInfo.firstName,
       lastName: formData.personalInfo.lastName,
     };
-    registerMutation.mutate(registerPayload);
+    registerMutation.mutateAsync(registerPayload).then(() => {
+      fullForm.reset();
+    }).catch(() => {});
   }
 
   return (
@@ -62,8 +65,9 @@ export function PasswordForm({ setTab, fullForm }: EmailFormProps) {
       exiting={SlideOutLeft}
       layout={LinearTransition}
       className={
-        "w-full flex flex-col gap-4 p-8 bg-eerie2 shadow-md rounded-lg"
+        "w-full flex flex-col gap-4 p-8 shadow-md rounded-lg"
       }
+      style={{ backgroundColor: AppStyles.colors.background.lighterTransparent }}
     >
       <FormTextInput
         name="password"

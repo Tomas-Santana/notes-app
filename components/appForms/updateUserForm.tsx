@@ -29,7 +29,7 @@ export default function UpdateUserForm() {
   const onSubmit = (data: z.infer<typeof UserFormSchema>) => {
     SheetManager.hide("updateUser")
     if (currentUser?._id)
-      updateUser({...currentUser, ...data})
+      updateUser(data)
   };
   return (
     <Animated.View
@@ -62,7 +62,7 @@ export default function UpdateUserForm() {
       />
 
       <Animated.View layout={LinearTransition}>
-        <Button onPress={form.handleSubmit(onSubmit)} className="h-16">
+        <Button onPress={form.handleSubmit(onSubmit)} className="">
           <ButtonText className="text-lg">Actualizar datos</ButtonText>
         </Button>
       </Animated.View>

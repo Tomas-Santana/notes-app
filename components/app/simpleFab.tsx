@@ -4,34 +4,43 @@ import { Pressable, StyleSheet, View, TouchableOpacity } from "react-native";
 import { Icon } from "../ui/icon";
 import AnimatedBG from "./animatedbg";
 import React from "react";
+import { StaticBG } from "./animatedbg";
+import Animated, { useAnimatedStyle } from "react-native-reanimated";
 
-export function SimpleFab({ href }: { href: Href }) {
+export function SimpleFab({ href}: { href: Href }) {
 
-  const [pressed, setPressed] = React.useState(false);
+  
+
 
   return (
-    <View className="w-20 h-20 h-content flex items-center justify-center bg-hot-pink-500 absolute bottom-10 right-4 rounded-full "
+    <View className=" h-content flex items-center justify-center absolute bottom-10 right-4 rounded-full shadow-lg overflow-hidden"
         style={BottomBarStyle.bottomBar}
     >
-      <View className="relative p-2">
-        {pressed &&
-        
-          <AnimatedBG 
-            viewStyles={{
-              position: "absolute",
-              
-            }}
-          />
-        }
+      <View className="w-full h-full"
+        style={{padding: 4}}
+      >
+
+        <AnimatedBG
+          gradientHeight={70}
+          gradientWidth={70}
+          viewStyles={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: -1,
+          }}
+        />
+      
 
         <Link href={href} className="w-full h-full" asChild>
-        <TouchableOpacity className="flex items-center justify-center flex-1 w-full h-full"
-            onPressIn={() => setPressed(true)}
-            onPressOut={() => setPressed(false)}
+        <AnimatedTouchableOpacity className="flex items-center justify-center flex-1 w-full h-full rounded-full"
+            style={[{ zIndex: 10}]}
         >
 
-            <Icon as={Plus} className="text-white w-8 h-8" color="#FFF"></Icon>
-        </TouchableOpacity>
+            <Icon as={Plus} className="text-white w-8 h-8"></Icon>
+        </AnimatedTouchableOpacity>
             
         </Link>
       </View>
@@ -39,10 +48,14 @@ export function SimpleFab({ href }: { href: Href }) {
   )
 }
 
+const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpacity);
+
 const BottomBarStyle = StyleSheet.create({
     bottomBar: {
 
         bottom: 50,
+        width: 70,
+        height: 70,
     }
         
 })

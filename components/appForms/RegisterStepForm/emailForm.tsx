@@ -13,6 +13,7 @@ import AuthController from "@/api/controllers/AuthController";
 import myToast from "@/components/toast";
 import { ActivityIndicator } from "react-native";
 import { Link } from "expo-router";
+import { AppStyles } from "@/constants/AppStyles";
 
 interface EmailFormProps {
   setTab: (tab: 0 | 1) => void;
@@ -51,7 +52,8 @@ export function EmailForm({ setTab, fullForm }: EmailFormProps) {
       entering={SlideInRight}
       exiting={SlideOutLeft}
       layout={LinearTransition}
-      className={"w-full flex flex-col gap-4 p-8 bg-eerie2 shadow-md rounded-lg"}
+      className={"w-full flex flex-col gap-4 p-8 shadow-md rounded-lg"}
+      style={{ backgroundColor: AppStyles.colors.background.lighterTransparent }}
     >
       <FormTextInput
         name="email"
@@ -78,7 +80,7 @@ export function EmailForm({ setTab, fullForm }: EmailFormProps) {
         </Button>
       </Animated.View>
       <Animated.View layout={LinearTransition} className={"w-full flex items-end"}>
-        <Link href="/" className="text-hot-pink-500 text-center">
+        <Link href="/" className="text-synth-yellow-700 text-center">
           ¿Ya tienes una cuenta? Inicia sesión
         </Link>
       </Animated.View>

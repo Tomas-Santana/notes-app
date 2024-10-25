@@ -21,13 +21,15 @@ interface AnimatedSwipableProps {
   renderRightActions?: () => React.ReactNode;
   renderLeftActions?: () => React.ReactNode;
   onOpen: (direction: "left" | "right") => void;
+  entering?: any;
+  exiting?: any;
 }
 
 /**
  * Use inside animated view
  */
 export const AnimatedSwipable: React.FC<AnimatedSwipableProps> = (
-  { children, renderRightActions, renderLeftActions, onOpen }
+  { children, renderRightActions, renderLeftActions, onOpen, entering = FadeIn, exiting = FadeOut }
 ) => {
   const translateX = useSharedValue(0);
 
@@ -41,8 +43,8 @@ export const AnimatedSwipable: React.FC<AnimatedSwipableProps> = (
   return (
     <Animated.View
       layout={LinearTransition}
-      entering={FadeIn}
-      exiting={FadeOut}
+      entering={entering}
+      exiting={exiting}
     >
       <Swipeable renderRightActions={renderRightActions} onSwipeableOpen={(direction) => onOpen(direction)} renderLeftActions={renderLeftActions}>
         <View className="w-full relative">

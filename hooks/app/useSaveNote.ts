@@ -8,7 +8,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 export function useSaveNote(
   note: Note | undefined,
   setNote: (note: Note) => void,
-  editor: EditorBridge
+  editor?: EditorBridge
 ) {
   const queryClient = useQueryClient();
 
@@ -17,12 +17,14 @@ export function useSaveNote(
     onError: (error) => {
       myToast(false, error.message);
     },
-    onMutate: async () => {
+    onMutate: async (payload) => {
       note && setNote({
         ...note,
         updatedAt: new Date(),
-        content: await editor.getText(),
-        html: await editor.getHTML(),
+        content: (await editor?.getText()) ?? note.content,
+        html: await editor?.getHTML() ?? note.html,
+        isFavorite: payload.payload.isFavorite ?? note.isFavorite,
+        categories: payload.payload.categories ?? note.categories,
       });
     },
     onSuccess: async (data) => {
@@ -33,8 +35,7 @@ export function useSaveNote(
           updatedAt: new Date(),
         });
 
-      queryClient.invalidateQueries({ queryKey: ["myNotes"] });
-      queryClient.invalidateQueries({ queryKey: ["searchNotes"] });
+      await queryClient.invalidateQueries({ queryKey: ["myNotes"] });
     },
   });
 
@@ -43,8 +44,8 @@ export function useSaveNote(
 
     const payload = update || {
       ...note,
-      content: await editor.getText(),
-      html: await editor.getHTML(),
+      content: await editor?.getText() ?? note.content,
+      html: await editor?.getHTML() ?? note.html,
       importance: note.importance,
       updatedAt: new Date(),
       categories: note.categories ?? undefined,

@@ -1,4 +1,4 @@
-import { Input, InputField } from "../ui/input";
+import { Input, InputField, InputIcon, InputSlot } from "../ui/input";
 import { Controller } from "react-hook-form";
 import type { Control, FieldError } from "react-hook-form";
 import Animated, {
@@ -16,7 +16,8 @@ import { TextInput } from "react-native-gesture-handler";
 import { Ref } from "react";
 import { AppStyles } from "@/constants/AppStyles";
 import React from "react";
-import AnimatedBG, {StaticBG} from "../app/animatedbg";
+import AnimatedBG, { StaticBG } from "../app/animatedbg";
+import { SearchIcon } from "lucide-react-native";
 
 interface FormTextInputProps {
   className?: string;
@@ -78,7 +79,6 @@ export function FormTextInput({
                   zIndex: -1,
                   borderRadius: 5,
                 }}
-                move={false}
               ></StaticBG>
             )}
 
@@ -137,6 +137,65 @@ export function UnstyledFormTextInput({
         )}
       />
       <FormError error={error} />
+    </Animated.View>
+  );
+}
+
+export function NonFormTextInput({
+  value,
+  onChangeText,
+  placeholder,
+  type = "text",
+  onFocus,
+  ref,
+  slot,
+  glow = false,
+}: {
+  value: string;
+  onChangeText: (text: string) => void;
+  placeholder: string;
+  type?: "text" | "password";
+  onFocus: () => void;
+  ref: any;
+  slot: React.ReactNode;
+  glow?: boolean;
+}) {
+  const [isFocused, setIsFocused] = React.useState(false);
+
+  return (
+    <Animated.View layout={LinearTransition} className={"relative"}
+      style={{ padding: 2 }}
+    >
+      {glow && isFocused && (
+        <StaticBG
+          viewStyles={{
+            flex: 1,
+            resizeMode: "cover",
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: -1,
+            borderRadius: 5,
+          }}
+        />
+      )}
+      <Input size="lg" className="bg-eerie">
+        <InputSlot className="pl-3">{slot}</InputSlot>
+        <InputField
+          value={value}
+          placeholder="Busca en tus notas..."
+          className="text-white bg-eerie"
+          onFocus={() => {
+            setIsFocused(true);
+            onFocus();
+          }}
+          onBlur={() => setIsFocused(false)}
+          onChangeText={onChangeText}
+          ref={ref}
+        />
+      </Input>
     </Animated.View>
   );
 }

@@ -5,6 +5,8 @@ import Logo from "@/assets/images/logo.svg";
 import { SafeAreaView } from "@/components/utils/SafeAreaView";
 import SendResetForm from "@/components/appForms/sendResetForm";
 import ChangePasswordForm from "@/components/appForms/ChangePasswordStepForm/changePasswordForm";
+import { Bg } from "@/components/new/Bg";
+import { AppStyles } from "@/constants/AppStyles";
 
 
 export default function Screen() {
@@ -27,6 +29,7 @@ export default function Screen() {
         <ChangePasswordForm />
         
       </View>
+      <Bg />
 
     </SafeAreaView>
   );

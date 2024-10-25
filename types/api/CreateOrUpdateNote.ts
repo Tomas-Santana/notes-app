@@ -1,4 +1,5 @@
 import z from 'zod'
+import type { Category } from '../Category';
 
 export type CreateNoteRequest = {
     title: string;
@@ -6,7 +7,7 @@ export type CreateNoteRequest = {
     html: string;
     isFavorite: boolean;
     importance: number;
-    categories?: object[];
+    categories?: Category[];
 }
 
 export type UpdateNoteRequest = {
@@ -16,7 +17,7 @@ export type UpdateNoteRequest = {
     html?: string;
     isFavorite?: boolean;
     importance?: number;
-    categories?: object[];
+    categories?: Category[];
 }
 
 export type DeleteNoteRequest = {

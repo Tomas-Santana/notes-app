@@ -18,26 +18,44 @@ import {
 import { CircleIcon } from "lucide-react-native";
 import { Button, ButtonText } from "../ui/button";
 import { Heading } from "../ui/heading";
-import { Text } from "../ui/text";
 import { Divider } from "../ui/divider";
-import { AnimatedBGButton } from "../new/gradientButton";
+import AnimatedBG from "./animatedbg";
 
 interface SortSheetProps {
   sortFunctions: SortFunctions;
   sheetRef: React.RefObject<ActionSheetRef>;
 }
 
-export function SortSheet({ sortFunctions: sortNotes, sheetRef }: SortSheetProps) {
-
+export function SortSheet({
+  sortFunctions: sortNotes,
+  sheetRef,
+}: SortSheetProps) {
   return (
     <ActionSheet
       ref={sheetRef}
       gestureEnabled
-      containerStyle={{ backgroundColor: AppStyles.colors.background.lighter }}
+      containerStyle={{
+        backgroundColor: AppStyles.colors.background.lighter,
+        position: "relative",
+      }}
     >
-      <View className="p-8 pt-0 w-full">
-        <View className="p-4 flex flex-col gap-4 justfy-start items-start w-full">
+      <AnimatedBG
+        gradientHeight={200}
+        viewStyles={{
+          position: "absolute",
+          top: -16,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: -1,
+        }}
+      ></AnimatedBG>
 
+      <View
+        className="p-8 pt-0 w-full "
+        style={{ backgroundColor: AppStyles.colors.background.lighterTransparent }}
+      >
+        <View className="p-4 flex flex-col gap-4 justfy-start items-start w-full">
           <Heading size="2xl">Ordenar notas</Heading>
 
           <RadioGroup
@@ -52,38 +70,34 @@ export function SortSheet({ sortFunctions: sortNotes, sheetRef }: SortSheetProps
                 <RadioLabel>{value}</RadioLabel>
               </Radio>
             ))}
+          </RadioGroup>
 
-            </RadioGroup>
+          <Divider className="bg-white my-0.5"></Divider>
 
-            {/* View divider */}
+          <RadioGroup
+            value={sortNotes.sortOrder}
+            onChange={(value: "asc" | "desc") => sortNotes.setSortOrder(value)}
+          >
+            {Object.entries(sortOrderDisplay).map(([key, value]) => (
+              <Radio key={key} value={key} size="lg">
+                <RadioIndicator>
+                  <RadioIcon as={CircleIcon} />
+                </RadioIndicator>
+                <RadioLabel>{value}</RadioLabel>
+              </Radio>
+            ))}
+          </RadioGroup>
 
-            <Divider className="bg-white my-0.5"></Divider>
-
-            <RadioGroup
-              value={sortNotes.sortOrder}
-              onChange={(value: "asc" | "desc") => sortNotes.setSortOrder(value)}
-            >
-              {Object.entries(sortOrderDisplay).map(([key, value]) => (
-                <Radio key={key} value={key} size="lg">
-                  <RadioIndicator>
-                    <RadioIcon as={CircleIcon} />
-                  </RadioIndicator>
-                  <RadioLabel>{value}</RadioLabel>
-                </Radio>
-              ))}
-            </RadioGroup>
-
-            <Button action="primary"
-              onPress={() => {
-                sheetRef.current?.hide();
-              }}
-              className=""
-              style={{ width: "100%" }}
-            >
-              <ButtonText>
-                Listo
-              </ButtonText>
-            </Button>
+          <Button
+            action="primary"
+            onPress={() => {
+              sheetRef.current?.hide();
+            }}
+            className=""
+            style={{ width: "100%" }}
+          >
+            <ButtonText>Listo</ButtonText>
+          </Button>
         </View>
       </View>
     </ActionSheet>

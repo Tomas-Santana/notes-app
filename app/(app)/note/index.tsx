@@ -1,4 +1,4 @@
-import { TextInput, TouchableOpacity, View, Text } from "react-native";
+import { TouchableOpacity, View, Text } from "react-native";
 import { Navbar } from "@/components/app/navbar";
 import { SimpleFab } from "@/components/app/simpleFab";
 import { useQuery } from "@tanstack/react-query";
@@ -15,11 +15,16 @@ import { useCategoryFilter } from "@/hooks/app/useCategoryFilter";
 import { useSortNotes } from "@/hooks/app/useSortNotes";
 import { useSearchNotes } from "@/hooks/app/useSearchNote";
 import { ActivityIndicator } from "react-native";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { EmptyNotesSplash } from "@/components/app/emptyNotesSplash";
 import { Input, InputIcon, InputSlot, InputField } from "@/components/ui/input";
 import { SearchIcon } from "lucide-react-native";
-import { SearchNotes } from "@/components/app/noteSearch";
+import { useLocalSearchParams } from "expo-router";
+import { AppStyles } from "@/constants/AppStyles";
+
+interface Params {
+  category?: string;
+}
 
 
 export default function Notes() {
@@ -28,8 +33,18 @@ export default function Notes() {
     queryFn: NoteController.myNotes,
   });
 
+  const { category } = useLocalSearchParams() as Params;
+
+  const [color, setColor] = useState(AppStyles.colors.sythColors[0]);
   const { selectedCategory, setSelectedCategory, filteredNotes, categories } =
     useCategoryFilter(myNotes);
+
+  // useEffect(() => {
+  //   const catIndex = categories.findIndex((cat) => cat._id === category);
+  //   setColor(AppStyles.colors.sythColors[catIndex % AppStyles.colors.sythColors.length]);
+     
+  // }, [selectedCategory]);
+
   const { sortFunctions, sortedNotes } = useSortNotes(filteredNotes ?? []);
   const { search, setSearch, searchResults } = useSearchNotes(sortedNotes ?? []);
 
@@ -50,6 +65,7 @@ export default function Notes() {
             categories={categories ?? []}
             selectedCategory={selectedCategory}
             onSelectCategory={setSelectedCategory}
+            setColor={setColor}
           />
         </Animated.View>
       )}
@@ -65,14 +81,14 @@ export default function Notes() {
           entering={FadeIn}
           exiting={FadeOut}
         >
-          <Input size="lg">
+          <Input size="lg" className="focus:border-hot-pink-500 border">
             <InputSlot className="pl-3">
               <InputIcon as={SearchIcon} />
             </InputSlot>
             <InputField
               value={search}
               placeholder="Busca en tus notas..."
-              onFocus={() => setSearchOpen(true)}
+              onFocus={() => {setSearchOpen(true); setSelectedCategory("all");}}
               onChangeText={(text) => setSearch(text)}
               ref={searchInputRef}
             />
@@ -127,7 +143,10 @@ export default function Notes() {
                 </View>
               ) : (
                 searchResults.map((note) => (
-                  <NotePreview note={note} key={note._id} query={search} />
+                  <NotePreview note={note} key={note._id} query={search}
+                    color={color}
+                    
+                  />
                 ))
               )}
 
@@ -140,7 +159,8 @@ export default function Notes() {
           </ScrollView>
         </Animated.View>
 
-      <SimpleFab href={{ pathname: "/note/[id]", params: { id: "new" } }} />
+      <SimpleFab href={{ pathname: "/note/[id]", params: { id: "new" } }}
+      />
     </View>
   );
 }

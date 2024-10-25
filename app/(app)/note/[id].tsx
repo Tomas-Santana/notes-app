@@ -26,9 +26,11 @@ import { useSaveNote } from "@/hooks/app/useSaveNote";
 import { NoteImportance } from "@/components/app/noteImportance";
 import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 import { AppStyles } from "@/constants/AppStyles";
+import { Button, ButtonText } from "@/components/ui/button";
 
 type NoteParams = {
   id: string;
+  targetCategory?: string;
 };
 
 const MAX_LENGTH = 250;
@@ -37,10 +39,6 @@ export default function Editor() {
   const params = useLocalSearchParams<NoteParams>();
 
   const [note, setNote] = useLocalNote(params.id);
-
-  useEffect(() => {
-    console.log(note, "note");
-  }, [note]);
 
   const editor = useEditorBridge({
     avoidIosKeyboard: true,
@@ -107,7 +105,7 @@ export default function Editor() {
             multiline
           />
 
-          <View className="flex flex-col gap-2  w-full items-start justify-start">
+          <View className="flex flex-col gap-2 w-full items-start justify-start">
             <Text className="!text-white">
               {note?.updatedAt.toLocaleDateString("es-ES", {
                 weekday: "long",

@@ -13,15 +13,21 @@ import Animated, {
   FadeOut,
   LinearTransition,
 } from "react-native-reanimated";
+import { selectedCategoryAtom } from "@/hooks/app/useCategoryFilter";
+import { useSetAtom } from "jotai";
+import { SimpleNavbar } from "@/components/app/noteNavbar";
+import { Link } from "expo-router";
 
 export default function Categories() {
   const categoryQuery = useCategories();
 
   return (
-    <View className="flex-1 flex items-center flex-col gap-4 mt-10 p-4">
+    <View className="flex-1 flex items-center flex-col gap-4 p-4 pt-0">
+      <SimpleNavbar />
+
       <View className="w-full">
-        <Heading size="3xl" className=" text-white font-mono">
-          Categorias
+        <Heading size="3xl" className=" text-hot-pink-400 font-mono">
+          Mis categorías
         </Heading>
       </View>
 

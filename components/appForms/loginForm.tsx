@@ -48,7 +48,9 @@ export default function LoginForm() {
     },
   });
   const onSubmit = (data: z.infer<typeof loginFormSchema>) => {
-    loginMutation.mutate(data);
+    loginMutation.mutateAsync(data).then(() => {
+      form.reset();
+    }).catch(() => {});
   };
 
   return (
@@ -80,7 +82,7 @@ export default function LoginForm() {
       >
         <Link
           href={"/auth/sendResetPage"}
-          className="text-center text-hot-pink-500"
+          className="text-center text-synth-yellow-700"
         >
           ¿Olvidaste tu contraseña?
         </Link>
@@ -106,7 +108,7 @@ export default function LoginForm() {
       >
         <Link
           href={"/auth/registerPage"}
-          className="text-center text-hot-pink-500"
+          className="text-center text-synth-yellow-700"
         >
           ¿No tienes cuenta? Registrate
         </Link>

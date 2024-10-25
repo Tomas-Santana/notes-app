@@ -21,13 +21,15 @@ interface NavbarProps {
 export function Navbar(props: NavbarProps) {
   const router = useRouter();
 
-  const save = async () => {
+  const save = async (
+    update?: UpdateNoteRequest
+  ) => {
     if (!props.canSave) {
       myToast(false, "Revisa los campos y vuelve a intentarlo");
       return;
     }
 
-    await props.onSave();
+    await props.onSave(update);
   };
 
   return (
@@ -37,9 +39,10 @@ export function Navbar(props: NavbarProps) {
           variant="link"
           size="lg"
           className=""
-          onPress={async () =>{
-            props.canSave && await save() 
+          onPress={() =>{
+            props.canSave && save().then(() => 
             router.back()
+            );
           }}
         >
           <Icon as={ArrowLeft} className="text-white w-8 h-8" />
@@ -52,10 +55,16 @@ export function Navbar(props: NavbarProps) {
           variant="link"
           size="lg"
           className="w-10"
-          onPress={() => {
+          onPress={async () => {
+            const isFavorite = props.note?.isFavorite;
+            console.log(isFavorite, "isFavorite"); 
+            props.canSave && props.note?.isFavorite !== undefined && save({
+              _id: props.note?._id,
+              isFavorite: !isFavorite,
+            });
             props.note && props.setNote({
               ...props.note,
-              isFavorite: !props.note.isFavorite,
+              isFavorite: !isFavorite,
             });
           }}
           disabled={props.pending}
@@ -63,8 +72,8 @@ export function Navbar(props: NavbarProps) {
           
           <Heart
             className="w-8 h-8"
-            stroke={props.note?.isFavorite ? AppStyles.colors.bitpurple.DEFAULT : "#fff"}
-            fill={props.note?.isFavorite ? AppStyles.colors.bitpurple.DEFAULT : undefined}
+            stroke={props.note?.isFavorite ? AppStyles.colors["hot-pink"].DEFAULT : "#fff"}
+            fill={props.note?.isFavorite ? AppStyles.colors["hot-pink"].DEFAULT : "transparent"}
           ></Heart>
         </Button>
 
@@ -95,6 +104,26 @@ export function Navbar(props: NavbarProps) {
               className={`w-8 h-8 ${!props.canSave ? "opacity-40" : ""}`}
             />
           )}
+        </Button>
+      </View>
+    </View>
+  );
+}
+
+// simple navbar with just a back button
+export function SimpleNavbar() {
+  const router = useRouter();
+
+  return (
+    <View className="w-full p-4 pt-0 flex flex-row justify-start">
+      <View>
+        <Button
+          variant="link"
+          size="lg"
+          className=""
+          onPress={router.back}
+        >
+          <Icon as={ArrowLeft} className="text-white w-8 h-8" />
         </Button>
       </View>
     </View>

@@ -12,6 +12,7 @@ import AuthController from "@/api/controllers/AuthController";
 import myToast from "../../toast";
 import { ActivityIndicator } from "react-native";
 import { useRouter } from "expo-router";
+import { AppStyles } from "@/constants/AppStyles";
 
 interface SetPasswordProps {
   setTab: (tab: 0 | 1) => void;
@@ -64,10 +65,11 @@ export function SetPasswordForm({ setTab, fullForm }: SetPasswordProps) {
   };
 
   return (
-    <Animated.View className="w-full p-4 flex flex-col gap-4"
+    <Animated.View className="w-full p-8 flex flex-col gap-4 shadow-md rounded-lg"
     entering={SlideInRight}
     exiting={SlideOutLeft}
     layout={LinearTransition}
+    style={{ backgroundColor: AppStyles.colors.background.lighterTransparent }}
     >
       <FormTextInput
         name="password"

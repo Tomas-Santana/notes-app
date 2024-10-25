@@ -44,10 +44,51 @@ export const AppStyles = {
     },
     background: {
       DEFAULT: "#191919",
-      lighter: "#303030",
+      lighter: "#242424",
+      lighterTransparent: "#242424F0",
     },
     placeholder: {
       DEFAULT: "#827d85",
+    },
+    sythColors: [
+      { color: "#FF65B3", textColor: "#ffffff" }, // pink
+      { color: "#ffd319", textColor: "#000000" }, // yellow
+      { color: "#ff901f", textColor: "#000000" }, // orange
+      { color: "#ff2975", textColor: "#ffffff" }, // pink
+      { color: "#f222ff", textColor: "#ffffff" }, // purple
+      { color: "#8c1eff", textColor: "#ffffff" }, // dark purple
+    ],
+    synthPalletes: {
+      yellow: {
+        100: "#FFF2BC",
+        300: "#FFE36B",
+        500: "#FFD319",
+        700: "#A88800",
+      },
+      orange: {
+        100: "#FFE1C2",
+        300: "#FFB871",
+        500: "#FF901F",
+        700: "#AE5800",
+      },
+      pink: {
+        100: "#FFCCDE",
+        300: "#FF7BAA",
+        500: "#FF2975",
+        700: "#B80041",
+      },
+      purple: {
+        100: "#FCC5FF",
+        300: "#F774FF",
+        500: "#F222FF",
+        700: "#A600B1",
+      },
+      darkPurple: {
+        100: "#DFC1FF",
+        300: "#B670FF",
+        500: "#8C1EFF",
+        700: "#5400AD",
+      },
     },
   },
 };

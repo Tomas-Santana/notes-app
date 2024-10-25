@@ -12,6 +12,7 @@ import { useAtomValue } from "jotai";
 import { userAtom } from "@/utils/atoms/userAtom";
 import { useRef } from "react";
 import { ActivityIndicator } from "react-native";
+import AnimatedBG from "./animatedbg";
 
 export function DeleteUserSheet() {
   const currentUser = useAtomValue(userAtom);
@@ -34,10 +35,28 @@ export function DeleteUserSheet() {
   return (
     <ActionSheet
       gestureEnabled
-      containerStyle={{ backgroundColor: AppStyles.colors.background.lighter }}
+      containerStyle={{
+        backgroundColor: AppStyles.colors.background.lighter,
+        position: "relative",
+      }}
       ref={sheetRef}
     >
-      <View className="p-8 pt-0 w-full">
+      <AnimatedBG
+        gradientHeight={200}
+        viewStyles={{
+          position: "absolute",
+          top: -16,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: -1,
+        }}
+        danger
+      ></AnimatedBG>
+      <View
+        className="p-8 pt-0 w-full bg-eerie-2"
+        style={{ backgroundColor: AppStyles.colors.background.lighterTransparent }}
+      >
         <View className="p-4 flex flex-col gap-4 justfy-start items-start w-full">
           <Heading size="2xl" className="text-red-500">
             Eliminar tu cuenta
