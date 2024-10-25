@@ -12,13 +12,14 @@ module.exports = {
   safelist: [
     {
       pattern:
-        /(bg|border|text|stroke|fill)-(primary|secondary|bitpurple|tertiary|error|success|warning|info|typography|outline|background)-(0|50|100|200|300|400|500|600|700|800|900|950|white|gray|black|error|warning|muted|success|info|light|dark)/,
+        /(bg|border|text|stroke|fill)-(primary|secondary|bitpurple|hot-pink|tertiary|error|success|warning|info|typography|outline|background)-(0|50|100|200|300|400|500|600|700|800|900|950|white|gray|black|error|warning|muted|success|info|light|dark)/,
     },
   ],
   theme: {
     extend: {
       colors: {
         eerie: "#191919",
+        eerie2: "#242424",
         purplee: {
           50: "#8B35CC",
           60: "#A15CD6",
@@ -38,21 +39,49 @@ module.exports = {
           950: "rgb(var(--color-primary-950)/<alpha-value>)",
         },
         bitpurple: {
-          DEFAULT: '#A15CD6',
-          50: '#F6EFFB',
-          100: '#ECDEF7',
-          200: '#D9BEEF',
-          300: '#C79DE6',
-          400: '#B47DDE',
-          500: '#A15CD6',
-          600: '#8732C8',
-          700: '#68279B',
-          800: '#4A1C6E',
-          900: '#2C1041',
-          950: '#1D0B2B'
+          DEFAULT: "#A15CD6",
+          50: "#F6EFFB",
+          100: "#ECDEF7",
+          200: "#D9BEEF",
+          300: "#C79DE6",
+          400: "#B47DDE",
+          500: "#A15CD6",
+          600: "#8732C8",
+          700: "#68279B",
+          800: "#4A1C6E",
+          900: "#2C1041",
+          950: "#1D0B2B",
         },
-        interactive:{
-          1: "#303030"
+        "hot-pink": {
+          DEFAULT: "#FF65B3",
+          50: "#FFFFFF",
+          100: "#FFFFFF",
+          200: "#FFDFEF",
+          300: "#FFB7DB",
+          400: "#FF8EC7",
+          500: "#FF65B3",
+          600: "#FF2D97",
+          700: "#F4007B",
+          800: "#BC005F",
+          900: "#840043",
+          950: "#680034",
+        },
+        "blue-ribbon": {
+          DEFAULT: "#0060FF",
+          50: "#B8D2FF",
+          100: "#A3C6FF",
+          200: "#7AACFF",
+          300: "#5293FF",
+          400: "#2979FF",
+          500: "#0060FF",
+          600: "#004BC7",
+          700: "#00368F",
+          800: "#002157",
+          900: "#000C1F",
+          950: "#000103",
+        },
+        interactive: {
+          1: "#303030",
         },
         secondary: {
           0: "rgb(var(--color-secondary-0)/<alpha-value>)",
@@ -199,7 +228,7 @@ module.exports = {
         heading: undefined,
         body: undefined,
         mono: ["monospace", "sans-serif"],
-        pixel: ["pixel", "sans-serif"],
+        pixel: ["pixelated", "sans-serif"],
         roboto: undefined,
       },
       fontWeight: {

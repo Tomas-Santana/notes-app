@@ -38,9 +38,9 @@ export default function RegisterForm() {
 ];
 
     return (
-        <Animated.View className="w-full p-4">
+        <Animated.View className="w-full rounded-lg">
             {
-                tabs[tab]
+                tabs[tab] ?? <EmailForm setTab={setTab} fullForm={form} />
             }
         </Animated.View>
     );

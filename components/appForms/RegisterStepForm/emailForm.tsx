@@ -12,6 +12,7 @@ import { useMutation } from "@tanstack/react-query";
 import AuthController from "@/api/controllers/AuthController";
 import myToast from "@/components/toast";
 import { ActivityIndicator } from "react-native";
+import { Link } from "expo-router";
 
 interface EmailFormProps {
   setTab: (tab: 0 | 1) => void;
@@ -50,7 +51,7 @@ export function EmailForm({ setTab, fullForm }: EmailFormProps) {
       entering={SlideInRight}
       exiting={SlideOutLeft}
       layout={LinearTransition}
-      className={"w-full flex flex-col gap-4"}
+      className={"w-full flex flex-col gap-4 p-8 bg-eerie2 shadow-md rounded-lg"}
     >
       <FormTextInput
         name="email"
@@ -58,8 +59,9 @@ export function EmailForm({ setTab, fullForm }: EmailFormProps) {
         label="Email"
         placeholder="email@notebit.com"
         error={form.formState.errors.email}
-        className="focus:border-bitpurple-600 !text-white"
+        className="focus:border-hot-pink-600 !text-white"
         size="xl"
+        glow
       />
       <Animated.View layout={LinearTransition}>
         <Button
@@ -74,6 +76,11 @@ export function EmailForm({ setTab, fullForm }: EmailFormProps) {
             <ButtonText>Siguiente</ButtonText>
           )}
         </Button>
+      </Animated.View>
+      <Animated.View layout={LinearTransition} className={"w-full flex items-end"}>
+        <Link href="/" className="text-hot-pink-500 text-center">
+          ¿Ya tienes una cuenta? Inicia sesión
+        </Link>
       </Animated.View>
     </Animated.View>
   );

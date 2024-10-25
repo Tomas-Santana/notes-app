@@ -48,11 +48,15 @@ export default function RootLayout() {
                 screenOptions={{
                   headerShown: false,
                   animation: "slide_from_right",
+                  contentStyle: {
+                    backgroundColor: "#191919",
+                  },
+                  
                 }}
+                
               ></Stack>
+              
               <Toaster richColors position="top-center" />
-
-
             </GestureHandlerRootView>
           </ThemeProvider>
         </GluestackUIProvider>

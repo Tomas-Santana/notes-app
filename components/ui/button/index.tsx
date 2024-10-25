@@ -125,7 +125,7 @@ const buttonStyle = tva({
   variants: {
     action: {
       primary:
-        'bg-bitpurple-600 data-[hover=true]:bg-bitpurple-600 data-[active=true]:bg-bitpurple-700 border-bitpurple-300 data-[hover=true]:border-bitpurple-400 data-[active=true]:border-bitpurple-500 data-[focus-visible=true]:web:ring-indicator-info',
+        'bg-hot-pink-500 data-[hover=true]:bg-hot-pink-500 data-[active=true]:bg-hot-pink-600 border-hot-pink-300 data-[hover=true]:border-hot-pink-400 data-[active=true]:border-hot-pink-500 data-[focus-visible=true]:web:ring-indicator-info',
       secondary:
         'bg-secondary-500 border-secondary-300 data-[hover=true]:bg-secondary-600 data-[hover=true]:border-secondary-400 data-[active=true]:bg-secondary-700 data-[active=true]:border-secondary-500 data-[focus-visible=true]:web:ring-indicator-info',
       positive:

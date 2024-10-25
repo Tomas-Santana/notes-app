@@ -39,7 +39,7 @@ export function NoteImportanceDisplay({ importance, size }: NoteImportanceProps)
                 <Image
                     key={index}
                     source={exclamationFilled}
-                    style={{ tintColor: AppStyles.colors.bitpurple.DEFAULT, width: size, height: size }}
+                    style={{ tintColor: AppStyles.colors["hot-pink"].DEFAULT, width: size, height: size }}
                 />
             ))}
         </View>

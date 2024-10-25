@@ -2,6 +2,8 @@ import { Input, InputField } from "../ui/input";
 import { Controller } from "react-hook-form";
 import type { Control, FieldError } from "react-hook-form";
 import Animated, {
+  FadeIn,
+  FadeOut,
   LinearTransition,
   useAnimatedStyle,
   withTiming,
@@ -14,8 +16,7 @@ import { TextInput } from "react-native-gesture-handler";
 import { Ref } from "react";
 import { AppStyles } from "@/constants/AppStyles";
 import React from "react";
-
-const Gradient = require("../../assets/images/circle_bg.png");
+import AnimatedBG, {StaticBG} from "../app/animatedbg";
 
 interface FormTextInputProps {
   className?: string;
@@ -54,13 +55,7 @@ export function FormTextInput({
     [isFocused, glow]
   );
   return (
-    <Animated.View
-      layout={LinearTransition}
-      className={"flex flex-col gap-2"}
-    >
-
-
-      
+    <Animated.View layout={LinearTransition} className={"flex flex-col gap-2"}>
       {label && <FormLabel label={label} />}
       <Controller
         name={name}
@@ -68,24 +63,25 @@ export function FormTextInput({
         render={({ field: { onChange, onBlur, value } }) => (
           <Animated.View
             className={"relative rounded-md"}
-            style={{padding: 2}}
+            style={{ padding: 2 }}
           >
-          <Animated.Image
-              src={"https://as1.ftcdn.net/v2/jpg/02/29/42/34/1000_F_229423447_pmfwB7qiLhgs3fcfufprb8nQ68lu5h7k.jpg"}
-              style={[{
-                flex: 1,
-                resizeMode: "cover",
-                position: "absolute",
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                zIndex: -1,
-                borderRadius: 5,
-              }, animatedStyle]}
+            {glow && isFocused && (
+              <StaticBG
+                viewStyles={{
+                  flex: 1,
+                  resizeMode: "cover",
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  zIndex: -1,
+                  borderRadius: 5,
+                }}
+                move={false}
+              ></StaticBG>
+            )}
 
-             ></Animated.Image>
-              
             <Input className={className + " text-white"} size={size}>
               <InputField
                 className={fieldClassName + " text-white bg-eerie"}
@@ -102,7 +98,6 @@ export function FormTextInput({
                 maxLength={100}
               />
             </Input>
-
           </Animated.View>
         )}
       />

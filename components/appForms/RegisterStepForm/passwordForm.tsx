@@ -61,7 +61,9 @@ export function PasswordForm({ setTab, fullForm }: EmailFormProps) {
       entering={SlideInRight}
       exiting={SlideOutLeft}
       layout={LinearTransition}
-      className={"w-full flex flex-col gap-4"}
+      className={
+        "w-full flex flex-col gap-4 p-8 bg-eerie2 shadow-md rounded-lg"
+      }
     >
       <FormTextInput
         name="password"
@@ -69,9 +71,10 @@ export function PasswordForm({ setTab, fullForm }: EmailFormProps) {
         label="Contraseña"
         placeholder=""
         error={form.formState.errors.password}
-        className="focus:border-bitpurple-600 !text-white"
+        className="focus:border-hot-pink-600 !text-white"
         size="xl"
         type="password"
+        glow
       />
       <FormTextInput
         name="confirmPassword"
@@ -79,9 +82,10 @@ export function PasswordForm({ setTab, fullForm }: EmailFormProps) {
         label="Confirmar Contraseña"
         placeholder=""
         error={form.formState.errors.confirmPassword}
-        className="focus:border-bitpurple-600 !text-white"
+        className="focus:border-hot-pink-600 !text-white"
         size="xl"
         type="password"
+        glow
       />
       <Animated.View layout={LinearTransition}>
         <Button
@@ -98,7 +102,12 @@ export function PasswordForm({ setTab, fullForm }: EmailFormProps) {
         </Button>
       </Animated.View>
       <Animated.View layout={LinearTransition}>
-        <Button onPress={() => setTab(1)} variant="link" size="sm">
+        <Button
+          onPress={() => setTab(1)}
+          variant="outline"
+          action="secondary"
+          size="xl"
+        >
           <ButtonText>Volver</ButtonText>
         </Button>
       </Animated.View>

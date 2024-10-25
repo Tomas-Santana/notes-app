@@ -59,7 +59,7 @@ export default function LoginForm() {
         label="Email"
         placeholder="hola@notebit.com"
         error={form.formState.errors.email}
-        className="focus:border-bitpurple-600 !text-white"
+        className="focus:border-hot-pink-600 !text-white"
         size="xl"
         glow
       />
@@ -68,20 +68,19 @@ export default function LoginForm() {
         control={form.control}
         label="Contraseña"
         placeholder=""
-        styles={TextInputStyles.focusInput}
         error={form.formState.errors.password}
-        className="focus:border-bitpurple-600 !text-white"
+        className="focus:border-hot-pink-600 !text-white"
         size="xl"
         type="password"
         glow
       />
       <Animated.View
         layout={LinearTransition}
-        className="w-full flex items-end border-bitpurple text-bitpurple-600"
+        className="w-full flex items-end border-hot-pink text-hot-pink-500"
       >
         <Link
           href={"/auth/sendResetPage"}
-          className="text-center text-bitpurple-600"
+          className="text-center text-hot-pink-500"
         >
           ¿Olvidaste tu contraseña?
         </Link>
@@ -103,11 +102,11 @@ export default function LoginForm() {
       </Animated.View>
       <Animated.View
         layout={LinearTransition}
-        className="w-full flex items-end border-bitpurple text-bitpurple-600"
+        className="w-full flex items-end border-hot-pink text-hot-pink-500"
       >
         <Link
           href={"/auth/registerPage"}
-          className="text-center text-bitpurple-600"
+          className="text-center text-hot-pink-500"
         >
           ¿No tienes cuenta? Registrate
         </Link>
@@ -116,8 +115,3 @@ export default function LoginForm() {
   );
 }
 
-const TextInputStyles = StyleSheet.create({
-  focusInput: {
-    borderColor: AppStyles.colors.bitpurple[600],
-  },
-});

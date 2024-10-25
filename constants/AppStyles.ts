@@ -1,25 +1,53 @@
 export const AppStyles = {
-    colors: {
-        bitpurple: {
-            DEFAULT: '#A15CD6',
-            50: '#F6EFFB',
-            100: '#ECDEF7',
-            200: '#D9BEEF',
-            300: '#C79DE6',
-            400: '#B47DDE',
-            500: '#A15CD6',
-            600: '#8732C8',
-            700: '#68279B',
-            800: '#4A1C6E',
-            900: '#2C1041',
-            950: '#1D0B2B'
-        },
-        background: {
-            DEFAULT: '#191919',
-            lighter: '#303030'
-        },
-        placeholder: {
-            DEFAULT: "#827d85"
-        }
-    }
-}
+  colors: {
+    bitpurple: {
+      DEFAULT: "#A15CD6",
+      50: "#F6EFFB",
+      100: "#ECDEF7",
+      200: "#D9BEEF",
+      300: "#C79DE6",
+      400: "#B47DDE",
+      500: "#A15CD6",
+      600: "#8732C8",
+      700: "#68279B",
+      800: "#4A1C6E",
+      900: "#2C1041",
+      950: "#1D0B2B",
+    },
+    "hot-pink": {
+      DEFAULT: "#FF65B3",
+      50: "#FFFFFF",
+      100: "#FFFFFF",
+      200: "#FFDFEF",
+      300: "#FFB7DB",
+      400: "#FF8EC7",
+      500: "#FF65B3",
+      600: "#FF2D97",
+      700: "#F4007B",
+      800: "#BC005F",
+      900: "#840043",
+      950: "#680034",
+    },
+    "blue-ribbon": {
+      DEFAULT: "#0060FF",
+      50: "#B8D2FF",
+      100: "#A3C6FF",
+      200: "#7AACFF",
+      300: "#5293FF",
+      400: "#2979FF",
+      500: "#0060FF",
+      600: "#004BC7",
+      700: "#00368F",
+      800: "#002157",
+      900: "#000C1F",
+      950: "#000103",
+    },
+    background: {
+      DEFAULT: "#191919",
+      lighter: "#303030",
+    },
+    placeholder: {
+      DEFAULT: "#827d85",
+    },
+  },
+};

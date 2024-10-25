@@ -4,6 +4,7 @@ import { Stack, Redirect } from "expo-router";
 import { View } from "react-native";
 import { userAtom } from "@/utils/atoms/userAtom";
 import { useAtomValue } from "jotai";
+import { Bg } from "@/components/new/Bg";
 
 export default function Notes() {
   const user = useAtomValue(userAtom);
@@ -13,18 +14,20 @@ export default function Notes() {
   }
 
   return (
-    <SafeAreaView className="flex-1 items-center-justify-center bg-eerie">
+    <SafeAreaView className="flex-1 items-center-justify-center">
       <Stack
         screenOptions={{
           headerShown: false,
-          contentStyle: { backgroundColor: "#191919" },
+          contentStyle: { backgroundColor: "transparent" },
           
           animation: "flip",
         }}
       >
+
         
 
       </Stack>
+      <Bg />
     </SafeAreaView>
   );
 }

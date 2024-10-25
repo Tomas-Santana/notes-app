@@ -26,7 +26,7 @@ export const CategoryScroll: React.FC<CategoryScrollProps> = ({ categories, sele
                 ))}
 
                 <Link href="/note/categories" asChild>
-                    <Button action="primary" className="p-2 w-10">
+                    <Button action="primary" className="p-2 w-10 border border-white">
                         <Icon as={Shapes} className="text-primary-600" />
                     </Button>
                 </Link>

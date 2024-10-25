@@ -35,7 +35,7 @@ export function PersonalInfoForm(
             entering={SlideInRight}
             exiting={SlideOutLeft}
             layout={LinearTransition}
-            className={"w-full flex flex-col gap-4"}
+            className={"w-full flex flex-col gap-4 p-8 bg-eerie2 shadow-md rounded-lg"}
         >
             <FormTextInput
                 name="firstName"
@@ -43,8 +43,9 @@ export function PersonalInfoForm(
                 label="Nombre"
                 placeholder="Pepito"
                 error={form.formState.errors.firstName}
-                className="focus:border-bitpurple-600 !text-white"
+                className="focus:border-hot-pink-600 !text-white"
                 size="xl"
+                glow
             />
             <FormTextInput
                 name="lastName"
@@ -52,8 +53,9 @@ export function PersonalInfoForm(
                 label="Apellido"
                 placeholder="Perez"
                 error={form.formState.errors.lastName}
-                className="focus:border-bitpurple-600 !text-white"
+                className="focus:border-hot-pink-600 !text-white"
                 size="xl"
+                glow
             />
 
 
@@ -70,7 +72,7 @@ export function PersonalInfoForm(
             <Animated.View
                 layout={LinearTransition}
             >
-                <Button onPress={() => setTab(0)} variant="link" size="sm">
+                <Button onPress={() => setTab(0)} variant="outline" action="secondary" size="xl">
                     <ButtonText>Volver</ButtonText>
                 </Button>
             </Animated.View>
