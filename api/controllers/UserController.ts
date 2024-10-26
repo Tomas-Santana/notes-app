@@ -1,6 +1,10 @@
 import { User } from "@/types/User";
 import { superFetch, SuperFetchError } from "./superFetch";
 import { UserDeleteRequest, UserDeleteResponse, UserDeleteSchema, UserUpdateRequest, UserUpdateResponse, UserUpdateSchema } from "@/types/api/UserRequest";
+import { store } from "@/utils/atoms/store";
+import { userAtom } from "@/utils/atoms/userAtom";
+import { useSetAtom } from "jotai";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default class UserController {
   static async UpdateUser(payload: UserUpdateRequest): Promise<UserUpdateResponse> {

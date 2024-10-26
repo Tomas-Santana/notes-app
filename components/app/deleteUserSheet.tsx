@@ -8,7 +8,7 @@ import UserController from "@/api/controllers/UserController";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { router } from "expo-router";
 import myToast from "../toast";
-import { useAtomValue } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import { userAtom } from "@/utils/atoms/userAtom";
 import { useRef } from "react";
 import { ActivityIndicator } from "react-native";
@@ -16,6 +16,7 @@ import AnimatedBG from "./animatedbg";
 
 export function DeleteUserSheet() {
   const currentUser = useAtomValue(userAtom);
+  const setUser = useSetAtom(userAtom)
   const queryClient = useQueryClient();
   const sheetRef = useRef<ActionSheetRef>(null);
 
@@ -24,7 +25,8 @@ export function DeleteUserSheet() {
     onSuccess: () => {
       myToast(true, "Usuario eliminado con exito!");
       queryClient.invalidateQueries({ queryKey: ["user", currentUser?._id] });
-      queryClient.clear();
+      // queryClient.clear();
+      setUser(null)   
       router.push("/");
     },
     onError: (error) => {
