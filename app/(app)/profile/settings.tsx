@@ -61,7 +61,7 @@ const [currentUser] = useAtom(userAtom)
           />
         </Avatar>
         <View>
-          <Text className="text-2xl text-white font-bold">{`${currentUser?.firstName} ${currentUser?.lastName}`}</Text>
+          <Text className="text-2xl text-white font-bold flex-shrink" numberOfLines={1} ellipsizeMode="tail">{`${currentUser?.firstName} ${currentUser?.lastName}`}</Text>
           <Text className="text-sm text-white">{currentUser?.email}</Text>
         </View>
       </View>
