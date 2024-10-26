@@ -5,6 +5,7 @@ import { Icon } from "../ui/icon";
 import { Text } from "../ui/text";
 import type { Category } from "@/types/Category";
 import { useDeleteCategory } from "@/hooks/app/useDeleteCategory";
+import { AppStyles } from "@/constants/AppStyles";
 
 const renderRightActions = () => {
   return (
@@ -27,7 +28,9 @@ export function CategoryPreview({ category }: { category: Category }) {
   };
   return (
     <AnimatedSwipable onOpen={onOpen} renderRightActions={renderRightActions}>
-        <Pressable className="w-full h-16 px-8 flex flex-col justify-center text-white bg-[#303030] rounded-md">
+        <Pressable className="w-full h-16 px-8 flex flex-col justify-center text-white rounded-md"
+          style={{ backgroundColor: AppStyles.colors.background.lighterTransparent }}
+        >
             <View className="w-full flex flex-row justify-between">
                 <Text className="text-lg font-bold">{category.name}</Text>
             </View>

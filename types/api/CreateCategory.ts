@@ -4,8 +4,8 @@ import { CategorySchema } from '../Category';
 export const CreateCategoryRequestSchema = z.object({
     name: z.string().min(3, {
         message: 'El nombre de la categoría debe tener al menos 3 caracteres',
-    }).max(50, {
-        message: 'El nombre de la categoría debe tener como máximo 50 caracteres',
+    }).max(25, {
+        message: 'El nombre de la categoría debe tener como máximo 25 caracteres',
     }),
 });
 

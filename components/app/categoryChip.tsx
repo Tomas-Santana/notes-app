@@ -54,7 +54,9 @@ export function CategoryChip({
 
         <Animated.Text className="text-white"
           style={[animatedTextStyle]}
-        >{category.name}</Animated.Text>
+        >{category.name.length > 15 ? category.name.slice(0, 12) + "..." : category.name
+        
+        }</Animated.Text>
       </TouchableOpacity>
     </Animated.View>
   );

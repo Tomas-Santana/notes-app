@@ -17,6 +17,7 @@ import { selectedCategoryAtom } from "@/hooks/app/useCategoryFilter";
 import { useSetAtom } from "jotai";
 import { SimpleNavbar } from "@/components/app/noteNavbar";
 import { Link } from "expo-router";
+import { AppStyles } from "@/constants/AppStyles";
 
 export default function Categories() {
   const categoryQuery = useCategories();
@@ -46,12 +47,13 @@ export default function Categories() {
             <Animated.View
               layout={LinearTransition}>
           <TouchableOpacity
-            className="w-full h-20 px-8 flex flex-col justify-center text-white bg-[#303030] rounded-md"
+            className="w-full h-20 px-8 flex flex-col justify-center text-white rounded-md"
             onPress={() => SheetManager.show("createCategory")}
+            style={{ backgroundColor: AppStyles.colors.background.lighterTransparent }}
           >
             <View
             className="w-full flex flex-col items-center justify-center">
-              <Icon as={Plus} className="mt-2 text-bitpurple-600 w-8 h-8" />
+              <Icon as={Plus} className="mt-2 text-hot-pink-500 w-8 h-8" />
               <Text className="text-lg ">Nueva categoría</Text>
             </View>
           </TouchableOpacity>
