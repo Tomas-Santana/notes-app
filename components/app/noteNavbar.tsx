@@ -41,7 +41,19 @@ export function Navbar(props: NavbarProps) {
           size="lg"
           className=""
           onPress={() =>{
-
+            if (props.note?._id === "new" || !props.note?._id){
+              props.setNote({
+                _id: "",
+                title: "",
+                content: "",
+                html: "",
+                isFavorite: false,
+                createdAt: new Date(),
+                updatedAt: new Date(),
+                userId: "",
+                importance: 0,
+              })
+            }
 
             router.back();
           }}
@@ -59,7 +71,7 @@ export function Navbar(props: NavbarProps) {
           onPress={async () => {
             const isFavorite = props.note?.isFavorite;
             console.log(isFavorite, "isFavorite"); 
-            props.canSave && props.note?.isFavorite !== undefined && save({
+            props.canSave && props.note?.isFavorite !== undefined && props.note._id !== "new" && props.note._id && save({
               _id: props.note?._id,
               isFavorite: !isFavorite,
             });
