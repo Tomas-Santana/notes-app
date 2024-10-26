@@ -51,7 +51,7 @@ export const AppStyles = {
       DEFAULT: "#827d85",
     },
     sythColors: [
-      { color: "#FF65B3", textColor: "#ffffff" }, // pink
+      { color: "#CE43C9", textColor: "#ffffff" }, // pink
       { color: "#ffd319", textColor: "#000000" }, // yellow
       { color: "#ff901f", textColor: "#000000" }, // orange
       { color: "#ff2975", textColor: "#ffffff" }, // pink

@@ -33,17 +33,10 @@ export default function Notes() {
     queryFn: NoteController.myNotes,
   });
 
-  const { category } = useLocalSearchParams() as Params;
 
   const [color, setColor] = useState(AppStyles.colors.sythColors[0]);
   const { selectedCategory, setSelectedCategory, filteredNotes, categories } =
     useCategoryFilter(myNotes);
-
-  // useEffect(() => {
-  //   const catIndex = categories.findIndex((cat) => cat._id === category);
-  //   setColor(AppStyles.colors.sythColors[catIndex % AppStyles.colors.sythColors.length]);
-     
-  // }, [selectedCategory]);
 
   const { sortFunctions, sortedNotes } = useSortNotes(filteredNotes ?? []);
   const { search, setSearch, searchResults } = useSearchNotes(sortedNotes ?? []);
@@ -88,7 +81,7 @@ export default function Notes() {
             <InputField
               value={search}
               placeholder="Busca en tus notas..."
-              onFocus={() => {setSearchOpen(true); setSelectedCategory("all");}}
+              onFocus={() => {setSearchOpen(true); setSelectedCategory("all");setColor(AppStyles.colors.sythColors[0]);}}
               onChangeText={(text) => setSearch(text)}
               ref={searchInputRef}
             />

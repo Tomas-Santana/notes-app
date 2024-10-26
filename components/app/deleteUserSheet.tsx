@@ -58,7 +58,7 @@ export function DeleteUserSheet() {
         style={{ backgroundColor: AppStyles.colors.background.lighterTransparent }}
       >
         <View className="p-4 flex flex-col gap-4 justfy-start items-start w-full">
-          <Heading size="2xl" className="text-red-500">
+          <Heading size="2xl" className="text-red-500 font-mono">
             Eliminar tu cuenta
           </Heading>
           <Text className="text-white">

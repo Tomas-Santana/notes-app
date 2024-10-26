@@ -38,6 +38,9 @@ export default function Categories() {
       categories: updatedCategories,
     }));
 
+    if (!note._id || note._id === "new") return;
+
+    console.log("Saving note with categories", updatedCategories);
     saveNote({
       _id: note._id,
       categories: updatedCategories,

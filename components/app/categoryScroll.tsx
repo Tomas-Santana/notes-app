@@ -33,7 +33,7 @@ export const CategoryScroll: React.FC<CategoryScrollProps> = ({ categories, sele
                         color={AppStyles.colors.sythColors[i % AppStyles.colors.sythColors.length]}
                     />
                 ))}
-                <View style={{padding: 2}}>
+                <View >
 
                 <Link href="/note/categories" asChild>
                     <Button action="primary" className="p-2 w-10 border border-white">

@@ -21,22 +21,27 @@ export default function UpdateUserForm() {
     resolver: zodResolver(UserFormSchema),
     defaultValues: {
       firstName: currentUser?.firstName || "",
-      lastName: currentUser?.lastName || "", 
+      lastName: currentUser?.lastName || "",
     },
   });
-  
 
   const onSubmit = (data: z.infer<typeof UserFormSchema>) => {
-    SheetManager.hide("updateUser")
-    if (currentUser?._id)
-      updateUser(data)
+    SheetManager.hide("updateUser");
+    if (
+      currentUser?.firstName === data.firstName &&
+      currentUser?.lastName === data.lastName
+    ) {
+      return;
+    }
+
+    if (currentUser?._id) updateUser(data);
   };
   return (
     <Animated.View
       className="w-full p-4 flex flex-col gap-4"
       layout={LinearTransition}
     >
-      <Heading size="2xl" className="text-white">
+      <Heading size="2xl" className="text-hot-pink-400 font-mono">
         Actualizar datos
       </Heading>
       <UnstyledFormTextInput
@@ -64,6 +69,15 @@ export default function UpdateUserForm() {
       <Animated.View layout={LinearTransition}>
         <Button onPress={form.handleSubmit(onSubmit)} className="">
           <ButtonText className="text-lg">Actualizar datos</ButtonText>
+        </Button>
+      </Animated.View>
+      <Animated.View layout={LinearTransition}>
+        <Button
+          onPress={() => SheetManager.hide("updateUser")}
+          className="border border-white"
+          variant="outline"
+        >
+          <ButtonText className="text-lg text-white">Cancelar</ButtonText>
         </Button>
       </Animated.View>
     </Animated.View>

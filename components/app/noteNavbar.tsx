@@ -8,6 +8,7 @@ import { UpdateNoteRequest } from "@/types/api/CreateOrUpdateNote";
 import { Note } from "@/types/Note";
 import { AppStyles } from "@/constants/AppStyles";
 import { Text } from "../ui/text";
+import { toast } from "sonner-native";
 
 
 interface NavbarProps {
@@ -40,9 +41,9 @@ export function Navbar(props: NavbarProps) {
           size="lg"
           className=""
           onPress={() =>{
-            props.canSave && save().then(() => 
-            router.back()
-            );
+
+
+            router.back();
           }}
         >
           <Icon as={ArrowLeft} className="text-white w-8 h-8" />
@@ -81,9 +82,18 @@ export function Navbar(props: NavbarProps) {
           variant="link"
           size="lg"
           className="w-10"
-          onPress={() => router.push(`/note/${props.note?._id}/categories`)}
+          onPress={() => {
+            if (props.note?._id === "new" || !props.note?._id) {
+              toast("Guarda la nota antes de agregar categorías");
+              return;
+            }
+            router.push(`/note/${props.note?._id}/categories`)
+          
+          }}
         >
-          <Icon as={Shapes} className="w-8 h-8"/>
+          <Icon as={Shapes} className={`w-8 h-8
+              ${!props.note?._id || props.note?._id === "new" ? "opacity-40" : ""}
+            `}/>
         </Button>
 
         <Button

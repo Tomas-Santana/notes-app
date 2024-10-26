@@ -75,7 +75,7 @@ export function NotePreview({ note, query, color }: NotePreviewProps) {
     if (queryIndex === -1) {
       return {
         beforeText:
-          note.content.slice(0, 30) + (note.content.length > 30 ? "..." : ""),
+          (note.content.slice(0, 30) + (note.content.length > 30 ? "..." : "")).replace(/\n/g, " "),
         query: "",
         afterText: "",
       };

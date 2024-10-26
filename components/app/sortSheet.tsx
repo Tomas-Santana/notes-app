@@ -56,7 +56,9 @@ export function SortSheet({
         style={{ backgroundColor: AppStyles.colors.background.lighterTransparent }}
       >
         <View className="p-4 flex flex-col gap-4 justfy-start items-start w-full">
-          <Heading size="2xl">Ordenar notas</Heading>
+          <Heading size="2xl"
+            className="text-hot-pink-400 font-mono"
+          >Ordenar notas</Heading>
 
           <RadioGroup
             value={sortNotes.sortType}

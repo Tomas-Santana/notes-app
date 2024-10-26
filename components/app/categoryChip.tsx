@@ -46,7 +46,7 @@ export function CategoryChip({
     >
       <TouchableOpacity
         onPress={() => onSelectCategory(category._id)}
-        className="w-full h-full"
+        className="w-full h-full flex flex-row items-center justify-center"
         style={{        paddingHorizontal: 16,
           paddingVertical: 8,}}
         
