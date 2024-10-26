@@ -14,6 +14,9 @@ import Animated, { FadeIn, LinearTransition } from "react-native-reanimated";
 import { SimpleNavbar } from "@/components/app/noteNavbar";
 import AnimatedBG from "@/components/app/animatedbg";
 import { AppStyles } from "@/constants/AppStyles";
+import { Marquee } from '@animatereactnative/marquee';
+import { useMemo } from "react";
+
 
 export default function Settings() {
 
@@ -32,6 +35,22 @@ const [currentUser] = useAtom(userAtom)
     router.push("/")
   }
 
+
+  const nameNode = useMemo(() => {
+    if ((currentUser?.firstName ?? '').length + (currentUser?.lastName ?? '').length > 20) {
+      return (
+        <Marquee
+          speed={.3}
+          style={{ width: 230 }}
+          spacing={20}
+        >
+          <Text className="text-2xl text-white font-bold">{`${currentUser?.firstName} ${currentUser?.lastName}`}</Text>
+        </Marquee>
+      )
+    }
+    return <Text className="text-2xl text-white font-bold">{`${currentUser?.firstName} ${currentUser?.lastName}`}</Text>
+  }, [currentUser])
+
   return (
     <View className="flex-1 flex items-center flex-col gap-4 p-4 pt-0">
       <SimpleNavbar />
@@ -49,8 +68,6 @@ const [currentUser] = useAtom(userAtom)
             
           ></AnimatedBG>
 
-          {/* add a semi transparent view rounded full  */}
-
 
           <View
             style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, zIndex: 1, backgroundColor: "rgba(0,0,0,0.3)", borderRadius: 40 }}
@@ -61,7 +78,7 @@ const [currentUser] = useAtom(userAtom)
           />
         </Avatar>
         <View>
-          <Text className="text-2xl text-white font-bold">{`${currentUser?.firstName} ${currentUser?.lastName}`}</Text>
+          {nameNode}
           <Text className="text-sm text-white">{currentUser?.email}</Text>
         </View>
       </View>

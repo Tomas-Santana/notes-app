@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@10play/tentap-editor": "^0.5.21",
+    "@animatereactnative/marquee": "^0.2.0",
     "@expo/html-elements": "^0.4.2",
     "@expo/vector-icons": "^14.0.2",
     "@gluestack-ui/avatar": "^0.1.17",
